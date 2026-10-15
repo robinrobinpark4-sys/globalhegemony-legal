@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글로벌 패권 경쟁 - 이용약관 및 개인정보처리방침 (Terms of Service & Privacy Policy)</title>
+    <style>
+        :root {
+            --bg-color: #0c1017;
+            --card-bg: rgba(22, 29, 41, 0.85);
+            --border-color: rgba(255, 215, 0, 0.35);
+            --gold-primary: #ffd700;
+            --gold-hover: #fff07c;
+            --text-main: #f0f3f6;
+            --text-sub: #a0aec0;
+            --text-muted: #718096;
+            --accent-blue: #3182ce;
+            --accent-box: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(49, 130, 206, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            line-height: 1.75;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.15);
+            backdrop-filter: blur(12px);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .app-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .meta-info {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 5px;
+        }
+
+        .meta-info span {
+            margin: 0 8px;
+            color: var(--text-muted);
+        }
+
+        /* 언어 전환 컨트롤러 */
+        .lang-switch-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px 0 10px 0;
+            gap: 12px;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--text-main);
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 215, 0, 0.15);
+            border-color: var(--gold-primary);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
+            border-color: #ffd700;
+            color: #111;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .browser-trans-notice {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-sub);
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 16px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        /* 콘텐츠 영역 */
+        .legal-content {
+            display: none;
+        }
+
+        .legal-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter {
+            margin-bottom: 35px;
+        }
+
+        .chapter-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--gold-primary);
+            border-left: 4px solid var(--gold-primary);
+            padding-left: 12px;
+            margin-bottom: 15px;
+            letter-spacing: -0.3px;
+        }
+
+        .clause-item {
+            font-size: 15px;
+            color: #d1d5db;
+            margin-bottom: 12px;
+            padding-left: 10px;
+            text-align: justify;
+        }
+
+        /* 중요 면책 강조 박스 */
+        .disclaimer-box {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 15px 0 20px 0;
+            box-shadow: inset 0 0 15px rgba(255, 215, 0, 0.05);
+        }
+
+        .disclaimer-box .highlight-text {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer-box p {
+            font-size: 14.5px;
+            color: #e2e8f0;
+            line-height: 1.7;
+        }
+
+        .info-box {
+            background: var(--accent-box);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+
+        .info-box ul {
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+
+        .info-box li {
+            font-size: 14.5px;
+            color: #e2e8f0;
+            margin-bottom: 6px;
+        }
+
+        footer {
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-sub);
+        }
+
+        .footer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 215, 0, 0.2);
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .container { padding: 25px 18px; }
+            h1 { font-size: 22px; }
+            .chapter-title { font-size: 17px; }
+            .clause-item { font-size: 14px; }
+            .lang-btn { padding: 8px 16px; font-size: 13.5px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="app-badge">Official Legal Document</div>
+        <h1 id="mainTitle">글로벌 패권 경쟁 이용약관 및 개인정보처리방침</h1>
+        <div class="meta-info">
+            <span id="metaDate">최종 개정일: 2026년 10월 15일</span> | 
+            <span id="metaDev">개발 및 운영: Team Global Hegemony</span> | 
+            <span id="metaEmail">공식 문의: robin.robin.park4@gmail.com</span>
+        </div>
+
+        <!-- 언어 선택 토글 버튼 -->
+        <div class="lang-switch-container">
+            <button class="lang-btn active" onclick="switchLanguage('ko')" id="btnKo">
+                <span>🇰🇷</span> 한국어 (Korean)
+            </button>
+            <button class="lang-btn" onclick="switchLanguage('en')" id="btnEn">
+                <span>🌐</span> English
+            </button>
+        </div>
+        <div class="browser-trans-notice" id="browserNotice">
+            💡 브라우저 내장 번역 기능을 이용하시면 일본어, 중국어, 스페인어 등 다양한 언어로 편안하게 열람하실 수 있습니다. (Browser auto-translation supported)
+        </div>
+    </header>
+
+    <!-- [1] 한국어 전문 섹션 -->
+    <main id="contentKo" class="legal-content active">
+        <!-- 제1조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제1조 (목적 및 서비스 개요)</h2>
+            <div class="clause-item">1. 본 약관은 개인 개발자(Team Global Hegemony, 이하 '개발자')가 개발 및 서비스하는 모바일 및 웹 기반 턴제 보드게임 '글로벌 패권 경쟁 (Global Hegemony)'(이하 '게임') 및 이에 부수되는 제반 서비스의 이용과 관련하여 개발자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</div>
+            <div class="clause-item">2. 본 게임은 국제 정세와 경제, 정치적 역학 관계를 모티브로 하여 제작된 턴제 전략 시뮬레이션 보드게임입니다.</div>
+        </section>
+
+        <!-- 제2조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제2조 (시사 풍자, 패러디 및 완전한 허구성에 관한 법적 고지 - 최우선 면책)</h2>
+            <div class="disclaimer-box">
+                <div class="highlight-text">⚖️ [AI 가상 인물 캐리커처 명시 및 허구성 고지]</div>
+                <p><strong>본 게임 내 등장하는 모든 캐릭터의 이미지는 생성형 AI 기술을 활용하여 제작된 존재하지 않는 가상의 인물에 대한 캐리커처입니다.</strong></p>
+            </div>
+            <div class="clause-item">1. 본 게임에 등장하는 모든 국가, 캐릭터, 인물, 명칭, 대사, 이벤트, 세부 설정은 순수한 게임적 재미와 시사 풍자(Satire & Parody)를 목적으로 창작된 <strong>완전한 픽션(허구)</strong>입니다.</div>
+            <div class="clause-item">2. 본 게임은 실제 생존하거나 사망한 특정 실존 인물, 정당, 정부 기관, 국가, 특정 종교 또는 민간 단체와 어떠한 연관성도 없으며, 이를 지지하거나 비방, 모욕, 명예훼손하려는 어떠한 정치적·사회적 의도도 포함하지 않습니다.</div>
+            <div class="clause-item">3. 게임 내 묘사된 사건이나 캐릭터의 능력치, 대사는 실제 현실의 사실과 무관하며, 게임 시스템상 과장되거나 해학적으로 패러디된 표현에 불과합니다. 개발자는 이에 대한 사실적 진실성을 보증하지 아니하며, 게임 플레이로 인해 발생하는 어떠한 주관적·이념적 해석에 대해서도 법적 책임을 부담하지 않습니다.</div>
+        </section>
+
+        <!-- 제3조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제3조 (개인정보처리방침 - Privacy Policy)</h2>
+            <div class="clause-item">1. <strong>[개인정보 미수집 원칙]</strong> 본 게임은 불필요한 개인정보 침해를 방지하기 위해 별도의 자체 회원가입 절차를 두지 않으며, Google 계정 인증 연동(Google OAuth)을 통해 서비스를 제공합니다. 개발자는 이용자의 성명, 주민등록번호, 전화번호, 이메일 주소록, 생년월일 등 민감한 개인식별정보를 일절 수집하거나 저장하지 않습니다.</div>
+            <div class="clause-item">2. <strong>[수집 항목 및 방법]</strong> 이용자가 Google 계정으로 로그인할 때 생성되는 고유 식별자(Google User UID), 이용자가 게임 내에서 직접 입력한 닉네임, 그리고 게임 진행 데이터(보유 골드, 다이아, 전적, 랭킹 점수, 획득한 스킨 목록)만이 Google Firebase 시스템을 통해 수집됩니다.</div>
+            <div class="clause-item">3. <strong>[이용 목적]</strong> 수집된 데이터는 오직 이용자의 게임 진행 상태 저장, 글로벌 리더보드(랭킹) 집계, 게임 내 오류 해결 및 고객 문의 대응의 목적으로만 활용됩니다.</div>
+            <div class="clause-item">4. <strong>[안전한 클라우드 관리]</strong> 모든 게임 데이터는 Google Cloud Platform의 Firebase Firestore 보안 서버에 안전하게 암호화되어 보관됩니다. 개발자는 이용자의 동의 없이 개인정보를 제3자에게 판매하거나 외부에 유출하지 않습니다.</div>
+            <div class="clause-item">5. <strong>[회원 탈퇴 및 데이터 즉시 파기]</strong> 이용자는 게임 내 [환경설정 > 계정 탈퇴] 기능을 통해 언제든지 즉시 회원 탈퇴를 진행할 수 있습니다. 탈퇴 요청 시 Firebase 클라우드 서버에 연동된 해당 계정의 모든 식별자 및 게임 플레이 데이터는 지체 없이 즉시 영구 파기되며, 어떠한 방법으로도 복구할 수 없습니다.</div>
+        </section>
+
+        <!-- 제4조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제4조 (유료 결제 및 청약철회/환불 정책)</h2>
+            <div class="clause-item">1. <strong>[인앱 결제 시스템]</strong> 게임 내 유료 재화(다이아 등)의 구매는 Google Play Console 및 Apple App Store의 공식 인앱 결제(In-App Purchase) 시스템을 통해 안전하게 처리됩니다.</div>
+            <div class="clause-item">2. <strong>[청약철회(환불) 기준]</strong> 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령에 따라, 구매 후 전혀 사용하지 않은 유료 재화는 구매일로부터 7일 이내에 청약철회(환불)를 신청할 수 있습니다.</div>
+            <div class="clause-item">3. <strong>[환불 불가 규정]</strong> 다음 각 호의 어느 하나에 해당하는 경우 청약철회 및 환불이 불가능합니다.
+                <div class="info-box">
+                    <ul>
+                        <li>구매 후 즉시 효과가 적용되거나 일부라도 사용·소모된 유료 재화</li>
+                        <li>구매 즉시 잠금 해제되어 사용 가능한 상태가 되는 캐릭터 스킨 및 패키지 아이템</li>
+                        <li>게임 플레이, 이벤트, 출석 체크, 퀘스트 달성 등 게임 내에서 무료로 지급된 모든 재화</li>
+                        <li>이용자의 고의 또는 중대한 과실, 부정행위(데이터 조작, 버그 악용 등)로 인해 계정 제재를 받은 경우</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clause-item">4. <strong>[환불 신청 절차 및 접수 창구]</strong>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>결제 후 48시간 이내:</strong> Google Play 주문 내역(play.google.com) 또는 Apple '문제 신고'(reportaproblem.apple.com) 페이지에서 직접 환불을 신청하시면 스토어 자체 정책에 따라 가장 신속하게 환불 처리를 받으실 수 있습니다.</li>
+                        <li><strong>48시간 경과 ~ 7일 이내:</strong> 개발자 공식 문의 이메일(<code>robin.robin.park4@gmail.com</code>)로 [구글/애플 결제 영수증 주문번호(GPA.xxxx-xxxx 형식), 인게임 닉네임, 구매 일시, 환불 사유]를 첨부하여 접수해 주시면, 미사용 여부를 검증한 후 관련 법령에 따라 순차적으로 환불 절차를 진행해 드립니다.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 제5조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제5조 (서비스의 변경, 중단 및 영구 아이템의 권리)</h2>
+            <div class="clause-item">1. 개발자는 게임의 기획, 기술적 운영상 필요, 버그 수정, 밸런스 조정 등을 위하여 사전 공지 후 서비스의 일부 또는 전부를 수정, 변경하거나 중단할 수 있습니다.</div>
+            <div class="clause-item">2. 게임 상점 등에서 판매되는 '영구(Permanent)' 아이템의 사용 권리는 본 게임 서비스가 정상적으로 운영되고 유지되는 기간으로 한정됩니다.</div>
+            <div class="clause-item">3. 개발자의 영업상 판단 등 부득이한 사정으로 인하여 게임 서비스를 영구 종료하는 경우, 서비스 종료 최소 30일 전에 게임 내 공지사항을 통하여 이용자에게 사전 고지합니다.</div>
+        </section>
+
+        <!-- 제6조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제6조 (부정행위 제재 및 지식재산권)</h2>
+            <div class="clause-item">1. 이용자는 게임 시스템의 취약점(버그)을 고의로 악용하거나, 프로그램 메모리 변조, 패킷 조작, 자동화 매크로 사용 등 정상적인 게임 운영을 방해하는 행위를 하여서는 안 됩니다. 적발 시 사전 통보 없이 계정 데이터 초기화, 영구 삭제 또는 서비스 이용 제한 조치가 취해질 수 있습니다.</div>
+            <div class="clause-item">2. 본 게임에 포함된 소스 코드, 그래픽, 사운드, UI 디자인, 시스템 로직 등 모든 저작물에 대한 저작권 및 지식재산권은 개발자에게 귀속됩니다.</div>
+        </section>
+
+        <!-- 제7조 -->
+        <section class="chapter">
+            <h2 class="chapter-title">제7조 (개발자 정보 및 공식 고객지원 창구)</h2>
+            <div class="info-box">
+                <ul>
+                    <li><strong>게임명:</strong> 글로벌 패권 경쟁 (Global Hegemony)</li>
+                    <li><strong>개발 및 운영 주체:</strong> 개인 개발자 (Team Global Hegemony)</li>
+                    <li><strong>공식 문의 및 권리 침해 신고 이메일:</strong> robin.robin.park4@gmail.com</li>
+                    <li><strong>시행일자:</strong> 2026년 10월 15일</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- [2] 영문 전문 섹션 -->
+    <main id="contentEn" class="legal-content">
+        <!-- Article 1 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 1 (Purpose & Service Overview)</h2>
+            <div class="clause-item">1. These Terms of Service (the "Terms") govern the rights, obligations, and responsibilities between the individual developer (Team Global Hegemony, hereinafter referred to as the "Developer") and users of the mobile and web-based turn-based strategy board game 'Global Hegemony' (the "Game") and its associated services.</div>
+            <div class="clause-item">2. The Game is a turn-based strategy simulation board game inspired by contemporary international affairs, geopolitics, and global economic dynamics.</div>
+        </section>
+
+        <!-- Article 2 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 2 (Satire, Parody & Absolute Fiction Legal Disclaimer - Primary Legal Shield)</h2>
+            <div class="disclaimer-box">
+                <div class="highlight-text">⚖️ [Express Statement on AI-Generated Caricatures & Total Fiction]</div>
+                <p><strong>All character images appearing in this Game are caricatures of non-existent, entirely fictional individuals created using generative artificial intelligence (AI) technology.</strong></p>
+            </div>
+            <div class="clause-item">1. All nations, characters, figures, names, dialogues, events, and thematic settings depicted in this Game are <strong>complete works of fiction</strong> created exclusively for gaming entertainment, artistic expression, and political satire/parody.</div>
+            <div class="clause-item">2. This Game has no affiliation, association, connection, or endorsement with any real living or deceased individuals, political organizations, governments, sovereign nations, religious institutions, or corporate entities. It does not reflect any political bias, support, defamation, disparagement, or malicious intent toward any person or entity.</div>
+            <div class="clause-item">3. All stats, quotes, and descriptions depicted in the Game are modified and exaggerated for gameplay balance and do not represent real-world facts. The Developer makes no guarantees regarding the factual accuracy of any depiction and assumes no legal liability for any personal or ideological interpretations made by players.</div>
+        </section>
+
+        <!-- Article 3 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 3 (Privacy Policy & Cloud Data)</h2>
+            <div class="clause-item">1. <strong>[Principle of Non-Collection of Sensitive Personal Data]</strong> To safeguard user privacy, the Game requires no separate membership registration. Authentication is handled seamlessly via Google OAuth. The Developer does not collect, store, or process sensitive identification details such as real names, resident registration numbers, phone numbers, contact address books, or financial payment details.</div>
+            <div class="clause-item">2. <strong>[Collected Data and Collection Method]</strong> Only the unique identifier provided by Google authentication (Google User UID), the in-game display nickname chosen by the user, and core gameplay progression data (gold, diamonds, match history, leaderboard rating, unlocked skins) are processed via Google Firebase.</div>
+            <div class="clause-item">3. <strong>[Purpose of Processing]</strong> Collected information is utilized exclusively for synchronizing gameplay progress, computing global leaderboard rankings, debugging technical errors, and addressing customer support inquiries.</div>
+            <div class="clause-item">4. <strong>[Secure Cloud Storage]</strong> All gameplay data is encrypted and securely stored on Google Cloud Platform’s Firebase Firestore secured environment. The Developer will never sell, lease, or distribute personal data to third parties without consent.</div>
+            <div class="clause-item">5. <strong>[Account Deletion & Immediate Permanent Destruction]</strong> Users may initiate account deletion at any time via [Settings > Delete Account] within the Game. Upon submission of a deletion request, all identifiers and gameplay records associated with the account stored on Firebase cloud servers are immediately and permanently destroyed, and cannot be restored under any circumstances.</div>
+        </section>
+
+        <!-- Article 4 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 4 (In-App Purchases & Refund Policy)</h2>
+            <div class="clause-item">1. <strong>[Payment Processing]</strong> All in-app purchases of virtual goods (Diamonds, etc.) are processed securely via the official billing platforms of Google Play Console and Apple App Store.</div>
+            <div class="clause-item">2. <strong>[Right of Withdrawal (Refund Eligibility)]</strong> In accordance with consumer protection regulations, unused virtual currencies may be eligible for a refund within seven (7) days from the date of purchase.</div>
+            <div class="clause-item">3. <strong>[Non-Refundable Items]</strong> Refunds are strictly unavailable under the following conditions:
+                <div class="info-box">
+                    <ul>
+                        <li>Virtual currencies that have been partially or fully consumed after transaction;</li>
+                        <li>Character skins, packages, or instant-effect content applied or unlocked immediately upon purchase;</li>
+                        <li>Items or currencies obtained free of charge via events, quests, or attendance rewards;</li>
+                        <li>Accounts penalized or terminated due to policy violations, exploit abuse, or data manipulation.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clause-item">4. <strong>[Refund Request Channels]</strong>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Within 48 hours of purchase:</strong> Submitting a direct refund request via Google Play Order History (play.google.com) or Apple Report a Problem (reportaproblem.apple.com) provides the quickest automated resolution governed by store policies.</li>
+                        <li><strong>Between 48 hours and 7 days:</strong> Contact the official support email (<code>robin.robin.park4@gmail.com</code>) providing your store receipt order number (e.g., GPA.xxxx-xxxx), in-game nickname, purchase timestamp, and reason. Upon verifying that items remain unused, refunds will be processed in accordance with applicable laws.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article 5 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 5 (Service Modifications, Termination & Permanent Items)</h2>
+            <div class="clause-item">1. The Developer reserves the right to modify, update, balance, or suspend features of the Game for maintenance, security, or game balancing with prior notice.</div>
+            <div class="clause-item">2. The term 'Permanent' regarding shop items is legally restricted to the active operational lifespan of the Game service.</div>
+            <div class="clause-item">3. Should the Game service be permanently discontinued due to unavoidable circumstances, the Developer shall provide public notice at least thirty (30) days in advance through in-game announcements.</div>
+        </section>
+
+        <!-- Article 6 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 6 (Fair Play & Intellectual Property)</h2>
+            <div class="clause-item">1. Exploiting bugs, tampering with memory, packet manipulation, or employing unauthorized automation tools is strictly forbidden. Violators are subject to immediate data resets or permanent account termination without prior notice.</div>
+            <div class="clause-item">2. All intellectual property, source code, visual assets, audio, UI layouts, and game systems remain the sole and exclusive property of the Developer.</div>
+        </section>
+
+        <!-- Article 7 -->
+        <section class="chapter">
+            <h2 class="chapter-title">Article 7 (Developer Information & Contact)</h2>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Game Title:</strong> Global Hegemony (글로벌 패권 경쟁)</li>
+                    <li><strong>Developer / Operator:</strong> Individual Developer (Team Global Hegemony)</li>
+                    <li><strong>Official Support & DMCA/Rights Inquiries:</strong> robin.robin.park4@gmail.com</li>
+                    <li><strong>Effective Date:</strong> October 15, 2026</li>
+                    <li><strong>Governing Standard:</strong> In case of any discrepancies or interpretation differences between translated versions, the Korean and English versions shall govern in accordance with international practices.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>&copy; 2026 Team Global Hegemony. All rights reserved.</div>
+        <div class="footer-buttons">
+            <button class="action-btn" onclick="window.print()">🖨️ 인쇄 / Print</button>
+            <button class="action-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ 상단으로 / Top</button>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function switchLanguage(lang) {
+        const btnKo = document.getElementById('btnKo');
+        const btnEn = document.getElementById('btnEn');
+        const contentKo = document.getElementById('contentKo');
+        const contentEn = document.getElementById('contentEn');
+        const mainTitle = document.getElementById('mainTitle');
+        const metaDate = document.getElementById('metaDate');
+        const metaDev = document.getElementById('metaDev');
+        const metaEmail = document.getElementById('metaEmail');
+        const browserNotice = document.getElementById('browserNotice');
+
+        if (lang === 'ko') {
+            btnKo.classList.add('active');
+            btnEn.classList.remove('active');
+            contentKo.classList.add('active');
+            contentEn.classList.remove('active');
+            
+            mainTitle.innerText = "글로벌 패권 경쟁 이용약관 및 개인정보처리방침";
+            metaDate.innerText = "최종 개정일: 2026년 10월 15일";
+            metaDev.innerText = "개발 및 운영: Team Global Hegemony";
+            metaEmail.innerText = "공식 문의: robin.robin.park4@gmail.com";
+            browserNotice.innerText = "💡 브라우저 내장 번역 기능을 이용하시면 일본어, 중국어, 스페인어 등 다양한 언어로 편안하게 열람하실 수 있습니다. (Browser auto-translation supported)";
+            document.documentElement.lang = "ko";
+        } else {
+            btnEn.classList.add('active');
+            btnKo.classList.remove('active');
+            contentEn.classList.add('active');
+            contentKo.classList.remove('active');
+            
+            mainTitle.innerText = "Global Hegemony - Terms of Service & Privacy Policy";
+            metaDate.innerText = "Last Updated: October 15, 2026";
+            metaDev.innerText = "Developer: Team Global Hegemony";
+            metaEmail.innerText = "Official Support: robin.robin.park4@gmail.com";
+            browserNotice.innerText = "💡 You can use your browser's built-in translation to view this page in Japanese, Chinese, Spanish, and other languages.";
+            document.documentElement.lang = "en";
+        }
+    }
+</script>
+
+</body>
+</html>
+
