@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg-color: #0c1017;
-            --card-bg: rgba(22, 29, 41, 0.85);
+            --card-bg: rgba(22, 29, 41, 0.90);
             --border-color: rgba(255, 215, 0, 0.35);
             --gold-primary: #ffd700;
             --gold-hover: #fff07c;
@@ -15,7 +15,7 @@
             --text-sub: #a0aec0;
             --text-muted: #718096;
             --accent-blue: #3182ce;
-            --accent-box: rgba(0, 0, 0, 0.4);
+            --accent-box: rgba(0, 0, 0, 0.45);
         }
 
         * {
@@ -32,9 +32,77 @@
                 radial-gradient(circle at 90% 80%, rgba(49, 130, 206, 0.05) 0%, transparent 40%);
             color: var(--text-main);
             line-height: 1.75;
-            padding: 40px 20px;
+            padding: 80px 20px 40px 20px;
             display: flex;
             justify-content: center;
+        }
+
+        body.inapp-mode {
+            padding-top: 24px;
+        }
+
+        /* 상단 고정 내비게이션 바 (태블릿/단독 페이지 탈출 보장) */
+        .sticky-top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 62px;
+            background: rgba(12, 16, 23, 0.95);
+            border-bottom: 2px solid var(--gold-primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        body.inapp-mode .sticky-top-bar {
+            display: none;
+        }
+
+        .sticky-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold-primary);
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.3px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .close-return-btn {
+            background: linear-gradient(135deg, #d32f2f 0%, #8b0000 100%);
+            border: 1.5px solid #ff6b6b;
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 77, 77, 0.45);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .close-return-btn:hover {
+            filter: brightness(1.18);
+            transform: translateY(-1px);
+            box-shadow: 0 0 22px rgba(255, 77, 77, 0.75);
+        }
+
+        .close-return-btn:active {
+            transform: scale(0.97);
         }
 
         .container {
@@ -70,85 +138,86 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 27px;
             color: #ffffff;
             margin-bottom: 10px;
             font-weight: 800;
             letter-spacing: -0.5px;
+            line-height: 1.35;
         }
 
         .meta-info {
             font-size: 14px;
             color: var(--text-sub);
-            margin-top: 5px;
+            margin-top: 8px;
+            line-height: 1.6;
         }
 
         .meta-info span {
-            margin: 0 8px;
+            margin: 0 6px;
             color: var(--text-muted);
+            display: inline-block;
         }
 
-        /* 언어 전환 컨트롤러 */
+        /* 17개국어 선택 컨트롤러 */
         .lang-switch-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 25px 0 10px 0;
-            gap: 12px;
+            margin: 22px 0 6px 0;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            color: var(--text-main);
-            padding: 10px 22px;
-            border-radius: 30px;
+        .lang-select-label {
+            color: var(--gold-primary);
+            font-size: 14.5px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legal-lang-select {
+            background-color: #111827 !important;
+            color: #ffd700 !important;
+            border: 1.5px solid #ffd700;
+            border-radius: 10px;
+            padding: 9px 16px;
             font-size: 15px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            outline: none;
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+            color-scheme: dark !important;
+            transition: all 0.2s ease;
         }
 
-        .lang-btn:hover {
-            background: rgba(255, 215, 0, 0.15);
-            border-color: var(--gold-primary);
-            color: #ffffff;
-            transform: translateY(-1px);
+        .legal-lang-select:hover, .legal-lang-select:focus {
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.5);
+            border-color: #fff07c;
         }
 
-        .lang-btn.active {
-            background: linear-gradient(135deg, #ffd700 0%, #b8860b 100%);
-            border-color: #ffd700;
-            color: #111;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        .legal-lang-select option {
+            background-color: #111827 !important;
+            color: #f3f4f6 !important;
+            font-weight: 600;
+            padding: 8px;
         }
 
-        .browser-trans-notice {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-sub);
-            margin-bottom: 25px;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px 16px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-blue);
+        .legal-lang-select option:checked {
+            background-color: #1e3a8a !important;
+            color: #ffd700 !important;
         }
 
         /* 콘텐츠 영역 */
         .legal-content {
-            display: none;
-        }
-
-        .legal-content.active {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.25s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -221,7 +290,7 @@
 
         footer {
             margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
             padding-top: 25px;
             text-align: center;
             font-size: 13.5px;
@@ -231,20 +300,25 @@
         .footer-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
             margin-top: 20px;
         }
 
         .action-btn {
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.35);
             color: #fff;
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 10px 22px;
+            border-radius: 10px;
+            font-size: 14.5px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .action-btn:hover {
@@ -254,20 +328,34 @@
         }
 
         @media (max-width: 600px) {
-            body { padding: 20px 10px; }
-            .container { padding: 25px 18px; }
-            h1 { font-size: 22px; }
+            body { padding: 72px 10px 25px 10px; }
+            body.inapp-mode { padding-top: 12px; }
+            .sticky-top-bar { padding: 0 12px; height: 56px; }
+            .sticky-brand { font-size: 14px; }
+            .close-return-btn { padding: 8px 13px; font-size: 13px; }
+            .container { padding: 25px 16px; }
+            h1 { font-size: 21px; }
             .chapter-title { font-size: 17px; }
             .clause-item { font-size: 14px; }
-            .lang-btn { padding: 8px 16px; font-size: 13.5px; }
         }
     </style>
 </head>
 <body>
 
+<!-- 상단 고정 내비게이션 바 (단독 열람 시 태블릿/모바일 즉시 복귀 보장) -->
+<div class="sticky-top-bar" id="stickyTopBar">
+    <div class="sticky-brand">
+        <span>🌐</span>
+        <span id="stickyTitleText">글로벌 패권 경쟁 이용약관 및 개인정보처리방침</span>
+    </div>
+    <button type="button" class="close-return-btn" id="topCloseReturnBtn" onclick="closeOrReturnToGame()">
+        ✖ 닫기 (게임으로 돌아가기)
+    </button>
+</div>
+
 <div class="container">
     <header>
-        <div class="app-badge">Official Legal Document</div>
+        <div class="app-badge" id="appBadgeText">Official Legal Document</div>
         <h1 id="mainTitle">글로벌 패권 경쟁 이용약관 및 개인정보처리방침</h1>
         <div class="meta-info">
             <span id="metaDate">최종 개정일: 2026년 10월 15일</span> | 
@@ -275,240 +363,1537 @@
             <span id="metaEmail">공식 문의: robin.robin.park4@gmail.com</span>
         </div>
 
-        <!-- 언어 선택 토글 버튼 -->
+        <!-- 17개국어 언어 선택 드롭다운 -->
         <div class="lang-switch-container">
-            <button class="lang-btn active" onclick="switchLanguage('ko')" id="btnKo">
-                <span>🇰🇷</span> 한국어 (Korean)
-            </button>
-            <button class="lang-btn" onclick="switchLanguage('en')" id="btnEn">
-                <span>🌐</span> English
-            </button>
-        </div>
-        <div class="browser-trans-notice" id="browserNotice">
-            💡 브라우저 내장 번역 기능을 이용하시면 일본어, 중국어, 스페인어 등 다양한 언어로 편안하게 열람하실 수 있습니다. (Browser auto-translation supported)
+            <label for="legalLangSelect" class="lang-select-label">🌐 Language:</label>
+            <select id="legalLangSelect" class="legal-lang-select" onchange="switchLanguage(this.value)">
+                <option value="ko">🇰🇷 한국어 (Korean)</option>
+                <option value="en">🇺🇸 English</option>
+                <option value="ja">🇯🇵 日本語 (Japanese)</option>
+                <option value="zh-TW">🇹🇼 繁體中文-台灣 (Traditional Chinese TW)</option>
+                <option value="zh-HK">🇭🇰 繁體中文-香港 (Traditional Chinese HK)</option>
+                <option value="vi">🇻🇳 Tiếng Việt (Vietnamese)</option>
+                <option value="th">🇹🇭 ภาษาไทย (Thai)</option>
+                <option value="id">🇮🇩 Bahasa Indonesia (Indonesian)</option>
+                <option value="es">🇪🇸 Español (Spanish)</option>
+                <option value="fr">🇫🇷 Français (French)</option>
+                <option value="de">🇩🇪 Deutsch (German)</option>
+                <option value="it">🇮🇹 Italiano (Italian)</option>
+                <option value="pt">🇵🇹 Português (Portuguese)</option>
+                <option value="ru">🇷🇺 Русский (Russian)</option>
+                <option value="nl">🇳🇱 Nederlands (Dutch)</option>
+                <option value="tr">🇹🇷 Türkçe (Turkish)</option>
+                <option value="pl">🇵🇱 Polski (Polish)</option>
+            </select>
         </div>
     </header>
 
-    <!-- [1] 한국어 전문 섹션 -->
-    <main id="contentKo" class="legal-content active">
-        <!-- 제1조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제1조 (목적 및 서비스 개요)</h2>
-            <div class="clause-item">1. 본 약관은 개인 개발자(Team Global Hegemony, 이하 '개발자')가 개발 및 서비스하는 모바일 및 웹 기반 턴제 보드게임 '글로벌 패권 경쟁 (Global Hegemony)'(이하 '게임') 및 이에 부수되는 제반 서비스의 이용과 관련하여 개발자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</div>
-            <div class="clause-item">2. 본 게임은 국제 정세와 경제, 정치적 역학 관계를 모티브로 하여 제작된 턴제 전략 시뮬레이션 보드게임입니다.</div>
-        </section>
-
-        <!-- 제2조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제2조 (시사 풍자, 패러디 및 완전한 허구성에 관한 법적 고지 - 최우선 면책)</h2>
-            <div class="disclaimer-box">
-                <div class="highlight-text">⚖️ [AI 가상 인물 캐리커처 명시 및 허구성 고지]</div>
-                <p><strong>본 게임 내 등장하는 모든 캐릭터의 이미지는 생성형 AI 기술을 활용하여 제작된 존재하지 않는 가상의 인물에 대한 캐리커처입니다.</strong></p>
-            </div>
-            <div class="clause-item">1. 본 게임에 등장하는 모든 국가, 캐릭터, 인물, 명칭, 대사, 이벤트, 세부 설정은 순수한 게임적 재미와 시사 풍자(Satire & Parody)를 목적으로 창작된 <strong>완전한 픽션(허구)</strong>입니다.</div>
-            <div class="clause-item">2. 본 게임은 실제 생존하거나 사망한 특정 실존 인물, 정당, 정부 기관, 국가, 특정 종교 또는 민간 단체와 어떠한 연관성도 없으며, 이를 지지하거나 비방, 모욕, 명예훼손하려는 어떠한 정치적·사회적 의도도 포함하지 않습니다.</div>
-            <div class="clause-item">3. 게임 내 묘사된 사건이나 캐릭터의 능력치, 대사는 실제 현실의 사실과 무관하며, 게임 시스템상 과장되거나 해학적으로 패러디된 표현에 불과합니다. 개발자는 이에 대한 사실적 진실성을 보증하지 아니하며, 게임 플레이로 인해 발생하는 어떠한 주관적·이념적 해석에 대해서도 법적 책임을 부담하지 않습니다.</div>
-        </section>
-
-        <!-- 제3조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제3조 (개인정보처리방침 - Privacy Policy)</h2>
-            <div class="clause-item">1. <strong>[개인정보 미수집 원칙]</strong> 본 게임은 불필요한 개인정보 침해를 방지하기 위해 별도의 자체 회원가입 절차를 두지 않으며, Google 계정 인증 연동(Google OAuth)을 통해 서비스를 제공합니다. 개발자는 이용자의 성명, 주민등록번호, 전화번호, 이메일 주소록, 생년월일 등 민감한 개인식별정보를 일절 수집하거나 저장하지 않습니다.</div>
-            <div class="clause-item">2. <strong>[수집 항목 및 방법]</strong> 이용자가 Google 계정으로 로그인할 때 생성되는 고유 식별자(Google User UID), 이용자가 게임 내에서 직접 입력한 닉네임, 그리고 게임 진행 데이터(보유 골드, 다이아, 전적, 랭킹 점수, 획득한 스킨 목록)만이 Google Firebase 시스템을 통해 수집됩니다.</div>
-            <div class="clause-item">3. <strong>[이용 목적]</strong> 수집된 데이터는 오직 이용자의 게임 진행 상태 저장, 글로벌 리더보드(랭킹) 집계, 게임 내 오류 해결 및 고객 문의 대응의 목적으로만 활용됩니다.</div>
-            <div class="clause-item">4. <strong>[안전한 클라우드 관리]</strong> 모든 게임 데이터는 Google Cloud Platform의 Firebase Firestore 보안 서버에 안전하게 암호화되어 보관됩니다. 개발자는 이용자의 동의 없이 개인정보를 제3자에게 판매하거나 외부에 유출하지 않습니다.</div>
-            <div class="clause-item">5. <strong>[회원 탈퇴 및 데이터 즉시 파기]</strong> 이용자는 게임 내 [환경설정 > 계정 탈퇴] 기능을 통해 언제든지 즉시 회원 탈퇴를 진행할 수 있습니다. 탈퇴 요청 시 Firebase 클라우드 서버에 연동된 해당 계정의 모든 식별자 및 게임 플레이 데이터는 지체 없이 즉시 영구 파기되며, 어떠한 방법으로도 복구할 수 없습니다.</div>
-        </section>
-
-        <!-- 제4조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제4조 (유료 결제 및 청약철회/환불 정책)</h2>
-            <div class="clause-item">1. <strong>[인앱 결제 시스템]</strong> 게임 내 유료 재화(다이아 등)의 구매는 Google Play Console 및 Apple App Store의 공식 인앱 결제(In-App Purchase) 시스템을 통해 안전하게 처리됩니다.</div>
-            <div class="clause-item">2. <strong>[청약철회(환불) 기준]</strong> 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령에 따라, 구매 후 전혀 사용하지 않은 유료 재화는 구매일로부터 7일 이내에 청약철회(환불)를 신청할 수 있습니다.</div>
-            <div class="clause-item">3. <strong>[환불 불가 규정]</strong> 다음 각 호의 어느 하나에 해당하는 경우 청약철회 및 환불이 불가능합니다.
-                <div class="info-box">
-                    <ul>
-                        <li>구매 후 즉시 효과가 적용되거나 일부라도 사용·소모된 유료 재화</li>
-                        <li>구매 즉시 잠금 해제되어 사용 가능한 상태가 되는 캐릭터 스킨 및 패키지 아이템</li>
-                        <li>게임 플레이, 이벤트, 출석 체크, 퀘스트 달성 등 게임 내에서 무료로 지급된 모든 재화</li>
-                        <li>이용자의 고의 또는 중대한 과실, 부정행위(데이터 조작, 버그 악용 등)로 인해 계정 제재를 받은 경우</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clause-item">4. <strong>[환불 신청 절차 및 접수 창구]</strong>
-                <div class="info-box">
-                    <ul>
-                        <li><strong>결제 후 48시간 이내:</strong> Google Play 주문 내역(play.google.com) 또는 Apple '문제 신고'(reportaproblem.apple.com) 페이지에서 직접 환불을 신청하시면 스토어 자체 정책에 따라 가장 신속하게 환불 처리를 받으실 수 있습니다.</li>
-                        <li><strong>48시간 경과 ~ 7일 이내:</strong> 개발자 공식 문의 이메일(<code>robin.robin.park4@gmail.com</code>)로 [구글/애플 결제 영수증 주문번호(GPA.xxxx-xxxx 형식), 인게임 닉네임, 구매 일시, 환불 사유]를 첨부하여 접수해 주시면, 미사용 여부를 검증한 후 관련 법령에 따라 순차적으로 환불 절차를 진행해 드립니다.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- 제5조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제5조 (서비스의 변경, 중단 및 영구 아이템의 권리)</h2>
-            <div class="clause-item">1. 개발자는 게임의 기획, 기술적 운영상 필요, 버그 수정, 밸런스 조정 등을 위하여 사전 공지 후 서비스의 일부 또는 전부를 수정, 변경하거나 중단할 수 있습니다.</div>
-            <div class="clause-item">2. 게임 상점 등에서 판매되는 '영구(Permanent)' 아이템의 사용 권리는 본 게임 서비스가 정상적으로 운영되고 유지되는 기간으로 한정됩니다.</div>
-            <div class="clause-item">3. 개발자의 영업상 판단 등 부득이한 사정으로 인하여 게임 서비스를 영구 종료하는 경우, 서비스 종료 최소 30일 전에 게임 내 공지사항을 통하여 이용자에게 사전 고지합니다.</div>
-        </section>
-
-        <!-- 제6조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제6조 (부정행위 제재 및 지식재산권)</h2>
-            <div class="clause-item">1. 이용자는 게임 시스템의 취약점(버그)을 고의로 악용하거나, 프로그램 메모리 변조, 패킷 조작, 자동화 매크로 사용 등 정상적인 게임 운영을 방해하는 행위를 하여서는 안 됩니다. 적발 시 사전 통보 없이 계정 데이터 초기화, 영구 삭제 또는 서비스 이용 제한 조치가 취해질 수 있습니다.</div>
-            <div class="clause-item">2. 본 게임에 포함된 소스 코드, 그래픽, 사운드, UI 디자인, 시스템 로직 등 모든 저작물에 대한 저작권 및 지식재산권은 개발자에게 귀속됩니다.</div>
-        </section>
-
-        <!-- 제7조 -->
-        <section class="chapter">
-            <h2 class="chapter-title">제7조 (개발자 정보 및 공식 고객지원 창구)</h2>
-            <div class="info-box">
-                <ul>
-                    <li><strong>게임명:</strong> 글로벌 패권 경쟁 (Global Hegemony)</li>
-                    <li><strong>개발 및 운영 주체:</strong> 개인 개발자 (Team Global Hegemony)</li>
-                    <li><strong>공식 문의 및 권리 침해 신고 이메일:</strong> robin.robin.park4@gmail.com</li>
-                    <li><strong>시행일자:</strong> 2026년 10월 15일</li>
-                </ul>
-            </div>
-        </section>
-    </main>
-
-    <!-- [2] 영문 전문 섹션 -->
-    <main id="contentEn" class="legal-content">
-        <!-- Article 1 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 1 (Purpose & Service Overview)</h2>
-            <div class="clause-item">1. These Terms of Service (the "Terms") govern the rights, obligations, and responsibilities between the individual developer (Team Global Hegemony, hereinafter referred to as the "Developer") and users of the mobile and web-based turn-based strategy board game 'Global Hegemony' (the "Game") and its associated services.</div>
-            <div class="clause-item">2. The Game is a turn-based strategy simulation board game inspired by contemporary international affairs, geopolitics, and global economic dynamics.</div>
-        </section>
-
-        <!-- Article 2 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 2 (Satire, Parody & Absolute Fiction Legal Disclaimer - Primary Legal Shield)</h2>
-            <div class="disclaimer-box">
-                <div class="highlight-text">⚖️ [Express Statement on AI-Generated Caricatures & Total Fiction]</div>
-                <p><strong>All character images appearing in this Game are caricatures of non-existent, entirely fictional individuals created using generative artificial intelligence (AI) technology.</strong></p>
-            </div>
-            <div class="clause-item">1. All nations, characters, figures, names, dialogues, events, and thematic settings depicted in this Game are <strong>complete works of fiction</strong> created exclusively for gaming entertainment, artistic expression, and political satire/parody.</div>
-            <div class="clause-item">2. This Game has no affiliation, association, connection, or endorsement with any real living or deceased individuals, political organizations, governments, sovereign nations, religious institutions, or corporate entities. It does not reflect any political bias, support, defamation, disparagement, or malicious intent toward any person or entity.</div>
-            <div class="clause-item">3. All stats, quotes, and descriptions depicted in the Game are modified and exaggerated for gameplay balance and do not represent real-world facts. The Developer makes no guarantees regarding the factual accuracy of any depiction and assumes no legal liability for any personal or ideological interpretations made by players.</div>
-        </section>
-
-        <!-- Article 3 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 3 (Privacy Policy & Cloud Data)</h2>
-            <div class="clause-item">1. <strong>[Principle of Non-Collection of Sensitive Personal Data]</strong> To safeguard user privacy, the Game requires no separate membership registration. Authentication is handled seamlessly via Google OAuth. The Developer does not collect, store, or process sensitive identification details such as real names, resident registration numbers, phone numbers, contact address books, or financial payment details.</div>
-            <div class="clause-item">2. <strong>[Collected Data and Collection Method]</strong> Only the unique identifier provided by Google authentication (Google User UID), the in-game display nickname chosen by the user, and core gameplay progression data (gold, diamonds, match history, leaderboard rating, unlocked skins) are processed via Google Firebase.</div>
-            <div class="clause-item">3. <strong>[Purpose of Processing]</strong> Collected information is utilized exclusively for synchronizing gameplay progress, computing global leaderboard rankings, debugging technical errors, and addressing customer support inquiries.</div>
-            <div class="clause-item">4. <strong>[Secure Cloud Storage]</strong> All gameplay data is encrypted and securely stored on Google Cloud Platform’s Firebase Firestore secured environment. The Developer will never sell, lease, or distribute personal data to third parties without consent.</div>
-            <div class="clause-item">5. <strong>[Account Deletion & Immediate Permanent Destruction]</strong> Users may initiate account deletion at any time via [Settings > Delete Account] within the Game. Upon submission of a deletion request, all identifiers and gameplay records associated with the account stored on Firebase cloud servers are immediately and permanently destroyed, and cannot be restored under any circumstances.</div>
-        </section>
-
-        <!-- Article 4 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 4 (In-App Purchases & Refund Policy)</h2>
-            <div class="clause-item">1. <strong>[Payment Processing]</strong> All in-app purchases of virtual goods (Diamonds, etc.) are processed securely via the official billing platforms of Google Play Console and Apple App Store.</div>
-            <div class="clause-item">2. <strong>[Right of Withdrawal (Refund Eligibility)]</strong> In accordance with consumer protection regulations, unused virtual currencies may be eligible for a refund within seven (7) days from the date of purchase.</div>
-            <div class="clause-item">3. <strong>[Non-Refundable Items]</strong> Refunds are strictly unavailable under the following conditions:
-                <div class="info-box">
-                    <ul>
-                        <li>Virtual currencies that have been partially or fully consumed after transaction;</li>
-                        <li>Character skins, packages, or instant-effect content applied or unlocked immediately upon purchase;</li>
-                        <li>Items or currencies obtained free of charge via events, quests, or attendance rewards;</li>
-                        <li>Accounts penalized or terminated due to policy violations, exploit abuse, or data manipulation.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clause-item">4. <strong>[Refund Request Channels]</strong>
-                <div class="info-box">
-                    <ul>
-                        <li><strong>Within 48 hours of purchase:</strong> Submitting a direct refund request via Google Play Order History (play.google.com) or Apple Report a Problem (reportaproblem.apple.com) provides the quickest automated resolution governed by store policies.</li>
-                        <li><strong>Between 48 hours and 7 days:</strong> Contact the official support email (<code>robin.robin.park4@gmail.com</code>) providing your store receipt order number (e.g., GPA.xxxx-xxxx), in-game nickname, purchase timestamp, and reason. Upon verifying that items remain unused, refunds will be processed in accordance with applicable laws.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Article 5 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 5 (Service Modifications, Termination & Permanent Items)</h2>
-            <div class="clause-item">1. The Developer reserves the right to modify, update, balance, or suspend features of the Game for maintenance, security, or game balancing with prior notice.</div>
-            <div class="clause-item">2. The term 'Permanent' regarding shop items is legally restricted to the active operational lifespan of the Game service.</div>
-            <div class="clause-item">3. Should the Game service be permanently discontinued due to unavoidable circumstances, the Developer shall provide public notice at least thirty (30) days in advance through in-game announcements.</div>
-        </section>
-
-        <!-- Article 6 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 6 (Fair Play & Intellectual Property)</h2>
-            <div class="clause-item">1. Exploiting bugs, tampering with memory, packet manipulation, or employing unauthorized automation tools is strictly forbidden. Violators are subject to immediate data resets or permanent account termination without prior notice.</div>
-            <div class="clause-item">2. All intellectual property, source code, visual assets, audio, UI layouts, and game systems remain the sole and exclusive property of the Developer.</div>
-        </section>
-
-        <!-- Article 7 -->
-        <section class="chapter">
-            <h2 class="chapter-title">Article 7 (Developer Information & Contact)</h2>
-            <div class="info-box">
-                <ul>
-                    <li><strong>Game Title:</strong> Global Hegemony (글로벌 패권 경쟁)</li>
-                    <li><strong>Developer / Operator:</strong> Individual Developer (Team Global Hegemony)</li>
-                    <li><strong>Official Support & DMCA/Rights Inquiries:</strong> robin.robin.park4@gmail.com</li>
-                    <li><strong>Effective Date:</strong> October 15, 2026</li>
-                    <li><strong>Governing Standard:</strong> In case of any discrepancies or interpretation differences between translated versions, the Korean and English versions shall govern in accordance with international practices.</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+    <!-- 17개국어 동적 법률 전문 본문 컨테이너 -->
+    <main id="legalDynamicBody" class="legal-content"></main>
 
     <footer>
         <div>&copy; 2026 Team Global Hegemony. All rights reserved.</div>
         <div class="footer-buttons">
-            <button class="action-btn" onclick="window.print()">🖨️ 인쇄 / Print</button>
-            <button class="action-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ 상단으로 / Top</button>
+            <button type="button" class="action-btn" id="btnScrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ 상단으로</button>
+            <button type="button" class="close-return-btn" id="bottomCloseReturnBtn" onclick="closeOrReturnToGame()">✖ 닫기 (게임으로 돌아가기)</button>
         </div>
     </footer>
 </div>
 
 <script>
-    function switchLanguage(lang) {
-        const btnKo = document.getElementById('btnKo');
-        const btnEn = document.getElementById('btnEn');
-        const contentKo = document.getElementById('contentKo');
-        const contentEn = document.getElementById('contentEn');
-        const mainTitle = document.getElementById('mainTitle');
-        const metaDate = document.getElementById('metaDate');
-        const metaDev = document.getElementById('metaDev');
-        const metaEmail = document.getElementById('metaEmail');
-        const browserNotice = document.getElementById('browserNotice');
-
-        if (lang === 'ko') {
-            btnKo.classList.add('active');
-            btnEn.classList.remove('active');
-            contentKo.classList.add('active');
-            contentEn.classList.remove('active');
-            
-            mainTitle.innerText = "글로벌 패권 경쟁 이용약관 및 개인정보처리방침";
-            metaDate.innerText = "최종 개정일: 2026년 10월 15일";
-            metaDev.innerText = "개발 및 운영: Team Global Hegemony";
-            metaEmail.innerText = "공식 문의: robin.robin.park4@gmail.com";
-            browserNotice.innerText = "💡 브라우저 내장 번역 기능을 이용하시면 일본어, 중국어, 스페인어 등 다양한 언어로 편안하게 열람하실 수 있습니다. (Browser auto-translation supported)";
-            document.documentElement.lang = "ko";
-        } else {
-            btnEn.classList.add('active');
-            btnKo.classList.remove('active');
-            contentEn.classList.add('active');
-            contentKo.classList.remove('active');
-            
-            mainTitle.innerText = "Global Hegemony - Terms of Service & Privacy Policy";
-            metaDate.innerText = "Last Updated: October 15, 2026";
-            metaDev.innerText = "Developer: Team Global Hegemony";
-            metaEmail.innerText = "Official Support: robin.robin.park4@gmail.com";
-            browserNotice.innerText = "💡 You can use your browser's built-in translation to view this page in Japanese, Chinese, Spanish, and other languages.";
-            document.documentElement.lang = "en";
-        }
+// 17개국어 전체 공식 법률 전문 데이터 (제1조 ~ 제7조 완역)
+window.LEGAL_FULL_I18N = {
+    ko: {
+        badge: "공식 법률 문서 (Official Legal Document)",
+        mainTitle: "글로벌 패권 경쟁 이용약관 및 개인정보처리방침",
+        metaDate: "최종 개정일: 2026년 10월 15일",
+        metaDev: "개발 및 운영: Team Global Hegemony",
+        metaEmail: "공식 문의: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ 상단으로",
+        closeBtn: "✖ 닫기 (게임으로 돌아가기)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">제1조 (목적 및 서비스 개요)</h2>
+                <div class="clause-item">1. 본 약관은 개인 개발자(Team Global Hegemony, 이하 '개발자')가 개발 및 서비스하는 모바일 및 웹 기반 턴제 보드게임 '글로벌 패권 경쟁 (Global Hegemony)'(이하 '게임') 및 이에 부수되는 제반 서비스의 이용과 관련하여 개발자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</div>
+                <div class="clause-item">2. 본 게임은 국제 정세와 경제, 정치적 역학 관계를 모티브로 하여 제작된 턴제 전략 시뮬레이션 보드게임입니다.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제2조 (시사 풍자, 패러디 및 완전한 허구성에 관한 법적 고지 - 최우선 면책)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [AI 가상 인물 캐리커처 명시 및 허구성 고지]</div>
+                    <p><strong>본 게임 내 등장하는 모든 캐릭터의 이미지는 생성형 AI 기술을 활용하여 제작된 존재하지 않는 가상의 인물에 대한 캐리커처입니다.</strong></p>
+                </div>
+                <div class="clause-item">1. 본 게임에 등장하는 모든 국가, 캐릭터, 인물, 명칭, 대사, 이벤트, 세부 설정은 순수한 게임적 재미와 시사 풍자(Satire & Parody)를 목적으로 창작된 <strong>완전한 픽션(허구)</strong>입니다.</div>
+                <div class="clause-item">2. 본 게임은 실제 생존하거나 사망한 특정 실존 인물, 정당, 정부 기관, 국가, 특정 종교 또는 민간 단체와 어떠한 연관성도 없으며, 이를 지지하거나 비방, 모욕, 명예훼손하려는 어떠한 정치적·사회적 의도도 포함하지 않습니다.</div>
+                <div class="clause-item">3. 게임 내 묘사된 사건이나 캐릭터의 능력치, 대사는 실제 현실의 사실과 무관하며, 게임 시스템상 과장되거나 해학적으로 패러디된 표현에 불과합니다. 개발자는 이에 대한 사실적 진실성을 보증하지 아니하며, 게임 플레이로 인해 발생하는 어떠한 주관적·이념적 해석에 대해서도 법적 책임을 부담하지 않습니다.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제3조 (개인정보처리방침 - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[개인정보 미수집 원칙]</strong> 본 게임은 불필요한 개인정보 침해를 방지하기 위해 별도의 자체 회원가입 절차를 두지 않으며, Google 계정 인증 연동(Google OAuth)을 통해 서비스를 제공합니다. 개발자는 이용자의 성명, 주민등록번호, 전화번호, 이메일 주소록, 생년월일 등 민감한 개인식별정보를 일절 수집하거나 저장하지 않습니다.</div>
+                <div class="clause-item">2. <strong>[수집 항목 및 방법]</strong> 이용자가 Google 계정으로 로그인할 때 생성되는 고유 식별자(Google User UID), 이용자가 게임 내에서 직접 입력한 닉네임, 그리고 게임 진행 데이터(보유 골드, 다이아, 전적, 랭킹 점수, 획득한 스킨 목록)만이 Google Firebase 시스템을 통해 수집됩니다.</div>
+                <div class="clause-item">3. <strong>[이용 목적]</strong> 수집된 데이터는 오직 이용자의 게임 진행 상태 저장, 글로벌 리더보드(랭킹) 집계, 게임 내 오류 해결 및 고객 문의 대응의 목적으로만 활용됩니다.</div>
+                <div class="clause-item">4. <strong>[안전한 클라우드 관리]</strong> 모든 게임 데이터는 Google Cloud Platform의 Firebase Firestore 보안 서버에 안전하게 암호화되어 보관됩니다. 개발자는 이용자의 동의 없이 개인정보를 제3자에게 판매하거나 외부에 유출하지 않습니다.</div>
+                <div class="clause-item">5. <strong>[회원 탈퇴 및 데이터 즉시 파기]</strong> 이용자는 게임 내 [환경설정 > 회원 탈퇴] 기능을 통해 언제든지 즉시 회원 탈퇴를 진행할 수 있습니다. 탈퇴 요청 시 Firebase 클라우드 서버에 연동된 해당 계정의 모든 식별자 및 게임 플레이 데이터는 지체 없이 즉시 영구 파기되며, 어떠한 방법으로도 복구할 수 없습니다.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제4조 (유료 결제 및 청약철회/환불 정책)</h2>
+                <div class="clause-item">1. <strong>[인앱 결제 시스템]</strong> 게임 내 유료 재화(다이아 등)의 구매는 Google Play Console 및 Apple App Store의 공식 인앱 결제(In-App Purchase) 시스템을 통해 안전하게 처리됩니다.</div>
+                <div class="clause-item">2. <strong>[청약철회(환불) 기준]</strong> 전자상거래 등에서의 소비자보호에 관한 법률 등 관련 법령에 따라, 구매 후 전혀 사용하지 않은 유료 재화는 구매일로부터 7일 이내에 청약철회(환불)를 신청할 수 있습니다.</div>
+                <div class="clause-item">3. <strong>[환불 불가 규정]</strong> 다음 각 호의 어느 하나에 해당하는 경우 청약철회 및 환불이 불가능합니다.
+                    <div class="info-box">
+                        <ul>
+                            <li>구매 후 즉시 효과가 적용되거나 일부라도 사용·소모된 유료 재화</li>
+                            <li>구매 즉시 잠금 해제되어 사용 가능한 상태가 되는 캐릭터 스킨 및 패키지 아이템</li>
+                            <li>게임 플레이, 이벤트, 출석 체크, 퀘스트 달성 등 게임 내에서 무료로 지급된 모든 재화</li>
+                            <li>이용자의 고의 또는 중대한 과실, 부정행위(데이터 조작, 버그 악용 등)로 인해 계정 제재를 받은 경우</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[환불 신청 절차 및 접수 창구]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>결제 후 48시간 이내:</strong> Google Play 주문 내역(play.google.com) 또는 Apple '문제 신고'(reportaproblem.apple.com) 페이지에서 직접 환불을 신청하시면 스토어 자체 정책에 따라 가장 신속하게 환불 처리를 받으실 수 있습니다.</li>
+                            <li><strong>48시간 경과 ~ 7일 이내:</strong> 개발자 공식 문의 이메일(<code>robin.robin.park4@gmail.com</code>)로 [구글/애플 결제 영수증 주문번호(GPA.xxxx-xxxx 형식), 인게임 닉네임, 구매 일시, 환불 사유]를 첨부하여 접수해 주시면, 미사용 여부를 검증한 후 관련 법령에 따라 순차적으로 환불 절차를 진행해 드립니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제5조 (서비스의 변경, 중단 및 영구 아이템의 권리)</h2>
+                <div class="clause-item">1. 개발자는 게임의 기획, 기술적 운영상 필요, 버그 수정, 밸런스 조정 등을 위하여 사전 공지 후 서비스의 일부 또는 전부를 수정, 변경하거나 중단할 수 있습니다.</div>
+                <div class="clause-item">2. 게임 상점 등에서 판매되는 '영구(Permanent)' 아이템의 사용 권리는 본 게임 서비스가 정상적으로 운영되고 유지되는 기간으로 한정됩니다.</div>
+                <div class="clause-item">3. 개발자의 영업상 판단 등 부득이한 사정으로 인하여 게임 서비스를 영구 종료하는 경우, 서비스 종료 최소 30일 전에 게임 내 공지사항을 통하여 이용자에게 사전 고지합니다.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제6조 (부정행위 제재 및 지식재산권)</h2>
+                <div class="clause-item">1. 이용자는 게임 시스템의 취약점(버그)을 고의로 악용하거나, 프로그램 메모리 변조, 패킷 조작, 자동화 매크로 사용 등 정상적인 게임 운영을 방해하는 행위를 하여서는 안 됩니다. 적발 시 사전 통보 없이 계정 데이터 초기화, 영구 삭제 또는 서비스 이용 제한 조치가 취해질 수 있습니다.</div>
+                <div class="clause-item">2. 본 게임에 포함된 소스 코드, 그래픽, 사운드, UI 디자인, 시스템 로직 등 모든 저작물에 대한 저작권 및 지식재산권은 개발자에게 귀속됩니다.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">제7조 (개발자 정보 및 공식 고객지원 창구)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>게임명:</strong> 글로벌 패권 경쟁 (Global Hegemony)</li>
+                        <li><strong>개발 및 운영 주체:</strong> 개인 개발자 (Team Global Hegemony)</li>
+                        <li><strong>공식 문의 및 권리 침해 신고 이메일:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>시행일자:</strong> 2026년 10월 15일</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    en: {
+        badge: "Official Legal Document",
+        mainTitle: "Global Hegemony - Terms of Service & Privacy Policy",
+        metaDate: "Last Updated: October 15, 2026",
+        metaDev: "Developer: Team Global Hegemony",
+        metaEmail: "Official Support: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Top",
+        closeBtn: "✖ Close (Return to Game)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Article 1 (Purpose & Service Overview)</h2>
+                <div class="clause-item">1. These Terms of Service (the "Terms") govern the rights, obligations, and responsibilities between the individual developer (Team Global Hegemony, hereinafter referred to as the "Developer") and users of the mobile and web-based turn-based strategy board game 'Global Hegemony' (the "Game") and its associated services.</div>
+                <div class="clause-item">2. The Game is a turn-based strategy simulation board game inspired by contemporary international affairs, geopolitics, and global economic dynamics.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 2 (Satire, Parody & Absolute Fiction Legal Disclaimer - Primary Legal Shield)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Express Statement on AI-Generated Caricatures & Total Fiction]</div>
+                    <p><strong>All character images appearing in this Game are caricatures of non-existent, entirely fictional individuals created using generative artificial intelligence (AI) technology.</strong></p>
+                </div>
+                <div class="clause-item">1. All nations, characters, figures, names, dialogues, events, and thematic settings depicted in this Game are <strong>complete works of fiction</strong> created exclusively for gaming entertainment, artistic expression, and political satire/parody.</div>
+                <div class="clause-item">2. This Game has no affiliation, association, connection, or endorsement with any real living or deceased individuals, political organizations, governments, sovereign nations, religious institutions, or corporate entities. It does not reflect any political bias, support, defamation, disparagement, or malicious intent toward any person or entity.</div>
+                <div class="clause-item">3. All stats, quotes, and descriptions depicted in the Game are modified and exaggerated for gameplay balance and do not represent real-world facts. The Developer makes no guarantees regarding the factual accuracy of any depiction and assumes no legal liability for any personal or ideological interpretations made by players.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 3 (Privacy Policy & Cloud Data)</h2>
+                <div class="clause-item">1. <strong>[Principle of Non-Collection of Sensitive Personal Data]</strong> To safeguard user privacy, the Game requires no separate membership registration. Authentication is handled seamlessly via Google OAuth. The Developer does not collect, store, or process sensitive identification details such as real names, resident registration numbers, phone numbers, contact address books, or financial payment details.</div>
+                <div class="clause-item">2. <strong>[Collected Data and Collection Method]</strong> Only the unique identifier provided by Google authentication (Google User UID), the in-game display nickname chosen by the user, and core gameplay progression data (gold, diamonds, match history, leaderboard rating, unlocked skins) are processed via Google Firebase.</div>
+                <div class="clause-item">3. <strong>[Purpose of Processing]</strong> Collected information is utilized exclusively for synchronizing gameplay progress, computing global leaderboard rankings, debugging technical errors, and addressing customer support inquiries.</div>
+                <div class="clause-item">4. <strong>[Secure Cloud Storage]</strong> All gameplay data is encrypted and securely stored on Google Cloud Platform’s Firebase Firestore secured environment. The Developer will never sell, lease, or distribute personal data to third parties without consent.</div>
+                <div class="clause-item">5. <strong>[Account Deletion & Immediate Permanent Destruction]</strong> Users may initiate account deletion at any time via [Settings > Delete Account] within the Game. Upon submission of a deletion request, all identifiers and gameplay records associated with the account stored on Firebase cloud servers are immediately and permanently destroyed, and cannot be restored under any circumstances.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 4 (In-App Purchases & Refund Policy)</h2>
+                <div class="clause-item">1. <strong>[Payment Processing]</strong> All in-app purchases of virtual goods (Diamonds, etc.) are processed securely via the official billing platforms of Google Play Console and Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Right of Withdrawal (Refund Eligibility)]</strong> In accordance with consumer protection regulations, unused virtual currencies may be eligible for a refund within seven (7) days from the date of purchase.</div>
+                <div class="clause-item">3. <strong>[Non-Refundable Items]</strong> Refunds are strictly unavailable under the following conditions:
+                    <div class="info-box">
+                        <ul>
+                            <li>Virtual currencies that have been partially or fully consumed after transaction;</li>
+                            <li>Character skins, packages, or instant-effect content applied or unlocked immediately upon purchase;</li>
+                            <li>Items or currencies obtained free of charge via events, quests, or attendance rewards;</li>
+                            <li>Accounts penalized or terminated due to policy violations, exploit abuse, or data manipulation.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Refund Request Channels]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Within 48 hours of purchase:</strong> Submitting a direct refund request via Google Play Order History (play.google.com) or Apple Report a Problem (reportaproblem.apple.com) provides the quickest automated resolution governed by store policies.</li>
+                            <li><strong>Between 48 hours and 7 days:</strong> Contact the official support email (<code>robin.robin.park4@gmail.com</code>) providing your store receipt order number (e.g., GPA.xxxx-xxxx), in-game nickname, purchase timestamp, and reason. Upon verifying that items remain unused, refunds will be processed in accordance with applicable laws.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 5 (Service Modifications, Termination & Permanent Items)</h2>
+                <div class="clause-item">1. The Developer reserves the right to modify, update, balance, or suspend features of the Game for maintenance, security, or game balancing with prior notice.</div>
+                <div class="clause-item">2. The term 'Permanent' regarding shop items is legally restricted to the active operational lifespan of the Game service.</div>
+                <div class="clause-item">3. Should the Game service be permanently discontinued due to unavoidable circumstances, the Developer shall provide public notice at least thirty (30) days in advance through in-game announcements.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 6 (Fair Play & Intellectual Property)</h2>
+                <div class="clause-item">1. Exploiting bugs, tampering with memory, packet manipulation, or employing unauthorized automation tools is strictly forbidden. Violators are subject to immediate data resets or permanent account termination without prior notice.</div>
+                <div class="clause-item">2. All intellectual property, source code, visual assets, audio, UI layouts, and game systems remain the sole and exclusive property of the Developer.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 7 (Developer Information & Contact)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Game Title:</strong> Global Hegemony (글로벌 패권 경쟁)</li>
+                        <li><strong>Developer / Operator:</strong> Individual Developer (Team Global Hegemony)</li>
+                        <li><strong>Official Support & DMCA/Rights Inquiries:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Effective Date:</strong> October 15, 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    ja: {
+        badge: "公式法的文書 (Official Legal Document)",
+        mainTitle: "グローバル覇権競争 利用規約およびプライバシーポリシー",
+        metaDate: "最終改定日: 2026年10月15日",
+        metaDev: "開発・運営: Team Global Hegemony",
+        metaEmail: "公式お問い合わせ: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ トップへ",
+        closeBtn: "✖ 閉じる (ゲームに戻る)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">第1条（目的およびサービス概要）</h2>
+                <div class="clause-item">1. 本規約は、個人開発者（Team Global Hegemony、以下「開発者」）が開発・提供するモバイルおよびウェブベースのターン制ボードゲーム『グローバル覇権競争（Global Hegemony）』（以下「本ゲーム」）および付随するすべてのサービスの利用に関し、開発者と利用者との間の権利、義務、および責任事項を定めることを目的とします。</div>
+                <div class="clause-item">2. 本ゲームは、国際情勢や経済・政治的力学をモチーフとして制作されたターン制戦略シミュレーションボードゲームです。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第2条（時事風刺・パロディおよび完全な虚構性に関する法的告知 - 最優先免責）</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [AI架空人物カリカチュア明示およびフィクション告知]</div>
+                    <p><strong>本ゲーム内に登場するすべてのキャラクター画像は、生成AI技術を活用して制作された、実在しない架空の人物に対するカリカチュア（風刺画）です。</strong></p>
+                </div>
+                <div class="clause-item">1. 本ゲームに登場するすべての国家、キャラクター、人物、名称、セリフ、イベント、詳細設定は、純粋なゲームの楽しさと時事風刺（Satire & Parody）を目的として創作された<strong>完全なフィクション（虚構）</strong>です。</div>
+                <div class="clause-item">2. 本ゲームは、実在する生存または故人である特定の人物、政党、政府機関、国家、特定の宗教または民間団体とは一切関係がなく、これらを支持または誹謗・中傷・名誉毀損するいかなる政治的・社会的意図も含んでいません。</div>
+                <div class="clause-item">3. ゲーム内で描写される事件やキャラクターの能力値、セリフは現実の事実とは無関係であり、ゲームシステム上誇張またはユーモラスにパロディ化された表現に過ぎません。開発者はこれらに対する事実上の真実性を保証せず、ゲームプレイによって生じるいかなる主観的・イデオロギー的解釈に対しても法的責任を負いません。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第3条（プライバシーポリシー - Privacy Policy）</h2>
+                <div class="clause-item">1. <strong>[個人情報非収集の原則]</strong> 本ゲームは不要な個人情報侵害を防止するため独自の会員登録手続きを設けず、Googleアカウント認証連携（Google OAuth）を通じてサービスを提供します。開発者は利用者の氏名、住民登録番号、電話番号、連絡先、生年月日などの機密個人識別情報を一切収集・保存しません。</div>
+                <div class="clause-item">2. <strong>[収集項目および方法]</strong> 利用者がGoogleアカウントでログインした際に生成される固有識別子（Google User UID）、ゲーム内で直接入力したニックネーム、およびゲーム進行データ（保有ゴールド、ダイヤ、戦績、ランキング点数、獲得スキン一覧）のみがGoogle Firebaseシステムを通じて収集されます。</div>
+                <div class="clause-item">3. <strong>[利用目的]</strong> 収集されたデータは、利用者のゲーム進行状況の保存、グローバルリーダーボード（ランキング）の集計、ゲーム内の不具合解決および顧客サポート対応の目的でのみ活用されます。</div>
+                <div class="clause-item">4. <strong>[安全なクラウド管理]</strong> すべてのゲームデータはGoogle Cloud PlatformのFirebase Firestoreセキュリティサーバーに暗号化されて安全に保管されます。開発者は利用者の同意なく個人情報を第三者に販売したり外部に流出させたりしません。</div>
+                <div class="clause-item">5. <strong>[退会およびデータの即時破棄]</strong> 利用者はゲーム内の［設定 ＞ 退会］機能を通じて、いつでも即時に退会手続きを行うことができます。退会要請時、Firebaseクラウドサーバーに連携された該当アカウントのすべての識別子およびプレイデータは遅滞なく即時に永久破棄され、いかなる方法でも復旧できません。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第4条（有料決済および返品・返金ポリシー）</h2>
+                <div class="clause-item">1. <strong>[アプリ内決済システム]</strong> ゲーム内の有料財貨（ダイヤ等）の購入は、Google Play ConsoleおよびApple App Storeの公式アプリ内課金（In-App Purchase）システムを通じて安全に処理されます。</div>
+                <div class="clause-item">2. <strong>[返金基準]</strong> 消費者保護関連法令に基づき、購入後に一度も使用していない未使用の有料財貨は、購入日から7日以内に返金（購入キャンセル）を申請することができます。</div>
+                <div class="clause-item">3. <strong>[返金不可規定]</strong> 次の各号のいずれかに該当する場合、返金およびキャンセルはできません。
+                    <div class="info-box">
+                        <ul>
+                            <li>購入後直ちに効果が適用されるか、一部でも使用・消費された有料財貨</li>
+                            <li>購入と同時にロック解除され使用可能となるキャラクタースキンおよびパッケージ商品</li>
+                            <li>ゲームプレイ、イベント、出席チェック、ミッション達成などゲーム内で無償配布されたすべての財貨</li>
+                            <li>利用者の故意または重大な過失、不正行為（データ改ざん、バグ悪用等）によりアカウント制裁を受けた場合</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[返金申請手順および窓口]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>決済後48時間以内：</strong> Google Playの注文履歴（play.google.com）またはAppleの「問題を報告」（reportaproblem.apple.com）ページから直接申請していただくと、ストアのポリシーに従い最も迅速に処理されます。</li>
+                            <li><strong>48時間経過〜7日以内：</strong> 公式サポートメール（<code>robin.robin.park4@gmail.com</code>）宛に［注文番号（GPA.xxxx-xxxx形式）、ゲーム内ニックネーム、購入日時、返金理由］を記載してお送りください。未使用状態を確認の上、法令に従い順次返金処理を進めます。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第5条（サービスの変更・中断および永久アイテムの権利）</h2>
+                <div class="clause-item">1. 開発者はゲームの企画、技術的運営上の必要、バグ修正、バランス調整等のため、事前告知後にサービスの一部または全部を修正・変更または中断することができます。</div>
+                <div class="clause-item">2. ショップ等で販売される「永久（Permanent）」アイテムの使用権利は、本ゲームサービスが正常に運営・維持されている期間に限定されます。</div>
+                <div class="clause-item">3. やむを得ない事情によりゲームサービスを永久終了する場合、サービス終了の少なくとも30日前にゲーム内告知を通じて利用者に事前通知します。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第6条（不正行為への制裁および知的財産権）</h2>
+                <div class="clause-item">1. 利用者はゲームシステムの脆弱性（バグ）を故意に悪用したり、メモリ改ざん、パケット操作、自動マクロの使用など正常なゲーム運営を妨害する行為をしてはなりません。発覚した場合、事前通知なしにアカウントデータの初期化、永久削除、または利用制限措置が取られることがあります。</div>
+                <div class="clause-item">2. 本ゲームに含まれるソースコード、グラフィック、サウンド、UIデザイン、システムロジック等すべての著作物に関する著作権および知的財産権は開発者に帰属します。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第7条（開発者情報および公式カスタマーサポート窓口）</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>ゲーム名：</strong> グローバル覇権競争 (Global Hegemony)</li>
+                        <li><strong>開発・運営主体：</strong> 個人開発者 (Team Global Hegemony)</li>
+                        <li><strong>公式お問い合わせメール：</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>施行日：</strong> 2026年10月15日</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    'zh-TW': {
+        badge: "官方正式法律文件 (Official Legal Document)",
+        mainTitle: "全球霸權競爭 服務條款與隱私權政策",
+        metaDate: "最後修訂日期：2026年10月15日",
+        metaDev: "開發與營運：Team Global Hegemony",
+        metaEmail: "官方客服信箱：robin.robin.park4@gmail.com",
+        topBtn: "⬆️ 回到頂部",
+        closeBtn: "✖ 關閉 (返回遊戲)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">第一條（目的與服務概要）</h2>
+                <div class="clause-item">1. 本條款旨在規範個人開發者（Team Global Hegemony，以下稱「開發者」）所開發及提供之行動裝置與網頁回合制策略桌遊《全球霸權競爭（Global Hegemony）》（以下稱「本遊戲」）及相關附屬服務中，開發者與使用者之間的權利、義務與法律責任。</div>
+                <div class="clause-item">2. 本遊戲是以國際局勢、全球經濟與政治博弈為主題所創作之回合制策略模擬桌遊。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第二條（時事諷刺、惡搞及完全虛構之法律免責聲明 - 最優先免責）</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [生成式 AI 虛擬人物諷刺畫聲明及純屬虛構告知]</div>
+                    <p><strong>本遊戲內登場之所有角色圖像，均為運用生成式人工智慧（Generative AI）技術所製作、現實中並不存在之「虛構人物」諷刺漫畫（Caricature）。</strong></p>
+                </div>
+                <div class="clause-item">1. 本遊戲中出現之所有國家、角色、人物、名稱、對白、事件及細節設定，純粹為遊戲娛樂效果與時事諷刺（Satire & Parody）而創作，屬於<strong>完全虛構之作品（Fiction）</strong>。</div>
+                <div class="clause-item">2. 本遊戲與現實中任何在世或已故之特定真實人物、政黨、政府機關、國家、特定宗教或民間團體毫無關聯，亦不包含任何政治支持、誹謗、侮辱或妨害名譽之意圖。</div>
+                <div class="clause-item">3. 遊戲內所描繪之事件、角色能力數值與對白均與現實事實無關，僅為遊戲機制上之誇飾或幽默戲謔表現。開發者不保證其事實真實性，亦不對玩家因遊玩本遊戲所產生之任何主觀或意識形態解讀承擔法律責任。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第三條（隱私權政策 - Privacy Policy）</h2>
+                <div class="clause-item">1. <strong>[不蒐集敏感個人資料原則]</strong> 為防止不必要的個人隱私侵害，本遊戲不設獨立會員註冊程序，並透過 Google 帳號驗證連動（Google OAuth）提供服務。開發者絕不蒐集或儲存使用者的真實姓名、身分證字號、電話號碼、通訊錄或出生年月日等敏感個人識別資料。</div>
+                <div class="clause-item">2. <strong>[蒐集項目與方式]</strong> 僅在使用者透過 Google 帳號登入時，藉由 Google Firebase 系統處理自動產生的唯一識別碼（Google User UID）、使用者於遊戲內自訂之暱稱，以及遊戲進度資料（持有金幣、鑽石、對戰紀錄、排行榜積分、已解鎖造型清單）。</div>
+                <div class="clause-item">3. <strong>[使用目的]</strong> 所蒐集之資料僅限用於儲存使用者遊戲進度、統計全球排行榜名次、排除遊戲內技術錯誤及回應客服諮詢。</div>
+                <div class="clause-item">4. <strong>[安全的雲端管理]</strong> 所有遊戲資料均經加密並安全儲存於 Google Cloud Platform 之 Firebase Firestore 安全伺服器。未經使用者同意，開發者絕不會將資料出售予第三方或外洩。</div>
+                <div class="clause-item">5. <strong>[帳號刪除與資料即時永久銷毀]</strong> 使用者可隨時透過遊戲內［設定 ＞ 刪除帳號］功能立即辦理註銷。提出刪除申請後，與該帳號綁定並儲存於 Firebase 雲端伺服器上的所有識別碼及遊戲紀錄將立即被永久銷毀，且無法以任何方式復原。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第四條（付費購買與退費政策）</h2>
+                <div class="clause-item">1. <strong>[應用程式內購買系統]</strong> 遊戲內付費虛擬貨幣（鑽石等）之購買，均透過 Google Play Console 及 Apple App Store 官方應用程式內購買（In-App Purchase）系統安全處理。</div>
+                <div class="clause-item">2. <strong>[猶豫期與退費標準]</strong> 依據消費者保護相關法規，購買後完全未經使用的付費虛擬貨幣，可於購買日起 7 日內申請退費（解除契約）。</div>
+                <div class="clause-item">3. <strong>[不適用退費之規定]</strong> 符合下列任一情形者，恕不接受退費申請：
+                    <div class="info-box">
+                        <ul>
+                            <li>購買後立即生效或已部分使用、消耗之付費虛擬貨幣</li>
+                            <li>購買當下立即解鎖並可使用的角色造型及禮包組合商品</li>
+                            <li>透過遊戲遊玩、活動、每日簽到、任務達成等方式免費獲得之所有遊戲貨幣與道具</li>
+                            <li>因使用者故意或重大過失、違規作弊行為（篡改數據、惡意利用漏洞等）而遭受帳號懲處之情況</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[退費申請流程與受理窗口]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>付款後 48 小時內：</strong> 請直接透過 Google Play 訂單紀錄（play.google.com）或 Apple「回報問題」（reportaproblem.apple.com）網頁申請退費，可依平台政策獲得最迅速的處理。</li>
+                            <li><strong>超過 48 小時至 7 日內：</strong> 請將［Google/Apple 收據訂單編號（GPA.xxxx-xxxx 格式）、遊戲內暱稱、購買時間、退費原因］寄至官方客服信箱（<code>robin.robin.park4@gmail.com</code>），經核實尚未使用後將依法辦理退費。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第五條（服務之變更、中斷及永久道具權益）</h2>
+                <div class="clause-item">1. 開發者得因遊戲企劃、技術營運需求、錯誤修正或平衡調整等理由，於事前公告後修改、變更或中斷部分或全部服務。</div>
+                <div class="clause-item">2. 遊戲商店內標示為「永久（Permanent）」道具之使用權利，僅限於本遊戲服務正常營運與維持之期間內有效。</div>
+                <div class="clause-item">3. 若因不可抗力或營運考量需永久終止本遊戲服務，開發者將於終止服務至少 30 日前透過遊戲內公告通知使用者。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第六條（違規作弊懲處與智慧財產權）</h2>
+                <div class="clause-item">1. 使用者不得故意濫用遊戲系統漏洞（Bug），或進行記憶體修改、封包竄改、使用自動巨集等妨礙正常遊戲營運之行為。一經查獲，開發者得不經事前通知逕行重置帳號資料、永久刪除帳號或限制服務使用。</div>
+                <div class="clause-item">2. 本遊戲所包含之原始碼、美術圖像、音效、UI 設計及系統邏輯等所有著作物之著作權與智慧財產權均歸開發者所有。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第七條（開發者資訊與官方客服窗口）</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>遊戲名稱：</strong> 全球霸權競爭 (Global Hegemony)</li>
+                        <li><strong>開發與營運主體：</strong> 個人開發者 (Team Global Hegemony)</li>
+                        <li><strong>官方客服與權利侵害申訴信箱：</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>施行日期：</strong> 2026年10月15日</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    'zh-HK': {
+        badge: "官方正式法律文件 (Official Legal Document)",
+        mainTitle: "全球霸權競爭 服務條款與私隱政策",
+        metaDate: "最後修訂日期：2026年10月15日",
+        metaDev: "開發及營運：Team Global Hegemony",
+        metaEmail: "官方查詢電郵：robin.robin.park4@gmail.com",
+        topBtn: "⬆️ 回到頂部",
+        closeBtn: "✖ 關閉 (返回遊戲)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">第一條（目的及服務概要）</h2>
+                <div class="clause-item">1. 本條款旨在規範個人開發者（Team Global Hegemony，以下稱「開發者」）所開發及提供之流動裝置與網頁回合制策略桌遊《全球霸權競爭（Global Hegemony）》（以下稱「本遊戲」）及相關附屬服務中，開發者與用戶之間的權利、義務與法律責任。</div>
+                <div class="clause-item">2. 本遊戲是以國際局勢、全球經濟與政治博弈為主題所創作之回合制策略模擬桌遊。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第二條（時事諷刺、惡搞及完全虛構之法律免責聲明 - 最優先免責）</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [生成式 AI 虛擬人物諷刺畫聲明及純屬虛構告知]</div>
+                    <p><strong>本遊戲內登場之所有角色圖像，均為運用生成式人工智能（Generative AI）技術所製作、現實中並不存在之「虛構人物」諷刺漫畫（Caricature）。</strong></p>
+                </div>
+                <div class="clause-item">1. 本遊戲中出現之所有國家、角色、人物、名稱、對白、事件及細節設定，純粹為遊戲娛樂效果與時事諷刺（Satire & Parody）而創作，屬於<strong>完全虛構之作品（Fiction）</strong>。</div>
+                <div class="clause-item">2. 本遊戲與現實中任何在世或已故之特定真實人物、政黨、政府機關、國家、特定宗教或民間團體毫無關連，亦不包含任何政治支持、誹謗、侮辱或損害名譽之意圖。</div>
+                <div class="clause-item">3. 遊戲內所描繪之事件、角色能力數值與對白均與現實事實無關，僅為遊戲機制上之誇飾或幽默戲謔表現。開發者不保證其事實真實性，亦不對玩家因遊玩本遊戲所產生之任何主觀或意識形態解讀承擔法律責任。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第三條（私隱政策 - Privacy Policy）</h2>
+                <div class="clause-item">1. <strong>[不收集敏感個人資料原則]</strong> 為防止不必要的個人私隱侵害，本遊戲不設獨立會員註冊程序，並透過 Google 帳號認證聯動（Google OAuth）提供服務。開發者絕不收集或儲存用戶的真實姓名、身份證號碼、電話號碼、通訊錄或出生日期等敏感個人識別資料。</div>
+                <div class="clause-item">2. <strong>[收集項目及方式]</strong> 僅在用戶透過 Google 帳號登入時，藉由 Google Firebase 系統處理由系統生成的唯一識別碼（Google User UID）、用戶於遊戲內自訂之暱稱，以及遊戲進度資料（持有金幣、鑽石、對戰紀錄、排行榜積分、已解鎖造型清單）。</div>
+                <div class="clause-item">3. <strong>[使用目的]</strong> 所收集之資料僅限用於儲存用戶遊戲進度、統計全球排行榜名次、排除遊戲內技術錯誤及回應客戶服務查詢。</div>
+                <div class="clause-item">4. <strong>[安全的雲端管理]</strong> 所有遊戲資料均經加密並安全儲存於 Google Cloud Platform 之 Firebase Firestore 安全伺服器。未經用戶同意，開發者絕不會將資料出售予第三方或外洩。</div>
+                <div class="clause-item">5. <strong>[帳號刪除及資料即時永久銷毀]</strong> 用戶可隨時透過遊戲內［設定 ＞ 刪除帳號］功能立即辦理註銷。提出刪除申請後，與該帳號綁定並儲存於 Firebase 雲端伺服器上的所有識別碼及遊戲紀錄將立即被永久銷毀，且無法以任何方式復原。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第四條（付費購買及退款政策）</h2>
+                <div class="clause-item">1. <strong>[應用程式內購買系統]</strong> 遊戲內付費虛擬貨幣（鑽石等）之購買，均透過 Google Play Console 及 Apple App Store 官方應用程式內購買（In-App Purchase）系統安全處理。</div>
+                <div class="clause-item">2. <strong>[退款標準]</strong> 依據相關消費者保護法例，購買後完全未經使用的付費虛擬貨幣，可於購買日起 7 日內申請退款。</div>
+                <div class="clause-item">3. <strong>[不適用退款之規定]</strong> 符合下列任一情形者，恕不接受退款申請：
+                    <div class="info-box">
+                        <ul>
+                            <li>購買後立即生效或已部分使用、消耗之付費虛擬貨幣</li>
+                            <li>購買當下立即解鎖並可使用的角色造型及禮包組合商品</li>
+                            <li>透過遊戲遊玩、活動、每日簽到、任務達成等方式免費獲得之所有遊戲貨幣與道具</li>
+                            <li>因用戶故意或重大過失、違規作弊行為（篡改數據、惡意利用漏洞等）而遭受帳號懲處之情況</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[退款申請流程及受理渠道]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>付款後 48 小時內：</strong> 請直接透過 Google Play 訂單紀錄（play.google.com）或 Apple「回報問題」（reportaproblem.apple.com）網頁申請退款，可依平台政策獲得最迅速的處理。</li>
+                            <li><strong>超過 48 小時至 7 日內：</strong> 請將［Google/Apple 收據訂單編號（GPA.xxxx-xxxx 格式）、遊戲內暱稱、購買時間、退款原因］電郵至官方查詢信箱（<code>robin.robin.park4@gmail.com</code>），經核實尚未使用後將依法辦理退款。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第五條（服務之變更、中斷及永久道具權益）</h2>
+                <div class="clause-item">1. 開發者得因遊戲企劃、技術營運需求、錯誤修正或平衡調整等理由，於事前公告後修改、變更或中斷部分或全部服務。</div>
+                <div class="clause-item">2. 遊戲商店內標示為「永久（Permanent）」道具之使用權利，僅限於本遊戲服務正常營運與維持之期間內有效。</div>
+                <div class="clause-item">3. 若因不可抗力或營運考量需永久終止本遊戲服務，開發者將於終止服務最少 30 日前透過遊戲內公告通知用戶。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第六條（違規作弊懲處及知識產權）</h2>
+                <div class="clause-item">1. 用戶不得故意濫用遊戲系統漏洞（Bug），或進行記憶體修改、封包竄改、使用自動巨集等妨礙正常遊戲營運之行為。一經查獲，開發者得不經事前通知逕行重置帳號資料、永久刪除帳號或限制服務使用。</div>
+                <div class="clause-item">2. 本遊戲所包含之源代碼、美術圖像、音效、UI 設計及系統邏輯等所有著作物之版權與知識產權均歸開發者所有。</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">第七條（開發者資料及官方客戶支援窗口）</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>遊戲名稱：</strong> 全球霸權競爭 (Global Hegemony)</li>
+                        <li><strong>開發及營運主體：</strong> 個人開發者 (Team Global Hegemony)</li>
+                        <li><strong>官方查詢及侵權舉報電郵：</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>生效日期：</strong> 2026年10月15日</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    vi: {
+        badge: "Văn Bản Pháp Lý Chính Thức (Official Legal Document)",
+        mainTitle: "Tranh Giành Bá Quyền Toàn Cầu - Điều Khoản Dịch Vụ & Chính Sách Bảo Mật",
+        metaDate: "Cập nhật lần cuối: 15/10/2026",
+        metaDev: "Phát triển & Vận hành: Team Global Hegemony",
+        metaEmail: "Hỗ trợ chính thức: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Lên đầu",
+        closeBtn: "✖ Đóng (Quay lại trò chơi)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 1 (Mục đích & Tổng quan Dịch vụ)</h2>
+                <div class="clause-item">1. Điều khoản Dịch vụ này quy định quyền, nghĩa vụ và trách nhiệm giữa nhà phát triển cá nhân (Team Global Hegemony, sau đây gọi là "Nhà phát triển") và người dùng khi sử dụng trò chơi cờ chiến thuật theo lượt trên nền tảng di động và web 'Tranh Giành Bá Quyền Toàn Cầu (Global Hegemony)' (sau đây gọi là "Trò chơi") cùng các dịch vụ liên quan.</div>
+                <div class="clause-item">2. Trò chơi là tựa game mô phỏng chiến thuật theo lượt lấy cảm hứng từ bối cảnh địa chính trị, kinh tế và quan hệ quốc tế.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 2 (Tuyên bố Pháp lý về Châm biếm, Nhại lại & Hoàn toàn Hư cấu - Miễn trừ Ưu tiên)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Tuyên bố về Tranh biếm họa Nhân vật Ảo AI & Hoàn toàn Hư cấu]</div>
+                    <p><strong>Tất cả hình ảnh nhân vật xuất hiện trong Trò chơi này đều là tranh biếm họa (Caricature) về những nhân vật hư cấu, hoàn toàn không tồn tại trong thực tế, được tạo ra bằng công nghệ Trí tuệ Nhân tạo Tạo sinh (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Tất cả các quốc gia, nhân vật, tên gọi, lời thoại, sự kiện và bối cảnh trong Trò chơi đều là <strong>tác phẩm hư cấu hoàn toàn (Fiction)</strong> được sáng tạo thuần túy vì mục đích giải trí và châm biếm thời sự (Satire & Parody).</div>
+                <div class="clause-item">2. Trò chơi không có bất kỳ mối liên hệ nào với bất kỳ cá nhân có thật nào (còn sống hay đã khuất), đảng phái chính trị, cơ quan chính phủ, quốc gia hay tổ chức tôn giáo nào, đồng thời không mang bất kỳ ý đồ chính trị, ủng hộ hay phỉ báng, xúc phạm danh dự ai.</div>
+                <div class="clause-item">3. Mọi sự kiện, chỉ số năng lực và lời thoại của nhân vật trong Trò chơi đều không phản ánh sự thật ngoài đời thực mà chỉ là sự phóng đại hài hước phục vụ lối chơi. Nhà phát triển không chịu trách nhiệm pháp lý đối với bất kỳ sự suy diễn chủ quan hay tư tưởng nào phát sinh từ việc chơi game.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 3 (Chính sách Bảo mật - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Nguyên tắc Không Thu thập Dữ liệu Nhạy cảm]</strong> Để bảo vệ quyền riêng tư, Trò chơi không yêu cầu đăng ký thành viên riêng mà sử dụng xác thực liên kết Tài khoản Google (Google OAuth). Nhà phát triển tuyệt đối không thu thập hoặc lưu trữ thông tin cá nhân nhạy cảm như họ tên thật, số căn cước, số điện thoại, danh bạ hay ngày sinh.</div>
+                <div class="clause-item">2. <strong>[Hạng mục & Phương thức Thu thập]</strong> Hệ thống Google Firebase chỉ xử lý mã định danh duy nhất (Google User UID) tạo ra khi đăng nhập Google, biệt danh (nickname) người chơi tự đặt trong game, và dữ liệu tiến trình chơi (vàng, kim cương, lịch sử đấu, điểm xếp hạng, trang phục đã mở khóa).</div>
+                <div class="clause-item">3. <strong>[Mục đích Sử dụng]</strong> Dữ liệu thu thập chỉ được dùng để lưu tiến trình chơi, tính toán bảng xếp hạng toàn cầu, khắc phục lỗi kỹ thuật và hỗ trợ khách hàng.</div>
+                <div class="clause-item">4. <strong>[Quản lý Đám mây An toàn]</strong> Mọi dữ liệu trò chơi đều được mã hóa và lưu trữ an toàn trên máy chủ bảo mật Firebase Firestore của Google Cloud Platform. Nhà phát triển cam kết không bán hoặc tiết lộ dữ liệu cho bên thứ ba khi chưa có sự đồng ý của người dùng.</div>
+                <div class="clause-item">5. <strong>[Xóa Tài khoản & Hủy Dữ liệu Vĩnh viễn Ngay lập tức]</strong> Người dùng có thể xóa tài khoản bất cứ lúc nào qua mục [Cài đặt > Xóa tài khoản] trong game. Ngay khi yêu cầu, toàn bộ mã định danh và dữ liệu chơi lưu trên đám mây Firebase sẽ bị hủy bỏ vĩnh viễn ngay lập tức và không thể khôi phục bằng bất kỳ cách nào.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 4 (Chính sách Thanh toán & Hoàn tiền)</h2>
+                <div class="clause-item">1. <strong>[Hệ thống Thanh toán Trong Ứng dụng]</strong> Mọi giao dịch mua tiền tệ trả phí (Kim cương, v.v.) đều được xử lý an toàn qua hệ thống thanh toán chính thức của Google Play Console và Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Tiêu chuẩn Hoàn tiền]</strong> Theo quy định pháp luật bảo vệ người tiêu dùng, tiền tệ trả phí chưa từng được sử dụng sau khi mua có thể được yêu cầu hoàn tiền trong vòng 7 ngày kể từ ngày thanh toán.</div>
+                <div class="clause-item">3. <strong>[Quy định Không Hoàn tiền]</strong> Không hỗ trợ hoàn tiền đối với các trường hợp sau:
+                    <div class="info-box">
+                        <ul>
+                            <li>Tiền tệ trả phí có hiệu lực ngay lập tức hoặc đã được sử dụng/tiêu hao một phần hay toàn bộ;</li>
+                            <li>Trang phục nhân vật và các gói vật phẩm được mở khóa kích hoạt ngay khi mua;</li>
+                            <li>Tất cả tiền tệ và vật phẩm nhận miễn phí qua quá trình chơi, sự kiện, điểm danh hoặc làm nhiệm vụ;</li>
+                            <li>Tài khoản bị xử phạt do hành vi gian lận, cố ý lợi dụng lỗi (bug) hoặc can thiệp dữ liệu.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Quy trình & Kênh Yêu cầu Hoàn tiền]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Trong vòng 48 giờ sau khi thanh toán:</strong> Yêu cầu hoàn tiền trực tiếp tại Lịch sử đơn hàng Google Play (play.google.com) hoặc trang Báo cáo sự cố của Apple (reportaproblem.apple.com) để được xử lý tự động nhanh nhất.</li>
+                            <li><strong>Từ sau 48 giờ đến 7 ngày:</strong> Gửi email đến địa chỉ hỗ trợ chính thức (<code>robin.robin.park4@gmail.com</code>) kèm theo [Mã đơn hàng biên lai Google/Apple (định dạng GPA.xxxx-xxxx), Biệt danh trong game, Thời gian mua, Lý do hoàn tiền]. Sau khi xác minh chưa sử dụng, chúng tôi sẽ tiến hành hoàn tiền theo quy định.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 5 (Thay đổi, Ngừng Dịch vụ & Quyền hạn Vật phẩm Vĩnh viễn)</h2>
+                <div class="clause-item">1. Nhà phát triển có quyền sửa đổi, cập nhật, cân bằng hoặc tạm ngừng một phần hay toàn bộ dịch vụ vì lý do vận hành kỹ thuật hoặc sửa lỗi sau khi đã thông báo trước.</div>
+                <div class="clause-item">2. Quyền sử dụng các vật phẩm ghi nhãn 'Vĩnh viễn (Permanent)' trong cửa hàng được giới hạn trong suốt thời gian Trò chơi còn hoạt động và duy trì dịch vụ bình thường.</div>
+                <div class="clause-item">3. Trong trường hợp bất khả kháng phải ngừng cung cấp dịch vụ Trò chơi vĩnh viễn, Nhà phát triển sẽ thông báo trước ít nhất 30 ngày thông qua公告 trong game.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 6 (Xử lý Gian lận & Quyền Sở hữu Trí tuệ)</h2>
+                <div class="clause-item">1. Nghiêm cấm người dùng cố ý lợi dụng lỗ hổng hệ thống (bug), can thiệp bộ nhớ, chỉnh sửa gói tin hoặc dùng công cụ tự động (macro) gây cản trở vận hành. Nếu vi phạm, dữ liệu tài khoản có thể bị đặt lại hoặc xóa vĩnh viễn mà không cần báo trước.</div>
+                <div class="clause-item">2. Toàn bộ bản quyền và quyền sở hữu trí tuệ đối với mã nguồn, đồ họa, âm thanh, thiết kế giao diện (UI) và hệ thống logic trong Trò chơi thuộc quyền sở hữu độc quyền của Nhà phát triển.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Điều 7 (Thông tin Nhà phát triển & Kênh Hỗ trợ Chính thức)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Tên trò chơi:</strong> Tranh Giành Bá Quyền Toàn Cầu (Global Hegemony)</li>
+                        <li><strong>Chủ thể Phát triển & Vận hành:</strong> Nhà phát triển cá nhân (Team Global Hegemony)</li>
+                        <li><strong>Email Hỗ trợ & Khiếu nại Bản quyền:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Ngày có hiệu lực:</strong> 15 tháng 10 năm 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    th: {
+        badge: "เอกสารทางกฎหมายอย่างเป็นทางการ (Official Legal Document)",
+        mainTitle: "ศึกชิงอำนาจโลก - ข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัว",
+        metaDate: "แก้ไขล่าสุด: 15 ตุลาคม 2026",
+        metaDev: "พัฒนาและให้บริการโดย: Team Global Hegemony",
+        metaEmail: "ติดต่ออย่างเป็นทางการ: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ ขึ้นด้านบน",
+        closeBtn: "✖ ปิด (กลับสู่เกม)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 1 (วัตถุประสงค์และภาพรวมของบริการ)</h2>
+                <div class="clause-item">1. ข้อกำหนดฉบับนี้จัดทำขึ้นเพื่อกำหนดสิทธิ หน้าที่ และความรับผิดชอบระหว่างผู้พัฒนาอิสระ (Team Global Hegemony ซึ่งต่อไปนี้เรียกว่า "ผู้พัฒนา") และผู้ใช้บริการเกมกระดานวางแผนกลยุทธ์แบบเทิร์นเบสบนมือถือและเว็บ 'ศึกชิงอำนาจโลก (Global Hegemony)' (ซึ่งต่อไปนี้เรียกว่า "เกม") รวมถึงบริการอื่นๆ ที่เกี่ยวข้อง</div>
+                <div class="clause-item">2. เกมนี้เป็นเกมกระดานจำลองกลยุทธ์แบบเทิร์นเบสที่ได้รับแรงบันดาลใจจากสถานการณ์ระหว่างประเทศ เศรษฐกิจ และพลวัตทางการเมืองระดับโลก</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 2 (ประกาศทางกฎหมายเกี่ยวกับการล้อเลียน เสียดสี และเรื่องแต่งทั้งหมด - ข้อจำกัดความรับผิดชอบสูงสุด)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [คำชี้แจงเกี่ยวกับภาพล้อเลียนบุคคลสมมติจาก AI และเรื่องแต่งทั้งหมด]</div>
+                    <p><strong>ภาพตัวละครทั้งหมดที่ปรากฏในเกมนี้เป็นภาพล้อเลียน (Caricature) ของบุคคลสมมติที่ไม่มีอยู่จริง ซึ่งถูกสร้างขึ้นโดยใช้เทคโนโลยีปัญญาประดิษฐ์เชิงสร้างสรรค์ (Generative AI)</strong></p>
+                </div>
+                <div class="clause-item">1. ทุกประเทศ ตัวละคร บุคคล ชื่อ บทสนทนา เหตุการณ์ และการตั้งค่าภายในเกมนี้ เป็น<strong>เรื่องแต่งขึ้นทั้งหมด (Fiction)</strong> ที่สร้างสรรค์ขึ้นเพื่อความบันเทิงในเกมและการล้อเลียนเชิงเสียดสี (Satire & Parody) เท่านั้น</div>
+                <div class="clause-item">2. เกมนี้ไม่มีความเกี่ยวข้องใดๆ กับบุคคลจริงทั้งที่ยังมีชีวิตอยู่หรือล่วงลับไปแล้ว พรรคการเมือง หน่วยงานรัฐบาล ประเทศ ศาสนา หรือองค์กรเอกชนใดๆ และไม่มีเจตนาทางการเมืองหรือสังคมในการสนับสนุน ให้ร้าย ดูหมิ่น หรือหมิ่นประมาทผู้ใด</div>
+                <div class="clause-item">3. เหตุการณ์ ค่าสถานะของตัวละคร และบทสนทนาที่แสดงในเกมไม่เกี่ยวข้องกับข้อเท็จจริงในโลกแห่งความเป็นจริง แต่เป็นการแสดงออกที่เกินจริงหรือล้อเลียนอย่างขบขันตามระบบเกมเท่านั้น ผู้พัฒนาไม่รับรองความถูกต้องตามข้อเท็จจริง และไม่รับผิดชอบทางกฎหมายต่อการตีความส่วนบุคคลหรือทางอุดมการณ์ใดๆ ที่เกิดจากการเล่นเกม</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 3 (นโยบายความเป็นส่วนตัว - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[หลักการไม่เก็บข้อมูลส่วนบุคคลที่ละเอียดอ่อน]</strong> เพื่อป้องกันการละเมิดความเป็นส่วนตัว เกมนี้จึงไม่มีระบบสมัครสมาชิกแยกต่างหาก แต่ให้บริการผ่านการเชื่อมต่อบัญชี Google (Google OAuth) ผู้พัฒนาจะไม่เก็บรวบรวมหรือบันทึกข้อมูลส่วนบุคคลที่ละเอียดอ่อน เช่น ชื่อจริง หมายเลขบัตรประชาชน หมายเลขโทรศัพท์ สมุดรายชื่อ หรือวันเดือนปีเกิดโดยเด็ดขาด</div>
+                <div class="clause-item">2. <strong>[ข้อมูลที่จัดเก็บและวิธีการ]</strong> ระบบจะจัดเก็บเฉพาะรหัสประจำตัวเฉพาะที่สร้างขึ้นเมื่อเข้าสู่ระบบด้วย Google (Google User UID), ชื่อเล่นที่ผู้ใช้ตั้งเองในเกม และข้อมูลความคืบหน้าของเกม (ทอง เพชร ประวัติการแข่งขัน คะแนนจัดอันดับ และรายการสกินที่ปลดล็อก) ผ่านระบบ Google Firebase เท่านั้น</div>
+                <div class="clause-item">3. <strong>[วัตถุประสงค์การใช้งาน]</strong> ข้อมูลที่รวบรวมจะถูกใช้เพื่อบันทึกสถานะความคืบหน้าของเกม การคำนวณอันดับกระดานผู้นำระดับโลก การแก้ไขข้อผิดพลาดในเกม และการตอบกลับข้อซักถามของลูกค้าเท่านั้น</div>
+                <div class="clause-item">4. <strong>[การจัดการคลาวด์ที่ปลอดภัย]</strong> ข้อมูลเกมทั้งหมดจะถูกเข้ารหัสและเก็บรักษาอย่างปลอดภัยบนเซิร์ฟเวอร์ Firebase Firestore ของ Google Cloud Platform ผู้พัฒนาจะไม่นำข้อมูลไปขายหรือเปิดเผยต่อบุคคลที่สามโดยไม่ได้รับความยินยอมจากผู้ใช้</div>
+                <div class="clause-item">5. <strong>[การลบบัญชีและการทำลายข้อมูลอย่างถาวรทันที]</strong> ผู้ใช้สามารถลบบัญชีได้ตลอดเวลาผ่านเมนู [การตั้งค่า > ลบบัญชี] ภายในเกม เมื่อส่งคำขอลบบัญชีแล้ว รหัสระบุตัวตนและข้อมูลการเล่นเกมทั้งหมดที่เชื่อมโยงกับบัญชีดังกล่าวบนเซิร์ฟเวอร์คลาวด์ Firebase จะถูกทำลายทิ้งอย่างถาวรในทันทีและไม่สามารถกู้คืนได้ด้วยวิธีการใดๆ</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 4 (นโยบายการชำระเงินและการขอคืนเงิน)</h2>
+                <div class="clause-item">1. <strong>[ระบบการซื้อภายในแอป]</strong> การซื้อสกุลเงินแบบชำระเงินในเกม (เช่น เพชร) จะดำเนินการอย่างปลอดภัยผ่านระบบการชำระเงินในแอป (In-App Purchase) อย่างเป็นทางการของ Google Play Console และ Apple App Store</div>
+                <div class="clause-item">2. <strong>[เกณฑ์การขอคืนเงิน]</strong> ตามกฎหมายคุ้มครองผู้บริโภค สกุลเงินในเกมที่ซื้อแล้วแต่ยังไม่ได้ใช้งานเลยแม้แต่ส่วนเดียว สามารถยื่นคำร้องขอคืนเงินได้ภายใน 7 วันนับจากวันที่ซื้อ</div>
+                <div class="clause-item">3. <strong>[ข้อกำหนดที่ไม่สามารถขอคืนเงินได้]</strong> ไม่สามารถขอคืนเงินได้ในกรณีดังต่อไปนี้:
+                    <div class="info-box">
+                        <ul>
+                            <li>สกุลเงินแบบชำระเงินที่มีผลบังคับใช้ทันทีหลังซื้อ หรือถูกใช้ไปบางส่วนหรือทั้งหมดแล้ว</li>
+                            <li>สกินตัวละครและไอเทมแพ็กเกจที่ถูกปลดล็อกให้ใช้งานได้ทันทีที่ซื้อ</li>
+                            <li>สกุลเงินและไอเทมทั้งหมดที่ได้รับฟรีจากการเล่นเกม กิจกรรม การเช็คชื่อเข้าเกม หรือการทำภารกิจสำเร็จ</li>
+                            <li>กรณีที่บัญชีถูกระงับเนื่องจากความจงใจ ความประมาทเลินเล่ออย่างร้ายแรง หรือการทุจริตของผู้ใช้ (การดัดแปลงข้อมูล การใช้บั๊กในทางที่ผิด ฯลฯ)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[ขั้นตอนและช่องทางการขอคืนเงิน]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>ภายใน 48 ชั่วโมงหลังชำระเงิน:</strong> การยื่นขอคืนเงินโดยตรงผ่านหน้าประวัติการสั่งซื้อของ Google Play (play.google.com) หรือหน้า 'รายงานปัญหา' ของ Apple (reportaproblem.apple.com) จะได้รับการดำเนินการที่รวดเร็วที่สุดตามนโยบายของสโตร์</li>
+                            <li><strong>หลัง 48 ชั่วโมง ถึง 7 วัน:</strong> กรุณาส่งอีเมลไปที่ศูนย์ช่วยเหลืออย่างเป็นทางการ (<code>robin.robin.park4@gmail.com</code>) พร้อมแนบ [หมายเลขคำสั่งซื้อใบเสร็จ Google/Apple (รูปแบบ GPA.xxxx-xxxx), ชื่อเล่นในเกม, วันเวลาที่ซื้อ และเหตุผลการขอคืนเงิน] เมื่อตรวจสอบแล้วว่ายังไม่ได้ใช้งาน เราจะดำเนินการคืนเงินตามลำดับ</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 5 (การเปลี่ยนแปลง การระงับบริการ และสิทธิ์ในไอเทมถาวร)</h2>
+                <div class="clause-item">1. ผู้พัฒนาสามารถแก้ไข เปลี่ยนแปลง หรือระงับบริการบางส่วนหรือทั้งหมดได้หลังจากแจ้งให้ทราบล่วงหน้า เพื่อความจำเป็นด้านการวางแผนเกม การจัดการทางเทคนิค การแก้ไขบั๊ก หรือการปรับสมดุล</div>
+                <div class="clause-item">2. สิทธิ์ในการใช้งานไอเทมที่ระบุว่า 'ถาวร (Permanent)' ที่จำหน่ายในร้านค้าเกม จะจำกัดอยู่เฉพาะในช่วงเวลาที่เกมยังคงเปิดให้บริการตามปกติเท่านั้น</div>
+                <div class="clause-item">3. ในกรณีจำเป็นที่ต้องยุติการให้บริการเกมอย่างถาวร ผู้พัฒนาจะแจ้งให้ผู้ใช้ทราบล่วงหน้าอย่างน้อย 30 วันก่อนวันยุติบริการผ่านประกาศภายในเกม</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 6 (การลงโทษการทุจริตและทรัพย์สินทางปัญญา)</h2>
+                <div class="clause-item">1. ห้ามมิให้ผู้ใช้จงใจใช้ช่องโหว่ของระบบเกม (บั๊ก) ดัดแปลงหน่วยความจำ แก้ไขแพ็กเก็ต หรือใช้โปรแกรมอัตโนมัติ (มาโคร) ที่ขัดขวางการทำงานปกติของเกม หากตรวจพบ อาจถูกรีเซ็ตข้อมูลบัญชี ลบบัญชีอย่างถาวร หรือจำกัดการใช้บริการโดยไม่ต้องแจ้งให้ทราบล่วงหน้า</div>
+                <div class="clause-item">2. ลิขสิทธิ์และทรัพย์สินทางปัญญาในซอร์สโค้ด กราฟิก เสียง การออกแบบ UI และตรรกะระบบทั้งหมดที่รวมอยู่ในเกมนี้ เป็นของผู้พัฒนาแต่เพียงผู้เดียว</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">ข้อที่ 7 (ข้อมูลผู้พัฒนาและช่องทางติดต่อฝ่ายสนับสนุนอย่างเป็นทางการ)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>ชื่อเกม:</strong> ศึกชิงอำนาจโลก (Global Hegemony)</li>
+                        <li><strong>ผู้พัฒนาและผู้ให้บริการ:</strong> ผู้พัฒนาอิสระ (Team Global Hegemony)</li>
+                        <li><strong>อีเมลติดต่อและแจ้งเรื่องการละเมิดสิทธิ์:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>วันที่มีผลบังคับใช้:</strong> 15 ตุลาคม 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    id: {
+        badge: "Dokumen Hukum Resmi (Official Legal Document)",
+        mainTitle: "Hegemoni Global - Ketentuan Layanan & Kebijakan Privasi",
+        metaDate: "Terakhir Diperbarui: 15 Oktober 2026",
+        metaDev: "Pengembang & Operator: Team Global Hegemony",
+        metaEmail: "Dukungan Resmi: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Ke Atas",
+        closeBtn: "✖ Tutup (Kembali ke Game)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 1 (Tujuan & Gambaran Umum Layanan)</h2>
+                <div class="clause-item">1. Ketentuan Layanan ini bertujuan untuk mengatur hak, kewajiban, dan tanggung jawab antara pengembang individu (Team Global Hegemony, selanjutnya disebut "Pengembang") dan pengguna terkait penggunaan game papan strategi berbasis giliran (turn-based) di perangkat seluler dan web 'Hegemoni Global (Global Hegemony)' (selanjutnya disebut "Game") beserta seluruh layanan terkaitnya.</div>
+                <div class="clause-item">2. Game ini adalah permainan papan simulasi strategi berbasis giliran yang terinspirasi oleh dinamika geopolitik, ekonomi, dan hubungan internasional.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 2 (Pemberitahuan Hukum tentang Satir, Parodi & Fiksi Absolut - Pelepasan Tanggung Jawab Utama)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Pernyataan Tegas tentang Karikatur Karakter Fiktif AI & Fiksi Total]</div>
+                    <p><strong>Semua gambar karakter yang muncul di dalam Game ini adalah karikatur dari individu fiktif yang tidak ada di dunia nyata, yang dibuat menggunakan teknologi kecerdasan buatan generatif (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Semua negara, karakter, tokoh, nama, dialog, peristiwa, dan pengaturan detail dalam Game ini adalah <strong>karya fiksi belaka (Fiction)</strong> yang diciptakan semata-mata untuk hiburan permainan dan satir/parodi politik.</div>
+                <div class="clause-item">2. Game ini tidak memiliki keterkaitan apa pun dengan individu nyata (baik yang masih hidup maupun telah meninggal), partai politik, lembaga pemerintah, negara, agama tertentu, atau organisasi swasta mana pun, serta tidak mengandung maksud politik atau sosial untuk mendukung, memfitnah, menghina, atau mencemarkan nama baik siapa pun.</div>
+                <div class="clause-item">3. Peristiwa, statistik kemampuan karakter, dan dialog yang digambarkan dalam Game tidak berkaitan dengan fakta dunia nyata dan hanyalah ekspresi parodi yang dilebih-lebihkan secara humoris demi sistem permainan. Pengembang tidak menjamin keakuratan faktualnya dan tidak bertanggung jawab secara hukum atas interpretasi subjektif atau ideologis apa pun yang timbul dari bermain game.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 3 (Kebijakan Privasi - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Prinsip Tidak Mengumpulkan Data Pribadi Sensitif]</strong> Untuk mencegah pelanggaran privasi, Game ini tidak memiliki prosedur pendaftaran anggota terpisah dan menyediakan layanan melalui tautan autentikasi Akun Google (Google OAuth). Pengembang sama sekali tidak mengumpulkan atau menyimpan informasi identitas pribadi yang sensitif seperti nama asli, nomor induk kependudukan, nomor telepon, daftar kontak, atau tanggal lahir.</div>
+                <div class="clause-item">2. <strong>[Data yang Dikumpulkan & Metode]</strong> Hanya pengidentifikasi unik yang dibuat saat login dengan Akun Google (Google User UID), nama panggilan (nickname) yang dimasukkan pengguna di dalam game, serta data progres permainan (emas, berlian, riwayat pertandingan, skor peringkat, daftar skin yang dibuka) yang diproses melalui sistem Google Firebase.</div>
+                <div class="clause-item">3. <strong>[Tujuan Penggunaan]</strong> Data yang dikumpulkan hanya digunakan untuk menyimpan progres permainan pengguna, menghitung peringkat papan peringkat (leaderboard) global, memperbaiki kesalahan teknis dalam game, dan menanggapi pertanyaan dukungan pelanggan.</div>
+                <div class="clause-item">4. <strong>[Manajemen Cloud yang Aman]</strong> Semua data game dienkripsi dan disimpan dengan aman di server keamanan Firebase Firestore milik Google Cloud Platform. Pengembang tidak akan pernah menjual atau membocorkan informasi kepada pihak ketiga tanpa persetujuan pengguna.</div>
+                <div class="clause-item">5. <strong>[Penghapusan Akun & Pemusnahan Data Permanen Seketika]</strong> Pengguna dapat menghapus akun kapan saja secara langsung melalui fitur [Pengaturan > Hapus Akun] di dalam game. Saat permintaan penghapusan diajukan, semua pengidentifikasi dan data permainan akun tersebut di server cloud Firebase akan segera dimusnahkan secara permanen tanpa penundaan dan tidak dapat dipulihkan dengan cara apa pun.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 4 (Kebijakan Pembayaran & Pengembalian Dana / Refund)</h2>
+                <div class="clause-item">1. <strong>[Sistem Pembelian Dalam Aplikasi]</strong> Pembelian mata uang berbayar di dalam game (seperti Berlian) diproses secara aman melalui sistem penagihan resmi In-App Purchase dari Google Play Console dan Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Kriteria Pengembalian Dana (Refund)]</strong> Sesuai dengan undang-undang perlindungan konsumen yang berlaku, mata uang berbayar yang sama sekali belum digunakan setelah pembelian dapat diajukan untuk pengembalian dana dalam waktu 7 hari sejak tanggal pembelian.</div>
+                <div class="clause-item">3. <strong>[Ketentuan Tidak Dapat Di-refund]</strong> Pengembalian dana tidak dapat dilakukan apabila memenuhi salah satu kondisi berikut:
+                    <div class="info-box">
+                        <ul>
+                            <li>Mata uang berbayar yang efeknya langsung diterapkan setelah pembelian atau telah digunakan/dikonsumsi sebagian maupun seluruhnya;</li>
+                            <li>Skin karakter dan item paket yang langsung terbuka dan dapat digunakan segera setelah pembelian;</li>
+                            <li>Semua mata uang dan item yang diberikan secara gratis melalui permainan, event, absensi harian, atau penyelesaian misi;</li>
+                            <li>Akun yang dikenai sanksi akibat kesengajaan, kelalaian berat, atau tindakan kecurangan pengguna (manipulasi data, eksploitasi bug, dll.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Prosedur & Saluran Pengajuan Refund]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Dalam 48 jam setelah pembayaran:</strong> Mengajukan refund secara langsung melalui halaman Riwayat Pesanan Google Play (play.google.com) atau 'Laporkan Masalah' Apple (reportaproblem.apple.com) akan memberikan pemrosesan tercepat sesuai kebijakan toko aplikasi.</li>
+                            <li><strong>Antara 48 jam hingga 7 hari:</strong> Kirimkan email ke dukungan resmi pengembang (<code>robin.robin.park4@gmail.com</code>) dengan melampirkan [Nomor Pesanan tanda terima Google/Apple (format GPA.xxxx-xxxx), Nickname dalam game, Waktu pembelian, dan Alasan refund]. Setelah diverifikasi belum digunakan, refund akan diproses sesuai ketentuan hukum.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 5 (Perubahan, Penghentian Layanan & Hak atas Item Permanen)</h2>
+                <div class="clause-item">1. Pengembang berhak mengubah, memperbarui, atau menghentikan sebagian maupun seluruh layanan setelah pemberitahuan sebelumnya demi kebutuhan perencanaan game, operasional teknis, perbaikan bug, atau penyesuaian keseimbangan.</div>
+                <div class="clause-item">2. Hak penggunaan atas item bertanda 'Permanen (Permanent)' yang dijual di toko game terbatas pada periode selama layanan Game ini beroperasi dan dipertahankan secara normal.</div>
+                <div class="clause-item">3. Apabila layanan Game harus dihentikan secara permanen karena alasan operasional yang tidak dapat dihindari, Pengembang akan memberitahukan kepada pengguna setidaknya 30 hari sebelum penghentian layanan melalui pengumuman di dalam game.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 6 (Sanksi Kecurangan & Hak Kekayaan Intelektual)</h2>
+                <div class="clause-item">1. Pengguna dilarang keras dengan sengaja mengeksploitasi celah sistem game (bug), memodifikasi memori program, memanipulasi paket data, atau menggunakan makro otomatis yang mengganggu operasional normal game. Jika terbukti melanggar, tindakan berupa reset data akun, penghapusan permanen, atau pembatasan layanan dapat diambil tanpa pemberitahuan sebelumnya.</div>
+                <div class="clause-item">2. Seluruh hak cipta dan hak kekayaan intelektual atas kode sumber, grafik, suara, desain UI, dan logika sistem yang terdapat dalam Game ini sepenuhnya merupakan milik Pengembang.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Pasal 7 (Informasi Pengembang & Saluran Dukungan Pelanggan Resmi)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Nama Game:</strong> Hegemoni Global (Global Hegemony)</li>
+                        <li><strong>Pengembang & Operator:</strong> Pengembang Individu (Team Global Hegemony)</li>
+                        <li><strong>Email Resmi Dukungan & Pelaporan Pelanggaran Hak:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Tanggal Berlaku:</strong> 15 Oktober 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    es: {
+        badge: "Documento Legal Oficial (Official Legal Document)",
+        mainTitle: "Hegemonía Global - Términos de Servicio y Política de Privacidad",
+        metaDate: "Última actualización: 15 de octubre de 2026",
+        metaDev: "Desarrollo y operación: Team Global Hegemony",
+        metaEmail: "Soporte oficial: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Arriba",
+        closeBtn: "✖ Cerrar (Volver al Juego)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 1 (Propósito y Descripción del Servicio)</h2>
+                <div class="clause-item">1. Estos Términos de Servicio regulan los derechos, obligaciones y responsabilidades entre el desarrollador individual (Team Global Hegemony, en adelante el "Desarrollador") y los usuarios con respecto al uso del juego de mesa de estrategia por turnos para dispositivos móviles y web 'Hegemonía Global (Global Hegemony)' (en adelante el "Juego") y todos sus servicios asociados.</div>
+                <div class="clause-item">2. El Juego es un juego de mesa de simulación estratégica por turnos inspirado en las relaciones internacionales, la economía y la dinámica geopolítica mundial.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 2 (Aviso Legal sobre Sátira, Parodia y Ficción Absoluta - Exención de Responsabilidad Principal)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Declaración Expresa sobre Caricaturas de Personajes Ficticios generados por IA y Ficción Total]</div>
+                    <p><strong>Todas las imágenes de personajes que aparecen en este Juego son caricaturas de individuos ficticios e inexistentes en la realidad, creadas mediante tecnología de Inteligencia Artificial Generativa (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Todas las naciones, personajes, figuras, nombres, diálogos, eventos y configuraciones detalladas que aparecen en este Juego son <strong>obras de pura ficción (Fiction)</strong> creadas exclusivamente con fines de entretenimiento lúdico y sátira/parodia política.</div>
+                <div class="clause-item">2. Este Juego no tiene afiliación, asociación ni vínculo alguno con personas reales vivas o fallecidas, partidos políticos, agencias gubernamentales, estados soberanos, instituciones religiosas ni organizaciones privadas, y no contiene ninguna intención política o social de apoyar, difamar, insultar o calumniar a ninguna persona o entidad.</div>
+                <div class="clause-item">3. Los eventos, estadísticas de personajes y diálogos representados en el Juego no guardan relación con hechos reales y son meras expresiones exageradas o parodiadas con humor para el sistema de juego. El Desarrollador no garantiza su veracidad fáctica y no asume responsabilidad legal por ninguna interpretación subjetiva o ideológica derivada del juego.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 3 (Política de Privacidad - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Principio de No Recopilación de Datos Personales Sensibles]</strong> Para proteger la privacidad del usuario, el Juego no requiere un registro de membresía independiente y ofrece el servicio mediante la vinculación de autenticación con Cuenta de Google (Google OAuth). El Desarrollador no recopila ni almacena en absoluto datos de identificación personal sensibles como nombres reales, números de documento de identidad, números de teléfono, libretas de contactos o fechas de nacimiento.</div>
+                <div class="clause-item">2. <strong>[Datos Recopilados y Método]</strong> Únicamente el identificador único generado al iniciar sesión con Google (Google User UID), el apodo (nickname) elegido por el usuario dentro del juego y los datos de progreso del juego (oro, diamantes, historial de partidas, puntuación de clasificación y lista de aspectos desbloqueados) se procesan a través del sistema Google Firebase.</div>
+                <div class="clause-item">3. <strong>[Finalidad del Tratamiento]</strong> Los datos recopilados se utilizan exclusivamente para guardar el progreso del juego del usuario, calcular las clasificaciones globales (leaderboards), resolver errores técnicos y atender consultas de soporte al cliente.</div>
+                <div class="clause-item">4. <strong>[Gestión Segura en la Nube]</strong> Todos los datos del juego están cifrados y almacenados de forma segura en los servidores Firebase Firestore de Google Cloud Platform. El Desarrollador jamás venderá ni divulgará datos a terceros sin el consentimiento del usuario.</div>
+                <div class="clause-item">5. <strong>[Eliminación de Cuenta y Destrucción Permanente Inmediata]</strong> Los usuarios pueden eliminar su cuenta en cualquier momento a través de la función [Ajustes > Eliminar Cuenta] dentro del Juego. Al solicitar la baja, todos los identificadores y registros de juego vinculados a dicha cuenta en los servidores en la nube de Firebase se destruyen de forma inmediata y permanente, sin posibilidad de recuperación bajo ninguna circunstancia.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 4 (Política de Pagos, Desistimiento y Reembolsos)</h2>
+                <div class="clause-item">1. <strong>[Sistema de Compras Integradas]</strong> La compra de moneda virtual de pago dentro del juego (como Diamantes) se procesa de manera segura a través de los sistemas oficiales de facturación In-App Purchase de Google Play Console y Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Criterios de Desistimiento (Reembolso)]</strong> De acuerdo con las leyes de protección al consumidor aplicables, las monedas virtuales de pago que no hayan sido utilizadas en absoluto después de su compra pueden solicitarse para reembolso dentro de los 7 días posteriores a la fecha de compra.</div>
+                <div class="clause-item">3. <strong>[Artículos No Reembolsables]</strong> No se admiten reembolsos en ninguno de los siguientes casos:
+                    <div class="info-box">
+                        <ul>
+                            <li>Monedas virtuales de pago cuyo efecto se aplique inmediatamente tras la compra o que hayan sido consumidas parcial o totalmente;</li>
+                            <li>Aspectos de personajes (skins) y paquetes de artículos que se desbloquean y habilitan inmediatamente en el momento de la compra;</li>
+                            <li>Todas las monedas y artículos obtenidos gratuitamente mediante el juego, eventos, asistencia diaria o logro de misiones;</li>
+                            <li>Cuentas sancionadas debido a dolo, negligencia grave o conductas fraudulentas del usuario (manipulación de datos, abuso de errores/bugs, etc.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procedimiento y Canales de Solicitud de Reembolso]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Dentro de las 48 horas posteriores al pago:</strong> Solicitar el reembolso directamente en el Historial de pedidos de Google Play (play.google.com) o en la página 'Informar de un problema' de Apple (reportaproblem.apple.com) garantiza la resolución automática más rápida según las políticas de la tienda.</li>
+                            <li><strong>Entre 48 horas y 7 días:</strong> Envíe un correo electrónico al soporte oficial (<code>robin.robin.park4@gmail.com</code>) adjuntando [Número de pedido del recibo de Google/Apple (formato GPA.xxxx-xxxx), Apodo en el juego, Fecha y hora de compra y Motivo del reembolso]. Tras verificar que no se ha utilizado, se tramitará el reembolso conforme a la ley.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 5 (Modificación, Suspensión del Servicio y Derechos sobre Artículos Permanentes)</h2>
+                <div class="clause-item">1. El Desarrollador se reserva el derecho de modificar, actualizar o suspender parcial o totalmente el servicio previo aviso por necesidades de diseño del juego, operaciones técnicas, corrección de errores o ajustes de equilibrio.</div>
+                <div class="clause-item">2. Los derechos de uso de los artículos marcados como 'Permanentes (Permanent)' vendidos en la tienda del juego se limitan estrictamente al período durante el cual el servicio del Juego permanezca activo y operativo.</div>
+                <div class="clause-item">3. En caso de que el servicio del Juego deba finalizar de forma permanente por razones inevitables, el Desarrollador lo notificará a los usuarios con al menos 30 días de antelación mediante anuncios dentro del juego.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 6 (Sanciones por Trampas y Propiedad Intelectual)</h2>
+                <div class="clause-item">1. Queda estrictamente prohibido explotar intencionadamente vulnerabilidades del sistema (bugs), alterar la memoria del programa, manipular paquetes o usar macros automatizadas que interfieran con la operación normal del Juego. En caso de detectarse, se podrá restablecer o eliminar permanentemente la cuenta sin previo aviso.</div>
+                <div class="clause-item">2. Todos los derechos de autor y de propiedad intelectual sobre el código fuente, gráficos, sonidos, diseño de interfaz (UI) y lógica del sistema incluidos en este Juego pertenecen en exclusiva al Desarrollador.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artículo 7 (Información del Desarrollador y Contacto Oficial)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Título del Juego:</strong> Hegemonía Global (Global Hegemony)</li>
+                        <li><strong>Desarrollador y Operador:</strong> Desarrollador Individual (Team Global Hegemony)</li>
+                        <li><strong>Correo Oficial de Soporte y Derechos:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Fecha de Entrada en Vigor:</strong> 15 de octubre de 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    fr: {
+        badge: "Document Juridique Officiel (Official Legal Document)",
+        mainTitle: "Hégémonie Mondiale - Conditions d'Utilisation et Politique de Confidentialité",
+        metaDate: "Dernière mise à jour : 15 octobre 2026",
+        metaDev: "Développement et exploitation : Team Global Hegemony",
+        metaEmail: "Support officiel : robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Haut",
+        closeBtn: "✖ Fermer (Retour au Jeu)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Article 1 (Objet et Présentation du Service)</h2>
+                <div class="clause-item">1. Les présentes Conditions d'Utilisation définissent les droits, obligations et responsabilités entre le développeur individuel (Team Global Hegemony, ci-après le « Développeur ») et les utilisateurs dans le cadre de l'utilisation du jeu de plateau stratégique au tour par tour sur mobile et web « Hégémonie Mondiale (Global Hegemony) » (ci-après le « Jeu ») ainsi que de tous ses services associés.</div>
+                <div class="clause-item">2. Le Jeu est une simulation stratégique au tour par tour inspirée des relations internationales, de l'économie et de la géopolitique mondiale.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 2 (Avis Juridique sur la Satire, la Parodie et la Fiction Absolue - Clause de Non-Responsabilité Prioritaire)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Déclaration Expresse sur les Caricatures de Personnages Fictifs par IA et la Fiction Totale]</div>
+                    <p><strong>Toutes les images de personnages apparaissant dans ce Jeu sont des caricatures d'individus fictifs et inexistants dans la réalité, créées à l'aide de la technologie d'Intelligence Artificielle Générative (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. L'ensemble des nations, personnages, figures, noms, dialogues, événements et paramètres détaillés figurant dans ce Jeu constituent <strong>une œuvre de pure fiction (Fiction)</strong> créée exclusivement à des fins de divertissement ludique et de satire/parodie politique.</div>
+                <div class="clause-item">2. Ce Jeu n'entretient aucun lien, affiliation ou association avec des personnes réelles vivantes ou décédées, des partis politiques, des institutions gouvernementales, des États souverains ou des organisations religieuses, et ne comporte aucune intention politique ou sociale de soutenir, diffamer, insulter ou porter atteinte à l'honneur de quiconque.</div>
+                <div class="clause-item">3. Les événements, statistiques de personnages et dialogues décrits dans le Jeu sont indépendants des faits réels et ne sont que des expressions exagérées ou parodiées avec humour pour les besoins du système de jeu. Le Développeur ne garantit aucunement leur exactitude factuelle et décline toute responsabilité juridique quant aux interprétations subjectives ou idéologiques découlant de l'expérience de jeu.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 3 (Politique de Confidentialité - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Principe de Non-Collecte de Données Sensibles]</strong> Afin de protéger la vie privée des utilisateurs, le Jeu ne comporte pas de procédure d'inscription distincte et fournit le service via l'authentification liée au Compte Google (Google OAuth). Le Développeur ne collecte ni ne stocke aucune donnée d'identification personnelle sensible telle que le nom réel, le numéro d'identité nationale, le numéro de téléphone, le carnet d'adresses ou la date de naissance.</div>
+                <div class="clause-item">2. <strong>[Données Collectées et Méthode]</strong> Seuls l'identifiant unique généré lors de la connexion Google (Google User UID), le pseudonyme (nickname) saisi par l'utilisateur dans le jeu et les données de progression (or, diamants, historique des matchs, score de classement et liste des skins débloqués) sont traités via le système Google Firebase.</div>
+                <div class="clause-item">3. <strong>[Finalité d'Utilisation]</strong> Les données collectées servent exclusivement à sauvegarder la progression du joueur, calculer les classements mondiaux (leaderboards), corriger les erreurs techniques et répondre aux demandes d'assistance client.</div>
+                <div class="clause-item">4. <strong>[Gestion Cloud Sécurisée]</strong> Toutes les données du jeu sont chiffrées et conservées en toute sécurité sur les serveurs Firebase Firestore de Google Cloud Platform. Le Développeur ne vendra ni ne divulguera jamais ces informations à des tiers sans le consentement de l'utilisateur.</div>
+                <div class="clause-item">5. <strong>[Suppression du Compte et Destruction Permanente Immédiate]</strong> L'utilisateur peut supprimer son compte à tout moment via la fonction [Paramètres > Supprimer le compte] dans le Jeu. Dès la demande de suppression, tous les identifiants et données de jeu liés à ce compte sur les serveurs cloud Firebase sont immédiatement et définitivement détruits, sans aucune possibilité de récupération.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 4 (Politique de Paiement, de Rétractation et de Remboursement)</h2>
+                <div class="clause-item">1. <strong>[Système d'Achats Intégrés]</strong> L'achat de devises virtuelles payantes dans le jeu (Diamants, etc.) est traité de manière sécurisée via les plateformes officielles de facturation In-App Purchase de Google Play Console et de l'Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Critères de Rétractation (Remboursement)]</strong> Conformément aux lois applicables sur la protection des consommateurs, les devises virtuelles payantes qui n'ont aucunement été utilisées après l'achat peuvent faire l'objet d'une demande de remboursement dans un délai de 7 jours suivant la date d'achat.</div>
+                <div class="clause-item">3. <strong>[Articles Non Remboursables]</strong> Aucun remboursement n'est possible dans les cas suivants :
+                    <div class="info-box">
+                        <ul>
+                            <li>Devises virtuelles payantes dont l'effet s'applique immédiatement après l'achat ou qui ont été partiellement ou totalement consommées ;</li>
+                            <li>Apparences de personnages (skins) et packs d'objets débloqués et utilisables immédiatement dès l'achat ;</li>
+                            <li>Toutes les devises et objets obtenus gratuitement via le jeu, les événements, la présence quotidienne ou l'accomplissement de missions ;</li>
+                            <li>Comptes sanctionnés en raison d'une faute intentionnelle, d'une négligence grave ou de tricherie de l'utilisateur (manipulation de données, exploitation de bugs, etc.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procédure et Canaux de Demande de Remboursement]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Dans les 48 heures suivant le paiement :</strong> Effectuer une demande directe via l'Historique des commandes Google Play (play.google.com) ou la page « Signaler un problème » d'Apple (reportaproblem.apple.com) permet le traitement automatisé le plus rapide selon les règles de la boutique.</li>
+                            <li><strong>Entre 48 heures et 7 jours :</strong> Envoyez un e-mail au support officiel (<code>robin.robin.park4@gmail.com</code>) en indiquant [Numéro de commande du reçu Google/Apple (format GPA.xxxx-xxxx), Pseudonyme dans le jeu, Date et heure d'achat et Motif du remboursement]. Après vérification de la non-utilisation, le remboursement sera traité conformément à la loi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 5 (Modification, Interruption du Service et Droits sur les Objets Permanents)</h2>
+                <div class="clause-item">1. Le Développeur peut modifier, mettre à jour ou interrompre tout ou partie du service après préavis pour des raisons de conception, d'exploitation technique, de correction de bugs ou d'équilibrage.</div>
+                <div class="clause-item">2. Le droit d'utilisation des objets qualifiés de « Permanents (Permanent) » vendus dans la boutique du jeu est strictement limité à la période pendant laquelle le service du Jeu est normalement exploité et maintenu.</div>
+                <div class="clause-item">3. Si le service du Jeu doit être définitivement arrêté pour des raisons indépendantes de sa volonté, le Développeur en informera les utilisateurs au moins 30 jours à l'avance par le biais d'annonces en jeu.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 6 (Sanctions contre la Triche et Propriété Intellectuelle)</h2>
+                <div class="clause-item">1. Il est strictement interdit d'exploiter intentionnellement des failles du système (bugs), de modifier la mémoire du programme, de manipuler des paquets ou d'utiliser des macros automatisées perturbant le fonctionnement normal du Jeu. Toute infraction peut entraîner la réinitialisation ou la suppression définitive du compte sans préavis.</div>
+                <div class="clause-item">2. Tous les droits d'auteur et de propriété intellectuelle relatifs au code source, aux graphismes, aux sons, à l'interface utilisateur (UI) et à la logique système inclus dans ce Jeu appartiennent exclusivement au Développeur.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Article 7 (Informations sur le Développeur et Support Client Officiel)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Titre du Jeu :</strong> Hégémonie Mondiale (Global Hegemony)</li>
+                        <li><strong>Développeur et Exploitant :</strong> Développeur Individuel (Team Global Hegemony)</li>
+                        <li><strong>E-mail Officiel de Support et Droits :</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Date d'Entrée en Vigueur :</strong> 15 octobre 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    de: {
+        badge: "Offizielles Rechtsdokument (Official Legal Document)",
+        mainTitle: "Globale Hegemonie – Nutzungsbedingungen & Datenschutzerklärung",
+        metaDate: "Zuletzt aktualisiert: 15. Oktober 2026",
+        metaDev: "Entwicklung & Betrieb: Team Global Hegemony",
+        metaEmail: "Offizieller Support: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Nach oben",
+        closeBtn: "✖ Schließen (Zurück zum Spiel)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 1 (Zweck & Dienstübersicht)</h2>
+                <div class="clause-item">1. Diese Nutzungsbedingungen regeln die Rechte, Pflichten und Verantwortlichkeiten zwischen dem Einzelentwickler (Team Global Hegemony, nachfolgend „Entwickler“) und den Nutzern in Bezug auf die Nutzung des mobilen und webbasierten rundenbasierten Strategie-Brettspiels ‚Globale Hegemonie (Global Hegemony)‘ (nachfolgend „Spiel“) sowie aller damit verbundenen Dienste.</div>
+                <div class="clause-item">2. Das Spiel ist ein rundenbasiertes Strategiesimulations-Brettspiel, das von internationalen Beziehungen, Wirtschaft und geopolitischen Dynamiken inspiriert ist.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 2 (Rechtlicher Hinweis zu Satire, Parodie & absoluter Fiktion – Vorrangiger Haftungsausschluss)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Ausdrückliche Erklärung zu KI-generierten Karikaturen fiktiver Personen & vollständiger Fiktion]</div>
+                    <p><strong>Alle in diesem Spiel erscheinenden Charakterbilder sind Karikaturen nicht existierender, rein fiktiver Personen, die mithilfe generativer künstlicher Intelligenz (Generative AI) erstellt wurden.</strong></p>
+                </div>
+                <div class="clause-item">1. Alle in diesem Spiel dargestellten Nationen, Charaktere, Figuren, Namen, Dialoge, Ereignisse und Detailsettings sind <strong>reine Fiktion (Fiction)</strong>, die ausschließlich zur Spielunterhaltung sowie zur politischen Satire und Parodie geschaffen wurden.</div>
+                <div class="clause-item">2. Dieses Spiel steht in keinerlei Verbindung zu lebenden oder verstorbenen realen Personen, politischen Parteien, Regierungsbehörden, Staaten, Religionsgemeinschaften oder privaten Organisationen und verfolgt keinerlei politische oder gesellschaftliche Absicht, jemanden zu unterstützen, zu diffamieren, zu beleidigen oder zu verleumden.</div>
+                <div class="clause-item">3. Im Spiel dargestellte Ereignisse, Charakterwerte und Dialoge stehen in keinem Zusammenhang mit realen Tatsachen, sondern sind lediglich spielmechanisch überspitzte oder humorvoll parodierte Darstellungen. Der Entwickler übernimmt keine Gewähr für deren sachliche Richtigkeit und haftet rechtlich nicht für subjektive oder ideologische Interpretationen durch die Spieler.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 3 (Datenschutzerklärung – Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Grundsatz der Nichterhebung sensibler personenbezogener Daten]</strong> Um die Privatsphäre der Nutzer zu schützen, verzichtet das Spiel auf eine separate Registrierung und stellt den Dienst über die Google-Konto-Authentifizierung (Google OAuth) bereit. Der Entwickler erhebt oder speichert keinerlei sensible Identifikationsdaten wie Klarnamen, Personalausweisnummern, Telefonnummern, Adressbücher oder Geburtsdaten.</div>
+                <div class="clause-item">2. <strong>[Erhobene Daten & Methode]</strong> Über das Google Firebase-System werden ausschließlich die beim Google-Login erzeugte eindeutige Kennung (Google User UID), der vom Nutzer im Spiel selbst gewählte Spitzname (Nickname) sowie die Spielfortschrittsdaten (Gold, Diamanten, Spielverlauf, Ranglistenpunkte und freigeschaltete Skins) verarbeitet.</div>
+                <div class="clause-item">3. <strong>[Verwendungszweck]</strong> Die erhobenen Daten dienen ausschließlich dem Speichern des Spielfortschritts, der Berechnung globaler Ranglisten (Leaderboards), der Behebung technischer Fehler im Spiel sowie der Bearbeitung von Kundensupport-Anfragen.</div>
+                <div class="clause-item">4. <strong>[Sichere Cloud-Verwaltung]</strong> Alle Spieldaten werden verschlüsselt und sicher auf den Firebase Firestore-Sicherheitsservern der Google Cloud Platform gespeichert. Der Entwickler verkauft oder gibt Daten niemals ohne Zustimmung des Nutzers an Dritte weiter.</div>
+                <div class="clause-item">5. <strong>[Kontolöschung & sofortige endgültige Datenvernichtung]</strong> Nutzer können ihr Konto jederzeit direkt im Spiel über [Einstellungen > Konto löschen] kündigen. Mit dem Löschantrag werden sämtliche mit dem Konto verknüpften Kennungen und Spieldaten auf den Firebase-Cloud-Servern unverzüglich und dauerhaft vernichtet und können auf keine Weise wiederhergestellt werden.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 4 (Zahlungs-, Widerrufs- & Rückerstattungsrichtlinie)</h2>
+                <div class="clause-item">1. <strong>[In-App-Kaufsystem]</strong> Der Kauf kostenpflichtiger virtueller Währungen im Spiel (Diamanten usw.) wird sicher über die offiziellen In-App-Kaufsysteme von Google Play Console und Apple App Store abgewickelt.</div>
+                <div class="clause-item">2. <strong>[Kriterien für Widerruf (Rückerstattung)]</strong> Gemäß den geltenden Verbraucherschutzgesetzen kann für kostenpflichtige virtuelle Währung, die nach dem Kauf noch überhaupt nicht verwendet wurde, innerhalb von 7 Tagen ab Kaufdatum eine Rückerstattung beantragt werden.</div>
+                <div class="clause-item">3. <strong>[Ausschluss der Rückerstattung]</strong> In folgenden Fällen ist eine Rückerstattung ausgeschlossen:
+                    <div class="info-box">
+                        <ul>
+                            <li>Kostenpflichtige Währungen, deren Wirkung sofort nach dem Kauf eintritt oder die bereits teilweise oder vollständig verbraucht wurden;</li>
+                            <li>Charakter-Skins und Paketartikel, die unmittelbar mit dem Kauf freigeschaltet und nutzbar gemacht werden;</li>
+                            <li>Sämtliche Währungen und Gegenstände, die kostenlos durch das Spielen, Events, tägliche Anwesenheit oder Missionserfolge erhalten wurden;</li>
+                            <li>Konten, die aufgrund von Vorsatz, grober Fahrlässigkeit oder Betrug des Nutzers (Datenmanipulation, Bug-Ausnutzung usw.) sanktioniert wurden.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Verfahren & Kanäle für Rückerstattungsanträge]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Innerhalb von 48 Stunden nach Zahlung:</strong> Ein direkter Antrag über den Google Play-Bestellverlauf (play.google.com) oder die Apple-Seite „Ein Problem melden“ (reportaproblem.apple.com) gewährleistet die schnellste automatisierte Abwicklung gemäß den Store-Richtlinien.</li>
+                            <li><strong>Zwischen 48 Stunden und 7 Tagen:</strong> Senden Sie eine E-Mail an den offiziellen Support (<code>robin.robin.park4@gmail.com</code>) mit [Bestellnummer des Google/Apple-Belegs (Format GPA.xxxx-xxxx), Nickname im Spiel, Kaufzeitpunkt und Grund für die Rückerstattung]. Nach Prüfung der Nichtbenutzung erfolgt die Erstattung gemäß den gesetzlichen Bestimmungen.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 5 (Dienständerungen, Einstellung & Rechte an permanenten Gegenständen)</h2>
+                <div class="clause-item">1. Der Entwickler ist berechtigt, den Dienst aus Gründen der Spielplanung, des technischen Betriebs, der Fehlerbehebung oder der Balance-Anpassung nach vorheriger Ankündigung teilweise oder vollständig zu ändern oder auszusetzen.</div>
+                <div class="clause-item">2. Das Nutzungsrecht an im Spielshop verkauften ‚Permanenten (Permanent)‘ Gegenständen ist rechtlich auf den Zeitraum beschränkt, in dem der Spieldienst regulär betrieben und aufrechterhalten wird.</div>
+                <div class="clause-item">3. Sollte der Spieldienst aus unvermeidbaren Gründen dauerhaft eingestellt werden, informiert der Entwickler die Nutzer mindestens 30 Tage vor der Einstellung über Ankündigungen im Spiel.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 6 (Ahndung von Betrug & Geistiges Eigentum)</h2>
+                <div class="clause-item">1. Es ist den Nutzern strengstens untersagt, Systemschwachstellen (Bugs) vorsätzlich auszunutzen, Programmspeicher zu manipulieren, Datenpakete zu verändern oder automatisierte Makros zu verwenden, die den normalen Spielbetrieb stören. Bei Verstößen können Kontodaten ohne Vorankündigung zurückgesetzt oder dauerhaft gelöscht werden.</div>
+                <div class="clause-item">2. Alle Urheberrechte und gewerblichen Schutzrechte an Quellcode, Grafiken, Audio, UI-Design und Systemlogik dieses Spiels liegen ausschließlich beim Entwickler.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 7 (Entwicklerinformationen & Offizieller Kundensupport)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Spieltitel:</strong> Globale Hegemonie (Global Hegemony)</li>
+                        <li><strong>Entwickler & Betreiber:</strong> Einzelentwickler (Team Global Hegemony)</li>
+                        <li><strong>Offizielle E-Mail für Support & Rechtsanfragen:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Datum des Inkrafttretens:</strong> 15. Oktober 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    it: {
+        badge: "Documento Legale Ufficiale (Official Legal Document)",
+        mainTitle: "Egemonia Globale - Termini di Servizio e Informativa sulla Privacy",
+        metaDate: "Ultimo aggiornamento: 15 ottobre 2026",
+        metaDev: "Sviluppo e gestione: Team Global Hegemony",
+        metaEmail: "Supporto ufficiale: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ In alto",
+        closeBtn: "✖ Chiudi (Torna al Gioco)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 1 (Scopo e Panoramica del Servizio)</h2>
+                <div class="clause-item">1. I presenti Termini di Servizio disciplinano i diritti, gli obblighi e le responsabilità tra lo sviluppatore individuale (Team Global Hegemony, di seguito lo "Sviluppatore") e gli utenti in merito all'utilizzo del gioco da tavolo strategico a turni per dispositivi mobili e web 'Egemonia Globale (Global Hegemony)' (di seguito il "Gioco") e dei relativi servizi.</div>
+                <div class="clause-item">2. Il Gioco è una simulazione strategica da tavolo a turni ispirata agli affari internazionali, all'economia e alle dinamiche geopolitiche globali.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 2 (Avviso Legale su Satira, Parodia e Finzione Assoluta - Esclusione di Responsabilità Primaria)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Dichiarazione Espressa su Caricature di Personaggi Fittizi tramite IA e Finzione Totale]</div>
+                    <p><strong>Tutte le immagini dei personaggi presenti in questo Gioco sono caricature di individui fittizi e inesistenti nella realtà, create utilizzando la tecnologia di Intelligenza Artificiale Generativa (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Tutte le nazioni, i personaggi, le figure, i nomi, i dialoghi, gli eventi e le impostazioni dettagliate rappresentati in questo Gioco sono <strong>opere di pura finzione (Fiction)</strong> create esclusivamente a scopo di intrattenimento ludico e satira/parodia politica.</div>
+                <div class="clause-item">2. Questo Gioco non ha alcuna affiliazione, associazione o legame con persone reali viventi o decedute, partiti politici, enti governativi, nazioni sovrane, istituzioni religiose o organizzazioni private, e non contiene alcun intento politico o sociale di sostenere, diffamare, insultare o ledere la reputazione di alcuno.</div>
+                <div class="clause-item">3. Gli eventi, le statistiche dei personaggi e i dialoghi descritti nel Gioco sono privi di relazione con fatti reali e costituiscono mere espressioni esagerate o parodiate con umorismo per il sistema di gioco. Lo Sviluppatore non ne garantisce la veridicità fattuale e non si assume alcuna responsabilità legale per eventuali interpretazioni soggettive o ideologiche derivanti dal gioco.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 3 (Informativa sulla Privacy - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Principio di Non Raccolta di Dati Sensibili]</strong> Per tutelare la privacy degli utenti, il Gioco non prevede una procedura di registrazione separata e fornisce il servizio tramite l'autenticazione collegata all'Account Google (Google OAuth). Lo Sviluppatore non raccoglie né memorizza alcun dato identificativo personale sensibile come nomi reali, codici fiscali, numeri di telefono, rubriche o date di nascita.</div>
+                <div class="clause-item">2. <strong>[Dati Raccolti e Metodo]</strong> Tramite il sistema Google Firebase vengono elaborati esclusivamente l'identificativo univoco generato al momento dell'accesso con Google (Google User UID), il soprannome (nickname) inserito dall'utente nel gioco e i dati di avanzamento (oro, diamanti, storico partite, punteggio in classifica e lista delle skin sbloccate).</div>
+                <div class="clause-item">3. <strong>[Finalità di Utilizzo]</strong> I dati raccolti vengono utilizzati esclusivamente per salvare i progressi di gioco dell'utente, calcolare le classifiche globali (leaderboard), risolvere errori tecnici e rispondere alle richieste di assistenza clienti.</div>
+                <div class="clause-item">4. <strong>[Gestione Sicura nel Cloud]</strong> Tutti i dati di gioco sono crittografati e archiviati in modo sicuro sui server Firebase Firestore di Google Cloud Platform. Lo Sviluppatore non venderà né divulgherà mai i dati a terzi senza il consenso dell'utente.</div>
+                <div class="clause-item">5. <strong>[Eliminazione dell'Account e Distruzione Permanente Immediata]</strong> Gli utenti possono eliminare il proprio account in qualsiasi momento tramite la funzione [Impostazioni > Elimina Account] all'interno del Gioco. Alla richiesta di eliminazione, tutti gli identificatori e i dati di gioco associati a tale account sui server cloud Firebase vengono immediatamente e definitivamente distrutti, senza possibilità di recupero.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 4 (Politica sui Pagamenti, Diritto di Recesso e Rimborsi)</h2>
+                <div class="clause-item">1. <strong>[Sistema di Acquisti In-App]</strong> L'acquisto di valuta virtuale a pagamento nel gioco (Diamanti, ecc.) viene elaborato in modo sicuro tramite i sistemi ufficiali di fatturazione In-App Purchase di Google Play Console e Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Criteri di Recesso (Rimborso)]</strong> Ai sensi delle normative vigenti a tutela dei consumatori, la valuta virtuale a pagamento che non sia stata minimamente utilizzata dopo l'acquisto può essere oggetto di richiesta di rimborso entro 7 giorni dalla data di acquisto.</div>
+                <div class="clause-item">3. <strong>[Esclusioni dal Rimborso]</strong> Il rimborso non è consentito nei seguenti casi:
+                    <div class="info-box">
+                        <ul>
+                            <li>Valute virtuali a pagamento il cui effetto si applica immediatamente dopo l'acquisto o che sono state parzialmente o totalmente consumate;</li>
+                            <li>Skin dei personaggi e pacchetti di oggetti sbloccati e resi utilizzabili immediatamente al momento dell'acquisto;</li>
+                            <li>Tutte le valute e gli oggetti ottenuti gratuitamente tramite il gioco, eventi, presenze giornaliere o completamento di missioni;</li>
+                            <li>Account sanzionati a causa di dolo, colpa grave o comportamenti fraudolenti dell'utente (manipolazione dei dati, abuso di bug, ecc.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procedura e Canali per la Richiesta di Rimborso]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Entro 48 ore dal pagamento:</strong> Presentare una richiesta diretta tramite la Cronologia ordini di Google Play (play.google.com) o la pagina 'Segnala un problema' di Apple (reportaproblem.apple.com) garantisce la risoluzione automatizzata più rapida secondo le politiche dello store.</li>
+                            <li><strong>Tra 48 ore e 7 giorni:</strong> Inviare un'e-mail al supporto ufficiale (<code>robin.robin.park4@gmail.com</code>) allegando [Numero d'ordine della ricevuta Google/Apple (formato GPA.xxxx-xxxx), Nickname nel gioco, Data e ora di acquisto e Motivo del rimborso]. Previa verifica del mancato utilizzo, il rimborso verrà elaborato secondo la legge.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 5 (Modifica, Sospensione del Servizio e Diritti sugli Oggetti Permanenti)</h2>
+                <div class="clause-item">1. Lo Sviluppatore si riserva il diritto di modificare, aggiornare o interrompere parzialmente o totalmente il servizio, previo preavviso, per esigenze di progettazione, gestione tecnica, correzione di bug o bilanciamento.</div>
+                <div class="clause-item">2. Il diritto di utilizzo degli oggetti indicati come 'Permanenti (Permanent)' venduti nel negozio di gioco è limitato al periodo in cui il servizio del Gioco è normalmente operativo e mantenuto.</div>
+                <div class="clause-item">3. Qualora il servizio del Gioco debba essere definitivamente interrotto per cause inevitabili, lo Sviluppatore ne darà preavviso agli utenti almeno 30 giorni prima tramite annunci all'interno del gioco.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 6 (Sanzioni contro le Frodi e Proprietà Intellettuale)</h2>
+                <div class="clause-item">1. È severamente vietato sfruttare intenzionalmente vulnerabilità del sistema (bug), alterare la memoria del programma, manipolare pacchetti o utilizzare macro automatizzate che ostacolino il normale funzionamento del Gioco. In caso di violazione, i dati dell'account potranno essere azzerati o eliminati definitivamente senza preavviso.</div>
+                <div class="clause-item">2. Tutti i diritti d'autore e di proprietà intellettuale relativi a codice sorgente, grafica, suoni, design UI e logica di sistema inclusi in questo Gioco appartengono in via esclusiva allo Sviluppatore.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Articolo 7 (Informazioni sullo Sviluppatore e Assistenza Clienti Ufficiale)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Titolo del Gioco:</strong> Egemonia Globale (Global Hegemony)</li>
+                        <li><strong>Sviluppatore e Gestore:</strong> Sviluppatore Individuale (Team Global Hegemony)</li>
+                        <li><strong>E-mail Ufficiale per Supporto e Tutela dei Diritti:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Data di Entrata in Vigore:</strong> 15 ottobre 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    pt: {
+        badge: "Documento Legal Oficial (Official Legal Document)",
+        mainTitle: "Hegemonia Global - Termos de Serviço e Política de Privacidade",
+        metaDate: "Última atualização: 15 de outubro de 2026",
+        metaDev: "Desenvolvimento e operação: Team Global Hegemony",
+        metaEmail: "Suporte oficial: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Topo",
+        closeBtn: "✖ Fechar (Voltar ao Jogo)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 1 (Objetivo e Visão Geral do Serviço)</h2>
+                <div class="clause-item">1. Estes Termos de Serviço regulam os direitos, obrigações e responsabilidades entre o desenvolvedor individual (Team Global Hegemony, doravante denominado "Desenvolvedor") e os usuários em relação ao uso do jogo de tabuleiro de estratégia por turnos para dispositivos móveis e web 'Hegemonia Global (Global Hegemony)' (doravante denominado "Jogo") e todos os serviços associados.</div>
+                <div class="clause-item">2. O Jogo é uma simulação de tabuleiro estratégica por turnos inspirada no cenário internacional, na economia e na dinâmica geopolítica global.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 2 (Aviso Legal sobre Sátira, Paródia e Ficção Absoluta - Isenção de Responsabilidade Primária)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Declaração Expressa sobre Caricaturas de Personagens Fictícios por IA e Ficção Total]</div>
+                    <p><strong>Todas as imagens de personaggi que aparecem neste Jogo são caricaturas de indivíduos fictícios e inexistentes na realidade, criadas utilizando tecnologia de Inteligência Artificial Generativa (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Todas as nações, personagens, figuras, nomes, diálogos, eventos e configurações detalhadas retratadas neste Jogo são <strong>obras de pura ficção (Fiction)</strong> criadas exclusivamente para entretenimento e sátira/paródia política.</div>
+                <div class="clause-item">2. Este Jogo não possui qualquer afiliação, associação ou vínculo com pessoas reais vivas ou falecidas, partidos políticos, órgãos governamentais, nações soberanas, instituições religiosas ou organizações privadas, e não contém qualquer intenção política ou social de apoiar, difamar, insultar ou caluniar qualquer pessoa ou entidade.</div>
+                <div class="clause-item">3. Os eventos, atributos de personagens e diálogos retratados no Jogo não têm relação com fatos reais, sendo meras expressões exageradas ou parodiadas com humor para o sistema de jogo. O Desenvolvedor não garante sua precisão factual e não assume qualquer responsabilidade legal por interpretações subjetivas ou ideológicas decorrentes do jogo.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 3 (Política de Privacidade - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Princípio de Não Coleta de Dados Pessoais Sensíveis]</strong> Para proteger a privacidade do usuário, o Jogo não exige um cadastro de membro separado e fornece o serviço por meio da autenticação vinculada à Conta do Google (Google OAuth). O Desenvolvedor não coleta nem armazena dados de identificação pessoal sensíveis, como nomes reais, números de documentos de identidade (CPF/RG), números de telefone, listas de contatos ou datas de nascimento.</div>
+                <div class="clause-item">2. <strong>[Dados Coletados e Método]</strong> Apenas o identificador exclusivo gerado no login com o Google (Google User UID), o apelido (nickname) escolhido pelo usuário dentro do jogo e os dados de progresso (ouro, diamantes, histórico de partidas, pontuação no ranking e lista de skins desbloqueadas) são processados pelo sistema Google Firebase.</div>
+                <div class="clause-item">3. <strong>[Finalidade de Uso]</strong> Os dados coletados são utilizados exclusivamente para salvar o progresso do jogador, calcular os rankings globais (leaderboards), corrigir erros técnicos no jogo e responder a solicitações de suporte ao cliente.</div>
+                <div class="clause-item">4. <strong>[Gerenciamento Seguro na Nuvem]</strong> Todos os dados do jogo são criptografados e armazenados com segurança nos servidores Firebase Firestore do Google Cloud Platform. O Desenvolvedor jamais venderá ou divulgará dados a terceiros sem o consentimento do usuário.</div>
+                <div class="clause-item">5. <strong>[Exclusão de Conta e Destruição Permanente Imediata]</strong> Os usuários podem excluir sua conta a qualquer momento por meio da função [Configurações > Excluir Conta] dentro do Jogo. Após a solicitação de exclusão, todos os identificadores e registros de jogo vinculados à conta nos servidores em nuvem do Firebase são imediata e permanentemente destruídos, não podendo ser recuperados sob nenhuma circunstância.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 4 (Política de Pagamentos, Arrependimento e Reembolso)</h2>
+                <div class="clause-item">1. <strong>[Sistema de Compras no Aplicativo]</strong> A compra de moedas virtuais pagas no jogo (Diamantes, etc.) é processada com segurança pelas plataformas oficiais de faturamento In-App Purchase do Google Play Console e da Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Critérios de Reembolso]</strong> De acordo com as leis de defesa do consumidor aplicáveis, as moedas virtuais pagas que não tenham sido utilizadas de nenhuma forma após a compra podem ser solicitadas para reembolso no prazo de até 7 dias a partir da data da compra.</div>
+                <div class="clause-item">3. <strong>[Itens Não Reembolsáveis]</strong> O reembolso não será concedido em nenhum dos seguintes casos:
+                    <div class="info-box">
+                        <ul>
+                            <li>Moedas virtuais pagas cujo efeito seja aplicado imediatamente após a compra ou que já tenham sido parcial ou totalmente consumidas;</li>
+                            <li>Skins de personagens e pacotes de itens desbloqueados e habilitados para uso imediato no ato da compra;</li>
+                            <li>Todas as moedas e itens obtidos gratuitamente por meio de partidas, eventos, presença diária ou conclusão de missões;</li>
+                            <li>Contas punidas devido a dolo, culpa grave ou conduta fraudulenta do usuário (manipulação de dados, exploração de bugs, etc.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procedimento e Canais de Solicitação de Reembolso]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Dentro de 48 horas após o pagamento:</strong> Solicitar o reembolso diretamente pelo Histórico de pedidos do Google Play (play.google.com) ou pela página 'Relatar um Problema' da Apple (reportaproblem.apple.com) garante a resolução automatizada mais rápida conforme as políticas da loja.</li>
+                            <li><strong>Entre 48 horas e 7 dias:</strong> Envie um e-mail para o suporte oficial (<code>robin.robin.park4@gmail.com</code>) anexando [Número do pedido do recibo Google/Apple (formato GPA.xxxx-xxxx), Apelido no jogo, Data/hora da compra e Motivo do reembolso]. Após verificar que não houve uso, o reembolso será processado conforme a lei.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 5 (Modificação, Interrupção do Serviço e Direitos sobre Itens Permanentes)</h2>
+                <div class="clause-item">1. O Desenvolvedor reserva-se o direito de modificar, atualizar ou interromper parcial ou totalmente o serviço mediante aviso prévio para necessidades de planejamento, operação técnica, correção de bugs ou ajustes de balanceamento.</div>
+                <div class="clause-item">2. O direito de uso dos itens marcados como 'Permanentes (Permanent)' vendidos na loja do jogo limita-se ao período em que o serviço do Jogo estiver operando e sendo mantido normalmente.</div>
+                <div class="clause-item">3. Caso o serviço do Jogo precise ser encerrado permanentemente por motivos inevitáveis, o Desenvolvedor notificará os usuários com pelo menos 30 dias de antecedência por meio de avisos dentro do jogo.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 6 (Punições contra Trapaças e Propriedade Intelectual)</h2>
+                <div class="clause-item">1. É estritamente proibido explorar intencionalmente vulnerabilidades do sistema (bugs), modificar a memória do programa, manipular pacotes de dados ou usar macros automatizadas que prejudiquem a operação normal do Jogo. Caso seja detectado, os dados da conta poderão ser redefinidos ou excluídos permanentemente sem aviso prévio.</div>
+                <div class="clause-item">2. Todos os direitos autorais e de propriedade intelectual sobre o código-fonte, gráficos, sons, design de interface (UI) e lógica do sistema incluídos neste Jogo pertencem exclusivamente ao Desenvolvedor.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artigo 7 (Informações do Desenvolvedor e Canal Oficial de Suporte)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Título do Jogo:</strong> Hegemonia Global (Global Hegemony)</li>
+                        <li><strong>Desenvolvedor e Operador:</strong> Desenvolvedor Individual (Team Global Hegemony)</li>
+                        <li><strong>E-mail Oficial de Suporte e Direitos:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Data de Vigência:</strong> 15 de outubro de 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    ru: {
+        badge: "Официальный юридический документ (Official Legal Document)",
+        mainTitle: "Глобальная Гегемония — Условия использования и Политика конфиденциальности",
+        metaDate: "Последнее обновление: 15 октября 2026 г.",
+        metaDev: "Разработка и управление: Team Global Hegemony",
+        metaEmail: "Официальная поддержка: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Наверх",
+        closeBtn: "✖ Закрыть (Вернуться в игру)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 1 (Цель и общее описание сервиса)</h2>
+                <div class="clause-item">1. Настоящие Условия использования регулируют права, обязанности и ответственность между индивидуальным разработчиком (Team Global Hegemony, далее — «Разработчик») и пользователями в связи с использованием мобильной и веб-игры в жанре пошаговой стратегической настольной игры «Глобальная Гегемония (Global Hegemony)» (далее — «Игра») и всех сопутствующих сервисов.</div>
+                <div class="clause-item">2. Игра представляет собой пошаговую стратегическую настольную симуляцию, созданную по мотивам международных отношений, мировой экономики и геополитики.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 2 (Правовое уведомление о сатире, пародии и полном вымысле — Приоритетный отказ от ответственности)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Заявление об ИИ-карикатурах вымышленных персонажей и абсолютном вымысле]</div>
+                    <p><strong>Все изображения персонажей в этой Игре являются карикатурами на несуществующих, полностью вымышленных лиц, созданными с использованием технологий генеративного искусственного интеллекта (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Все страны, персонажи, фигуры, имена, диалоги, события и детальные настройки, представленные в этой Игре, являются <strong>абсолютным художественным вымыслом (Fiction)</strong>, созданным исключительно ради игрового развлечения и политической сатиры/пародии.</div>
+                <div class="clause-item">2. Игра не имеет никакого отношения к реальным живым или умершим людям, политическим партиям, государственным органам, суверенным государствам, религиозным или частным организациям, а также не преследует никаких политических или социальных целей по поддержке, клевете, оскорблению или дискредитации кого-либо.</div>
+                <div class="clause-item">3. Описанные в Игре события, характеристики персонажей и диалоги не связаны с реальными фактами и представляют собой лишь игровое преувеличение или юмористическую пародию. Разработчик не гарантирует их фактическую достоверность и не несет юридической ответственности за любые субъективные или идеологические трактовки, возникающие в процессе игры.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 3 (Политика конфиденциальности — Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Принцип отказа от сбора чувствительных персональных данных]</strong> Для защиты конфиденциальности пользователей в Игре отсутствует отдельная регистрация, а вход осуществляется через авторизацию аккаунта Google (Google OAuth). Разработчик ни при каких обстоятельствах не собирает и не хранит конфиденциальные личные данные, такие как реальные имена, паспортные данные, номера телефонов, адресные книги или даты рождения.</div>
+                <div class="clause-item">2. <strong>[Собираемые данные и метод сбора]</strong> Через систему Google Firebase обрабатываются исключительно уникальный идентификатор пользователя Google (Google User UID), выбранный пользователем игровой никнейм и данные игрового прогресса (золото, алмазы, история матчей, рейтинговые очки и список открытых скинов).</div>
+                <div class="clause-item">3. <strong>[Цель использования]</strong> Собранные данные используются исключительно для сохранения игрового прогресса пользователя, расчета глобальных таблиц лидеров (рейтингов), устранения технических ошибок и ответа на обращения в службу поддержки.</div>
+                <div class="clause-item">4. <strong>[Безопасное облачное хранение]</strong> Все игровые данные зашифрованы и надежно хранятся на защищенных серверах Firebase Firestore платформы Google Cloud Platform. Разработчик никогда не продает и не передает данные третьим лицам без согласия пользователя.</div>
+                <div class="clause-item">5. <strong>[Удаление аккаунта и немедленное безвозвратное уничтожение данных]</strong> Пользователь может в любой момент удалить свой аккаунт через меню [Настройки > Удалить аккаунт] внутри Игры. При запросе на удаление все идентификаторы и игровые данные, привязанные к аккаунту на облачных серверах Firebase, немедленно и безвозвратно уничтожаются без возможности восстановления.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 4 (Политика платных покупок и возврата средств)</h2>
+                <div class="clause-item">1. <strong>[Система внутриигровых покупок]</strong> Покупка платной внутриигровой валюты (алмазов и др.) безопасно обрабатывается через официальные платежные системы Google Play Console и Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Условия возврата средств]</strong> В соответствии с законодательством о защите прав потребителей, неиспользованная платная виртуальная валюта может быть возвращена в течение 7 дней с даты покупки.</div>
+                <div class="clause-item">3. <strong>[Невозвратные позиции]</strong> Возврат средств невозможен в следующих случаях:
+                    <div class="info-box">
+                        <ul>
+                            <li>Платная валюта, эффект которой применяется мгновенно после покупки, либо которая была частично или полностью израсходована;</li>
+                            <li>Скины персонажей и пакетные наборы, которые разблокируются и активируются сразу в момент покупки;</li>
+                            <li>Любая валюта и предметы, полученные бесплатно в ходе игры, событий, ежедневных отметок или выполнения миссий;</li>
+                            <li>Аккаунты, подвергнутые санкциям за умышленные нарушения, грубую неосторожность или мошенничество (манипуляция данными, использование багов и т.д.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Порядок и каналы подачи заявки на возврат]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>В течение 48 часов после оплаты:</strong> Прямой запрос через Историю заказов Google Play (play.google.com) или страницу «Сообщить о проблеме» Apple (reportaproblem.apple.com) обеспечивает самый быстрый автоматический возврат согласно правилам магазина.</li>
+                            <li><strong>От 48 часов до 7 дней:</strong> Отправьте письмо на официальный адрес поддержки (<code>robin.robin.park4@gmail.com</code>), указав [Номер заказа из квитанции Google/Apple (формат GPA.xxxx-xxxx), Никнейм в игре, Дату/время покупки и Причину возврата]. После проверки неиспользования средств возврат будет оформлен согласно закону.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 5 (Изменение, прекращение работы сервиса и права на постоянные предметы)</h2>
+                <div class="clause-item">1. Разработчик вправе изменять, обновлять или приостанавливать работу части или всего сервиса с предварительным уведомлением в целях развития игры, технического обслуживания, исправления ошибок или корректировки баланса.</div>
+                <div class="clause-item">2. Право использования предметов с пометкой «Навсегда (Permanent)», приобретенных в магазине, действует исключительно в течение периода нормальной работы и поддержки сервиса Игры.</div>
+                <div class="clause-item">3. В случае вынужденного полного прекращения работы Игры Разработчик уведомит пользователей не менее чем за 30 дней до закрытия через внутриигровые объявления.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 6 (Санкции за нечестную игру и интеллектуальная собственность)</h2>
+                <div class="clause-item">1. Пользователям строго запрещается умышленно использовать уязвимости системы (баги), модифицировать память программы, перехватывать пакеты или использовать автоматические макросы, нарушающие нормальную работу Игры. При выявлении нарушений данные аккаунта могут быть сброшены или удалены навсегда без предупреждения.</div>
+                <div class="clause-item">2. Все авторские права и права интеллектуальной собственности на исходный код, графику, звук, дизайн интерфейса (UI) и системную логику Игры принадлежат исключительно Разработчику.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Статья 7 (Информация о разработчике и официальная служба поддержки)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Название игры:</strong> Глобальная Гегемония (Global Hegemony)</li>
+                        <li><strong>Разработчик и оператор:</strong> Индивидуальный разработчик (Team Global Hegemony)</li>
+                        <li><strong>Официальный E-mail поддержки и защиты прав:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Дата вступления в силу:</strong> 15 октября 2026 г.</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    nl: {
+        badge: "Officieel Juridisch Document (Official Legal Document)",
+        mainTitle: "Mondiale Hegemonie - Servicevoorwaarden & Privacybeleid",
+        metaDate: "Laatst bijgewerkt: 15 oktober 2026",
+        metaDev: "Ontwikkeling & Beheer: Team Global Hegemony",
+        metaEmail: "Officiële ondersteuning: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Naar boven",
+        closeBtn: "✖ Sluiten (Terug naar Spel)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 1 (Doel & Dienstoverzicht)</h2>
+                <div class="clause-item">1. Deze Servicevoorwaarden regelen de rechten, verplichtingen en verantwoordelijkheden tussen de individuele ontwikkelaar (Team Global Hegemony, hierna "Ontwikkelaar") en gebruikers met betrekking tot het gebruik van het mobiele en webgebaseerde turn-based strategische bordspel 'Mondiale Hegemonie (Global Hegemony)' (hierna het "Spel") en alle bijbehorende diensten.</div>
+                <div class="clause-item">2. Het Spel is een turn-based strategisch simulatiebordspel geïnspireerd op internationale betrekkingen, economie en mondiale geopolitieke dynamiek.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 2 (Juridische Kennisgeving inzake Satire, Parodie & Absolute Fictie - Primaire Vrijwaring)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Uitdrukkelijke Verklaring over AI-gegenereerde Karikaturen van Fictieve Personen & Volledige Fictie]</div>
+                    <p><strong>Alle personage-afbeeldingen in dit Spel zijn karikaturen van niet-bestaande, volledig fictieve personen, gemaakt met behulp van generatieve kunstmatige intelligentie (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Alle landen, personages, figuren, namen, dialogen, gebeurtenissen en gedetailleerde instellingen in dit Spel zijn <strong>pure fictie (Fiction)</strong>, uitsluitend gecreëerd voor spelplezier en politieke satire/parodie.</div>
+                <div class="clause-item">2. Dit Spel heeft geen enkele band, affiliatie of associatie met echte levende of overleden personen, politieke partijen, overheidsinstanties, soevereine staten, religieuze instellingen of particuliere organisaties, en bevat geen enkele politieke of sociale intentie om iemand te steunen, zwart te maken, te beledigen of in diskrediet te brengen.</div>
+                <div class="clause-item">3. De in het Spel beschreven gebeurtenissen, personagestatistieken en dialogen staan los van de werkelijkheid en zijn slechts overdreven of humoristisch geparodieerde uitdrukkingen ten behoeve van het spelsysteem. De Ontwikkelaar garandeert geen feitelijke juistheid en aanvaardt geen wettelijke aansprakelijkheid voor subjectieve of ideologische interpretaties door spelers.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 3 (Privacybeleid - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Principe van Niet-Verzameling van Gevoelige Persoonsgegevens]</strong> Om de privacy van gebruikers te beschermen, kent het Spel geen aparte ledenregistratie en wordt de dienst geleverd via Google Account-authenticatie (Google OAuth). De Ontwikkelaar verzamelt of bewaart nooit gevoelige persoonlijke identificatiegegevens zoals echte namen, burgerservicenummers, telefoonnummers, adresboeken of geboortedata.</div>
+                <div class="clause-item">2. <strong>[Verzamelde Gegevens & Methode]</strong> Uitsluitend de unieke identificatiecode die bij het inloggen met Google wordt gegenereerd (Google User UID), de door de gebruiker in het spel gekozen bijnaam (nickname) en de spelvoortgangsgegevens (goud, diamanten, wedstrijdgeschiedenis, ranglijstpunten en vrijgespeelde skins) worden verwerkt via het Google Firebase-systeem.</div>
+                <div class="clause-item">3. <strong>[Gebruiksdoel]</strong> De verzamelde gegevens worden uitsluitend gebruikt voor het opslaan van de spelvoortgang, het berekenen van wereldwijde ranglijsten (leaderboards), het oplossen van technische fouten en het beantwoorden van vragen aan de klantenservice.</div>
+                <div class="clause-item">4. <strong>[Veilig Cloudbeheer]</strong> Alle spelgegevens worden versleuteld en veilig opgeslagen op de Firebase Firestore-beveiligingsservers van Google Cloud Platform. De Ontwikkelaar zal gegevens nooit zonder toestemming van de gebruiker aan derden verkopen of lekken.</div>
+                <div class="clause-item">5. <strong>[Accountverwijdering & Onmiddellijke Permanente Vernietiging van Gegevens]</strong> Gebruikers kunnen hun account op elk moment direct verwijderen via [Instellingen > Account Verwijderen] in het Spel. Na een verwijderingsverzoek worden alle aan dat account gekoppelde identificatiecodes en spelgegevens op de Firebase-cloudservers onmiddellijk en permanent vernietigd, zonder enige mogelijkheid tot herstel.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 4 (Betalings-, Herroepings- & Restitutiebeleid)</h2>
+                <div class="clause-item">1. <strong>[In-App Aankoopsysteem]</strong> De aankoop van betaalde virtuele valuta in het spel (zoals Diamanten) wordt veilig verwerkt via de officiële In-App Purchase-systemen van Google Play Console en de Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Criteria voor Herroeping (Restitutie)]</strong> In overeenstemming met de geldende wetgeving inzake consumentenbescherming kan voor betaalde virtuele valuta die na aankoop nog helemaal niet is gebruikt, binnen 7 dagen na de aankoopdatum restitutie worden aangevraagd.</div>
+                <div class="clause-item">3. <strong>[Niet-Restitueerbare Artikelen]</strong> Restitutie is niet mogelijk in de volgende gevallen:
+                    <div class="info-box">
+                        <ul>
+                            <li>Betaalde virtuele valuta waarvan het effect direct na aankoop wordt toegepast of die gedeeltelijk of volledig is verbruikt;</li>
+                            <li>Personage-skins en pakketitems die direct bij aankoop worden ontgrendeld en geactiveerd;</li>
+                            <li>Alle valuta en items die gratis zijn verkregen via gameplay, evenementen, dagelijkse aanwezigheid of het voltooien van missies;</li>
+                            <li>Accounts die zijn bestraft vanwege opzet, grove nalatigheid of fraude door de gebruiker (datamanipulatie, misbruik van bugs, enz.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procedure & Kanalen voor Restitutieverzoeken]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Binnen 48 uur na betaling:</strong> Een rechtstreeks verzoek indienen via de Bestelgeschiedenis van Google Play (play.google.com) of de Apple-pagina 'Meld een probleem' (reportaproblem.apple.com) zorgt voor de snelste geautomatiseerde afhandeling volgens het winkelbeleid.</li>
+                            <li><strong>Tussen 48 uur en 7 dagen:</strong> Stuur een e-mail naar de officiële ondersteuning (<code>robin.robin.park4@gmail.com</code>) met vermelding van [Bestelnummer van het Google/Apple-bewijs (formaat GPA.xxxx-xxxx), Bijnaam in het spel, Aankoopdatum/-tijd en Reden voor restitutie]. Na controle dat het item ongebruikt is, wordt de terugbetaling wettelijk verwerkt.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 5 (Wijziging, Beëindiging van de Dienst & Rechten op Permanente Items)</h2>
+                <div class="clause-item">1. De Ontwikkelaar behoudt zich het recht voor om de dienst na voorafgaande kennisgeving gedeeltelijk of volledig te wijzigen, bij te werken of op te schorten voor spelontwerp, technisch beheer, bugfixes of balansaanpassingen.</div>
+                <div class="clause-item">2. Het gebruiksrecht op items die in de spelwinkel als 'Permanent' worden verkocht, is beperkt tot de periode waarin de dienst van het Spel normaal in bedrijf is en wordt onderhouden.</div>
+                <div class="clause-item">3. Indien het Spel wegens onvermijdelijke omstandigheden definitief moet worden beëindigd, zal de Ontwikkelaar gebruikers ten minste 30 dagen van tevoren op de hoogte stellen via aankondigingen in het spel.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 6 (Sancties bij Valsspelen & Intellectueel Eigendom)</h2>
+                <div class="clause-item">1. Het is gebruikers ten strengste verboden om opzettelijk systeemlekken (bugs) te misbruiken, programmageheugen te wijzigen, datapakketten te manipuleren of geautomatiseerde macro's te gebruiken die de normale werking van het Spel verstoren. Bij overtreding kunnen accountgegevens zonder voorafgaande kennisgeving worden gereset of permanent verwijderd.</div>
+                <div class="clause-item">2. Alle auteursrechten en intellectuele eigendomsrechten op de broncode, grafische elementen, audio, UI-ontwerp en systeemlogica in dit Spel berusten uitsluitend bij de Ontwikkelaar.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artikel 7 (Ontwikkelaarsinformatie & Officiële Klantenservice)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Speltitel:</strong> Mondiale Hegemonie (Global Hegemony)</li>
+                        <li><strong>Ontwikkelaar & Beheerder:</strong> Individuele Ontwikkelaar (Team Global Hegemony)</li>
+                        <li><strong>Officieel E-mailadres voor Ondersteuning & Rechten:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Ingangsdatum:</strong> 15 oktober 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    tr: {
+        badge: "Resmi Yasal Belge (Official Legal Document)",
+        mainTitle: "Küresel Hegemonya - Hizmet Şartları ve Gizlilik Politikası",
+        metaDate: "Son Güncelleme: 15 Ekim 2026",
+        metaDev: "Geliştirme ve İşletme: Team Global Hegemony",
+        metaEmail: "Resmi Destek: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Yukarı",
+        closeBtn: "✖ Kapat (Oyuna Dön)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 1 (Amaç ve Hizmet Özeti)</h2>
+                <div class="clause-item">1. İşbu Hizmet Şartları, bireysel geliştirici (Team Global Hegemony, bundan böyle "Geliştirici" olarak anılacaktır) ile kullanıcılar arasında, mobil ve web tabanlı sıra tabanlı strateji masa oyunu 'Küresel Hegemonya (Global Hegemony)' (bundan böyle "Oyun" olarak anılacaktır) ve ilgili tüm hizmetlerin kullanımına ilişkin hak, yükümlülük ve sorumlulukları düzenlemeyi amaçlar.</div>
+                <div class="clause-item">2. Oyun, uluslararası ilişkiler, ekonomi ve küresel jeopolitik dinamiklerden esinlenerek hazırlanmış sıra tabanlı bir strateji simülasyon masa oyunudur.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 2 (Hiciv, Parodi ve Tamamen Kurgu Hakkında Yasal Bildirim - Birincil Sorumluluk Reddi)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Yapay Zeka Üretimi Kurgusal Karakter Karikatürleri ve Tam Kurgu Beyanı]</div>
+                    <p><strong>Bu Oyunda yer alan tüm karakter görselleri, üretken yapay zeka (Generative AI) teknolojisi kullanılarak oluşturulmuş, gerçekte var olmayan tamamen kurgusal kişilere ait karikatürlerdir.</strong></p>
+                </div>
+                <div class="clause-item">1. Oyunda yer alan tüm ülkeler, karakterler, figürler, isimler, diyaloglar, olaylar ve detaylı kurgular, yalnızca oyun eğlencesi ve siyasi hiciv/parodi (Satire & Parody) amacıyla yaratılmış <strong>tamamen hayal ürünü (Fiction)</strong> eserlerdir.</div>
+                <div class="clause-item">2. Bu Oyunun yaşayan veya vefat etmiş herhangi bir gerçek kişi, siyasi parti, devlet kurumu, egemen devlet, dini kurum veya özel kuruluşla hiçbir bağlantısı, ortaklığı veya ilişkisi yoktur; hiç kimseyi destekleme, karalama, aşağılama veya itibarını zedeleme yönünde siyasi ya da sosyal bir amacı bulunmamaktadır.</div>
+                <div class="clause-item">3. Oyunda tasvir edilen olaylar, karakter yetenekleri ve diyaloglar gerçek dünya olgularıyla ilgisiz olup yalnızca oyun sistemi gereği abartılmış veya mizahi şekilde parodileştirilmiş ifadelerdir. Geliştirici bunların olgusal doğruluğunu garanti etmez ve oyun deneyiminden kaynaklanan hiçbir öznel veya ideolojik yorumdan yasal olarak sorumlu tutulamaz.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 3 (Gizlilik Politikası - Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Hassas Kişisel Verilerin Toplanmaması İlkesi]</strong> Kullanıcı gizliliğini korumak amacıyla Oyunda ayrı bir üyelik kayıt süreci bulunmaz ve hizmet Google Hesabı kimlik doğrulama bağlantısı (Google OAuth) üzerinden sunulur. Geliştirici; gerçek ad, T.C. kimlik numarası, telefon numarası, adres defteri veya doğum tarihi gibi hassas kişisel kimlik bilgilerini kesinlikle toplamaz ve saklamaz.</div>
+                <div class="clause-item">2. <strong>[Toplanan Veriler ve Yöntem]</strong> Google Firebase sistemi aracılığıyla yalnızca Google ile giriş yapıldığında oluşturulan benzersiz tanımlayıcı (Google User UID), kullanıcının oyun içinde belirlediği takma ad (nickname) ve oyun ilerleme verileri (altın, elmas, maç geçmişi, liderlik puanı ve açılan kostümler) işlenir.</div>
+                <div class="clause-item">3. <strong>[Kullanım Amacı]</strong> Toplanan veriler yalnızca kullanıcının oyun ilerlemesini kaydetmek, küresel liderlik tablolarını (sıralamaları) hesaplamak, oyun içi teknik hataları gidermek ve müşteri desteği taleplerini yanıtlamak amacıyla kullanılır.</div>
+                <div class="clause-item">4. <strong>[Güvenli Bulut Yönetimi]</strong> Tüm oyun verileri şifrelenir ve Google Cloud Platform'un Firebase Firestore güvenli sunucularında saklanır. Geliştirici, kullanıcının onayı olmadan verileri üçüncü taraflara asla satmaz veya sızdırmaz.</div>
+                <div class="clause-item">5. <strong>[Hesap Silme ve Verilerin Anında Kalıcı Olarak İmhası]</strong> Kullanıcılar oyun içindeki [Ayarlar > Hesabı Sil] özelliğini kullanarak istedikleri zaman hesaplarını anında silebilirler. Silme talebiyle birlikte Firebase bulut sunucularında ilgili hesaba bağlı tüm tanımlayıcılar ve oyun kayıtları gecikmeksizin kalıcı olarak imha edilir ve hiçbir şekilde geri getirilemez.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 4 (Ücretli Ödemeler, Cayma Hakkı ve İade Politikası)</h2>
+                <div class="clause-item">1. <strong>[Uygulama İçi Satın Alma Sistemi]</strong> Oyun içi ücretli sanal para birimlerinin (Elmas vb.) satın alınması, Google Play Console ve Apple App Store'un resmi uygulama içi satın alma (In-App Purchase) sistemleri üzerinden 안전하게 gerçekleştirilir.</div>
+                <div class="clause-item">2. <strong>[Cayma Hakkı (İade) Kriterleri]</strong> İlgili tüketiciyi koruma mevzuatı uyarınca, satın alındıktan sonra hiç kullanılmamış olan ücretli sanal para birimleri için satın alma tarihinden itibaren 7 gün içinde iade talebinde bulunulabilir.</div>
+                <div class="clause-item">3. <strong>[İade Edilemeyen Ürünler]</strong> Aşağıdaki durumlardan herhangi birinde iade ve iptal yapılamaz:
+                    <div class="info-box">
+                        <ul>
+                            <li>Satın alındıktan hemen sonra etkisi uygulanan veya kısmen ya da tamamen harcanmış ücretli sanal para birimleri;</li>
+                            <li>Satın alındığı anda kilidi açılan ve kullanıma hazır hale gelen karakter kostümleri (skinler) ve paket ürünler;</li>
+                            <li>Oyun içi etkinlikler, günlük girişler, görevler veya normal oynanış yoluyla ücretsiz kazanılan tüm para birimleri ve eşyalar;</li>
+                            <li>Kullanıcının kastı, ağır ihmali veya hileli eylemleri (veri manipülasyonu, hata/bug suistimali vb.) nedeniyle ceza alan hesaplar.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[İade Başvuru Süreci ve Kanalları]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Ödemeden sonraki 48 saat içinde:</strong> Google Play Sipariş Geçmişi (play.google.com) veya Apple 'Sorun Bildir' (reportaproblem.apple.com) sayfası üzerinden doğrudan iade talebinde bulunmak, mağaza politikaları gereği en hızlı çözümü sağlar.</li>
+                            <li><strong>48 saat ile 7 gün arasında:</strong> Resmi destek e-postasına (<code>robin.robin.park4@gmail.com</code>) [Google/Apple makbuz sipariş numarası (GPA.xxxx-xxxx formatında), Oyun içi takma ad, Satın alma tarihi/saati ve İade nedeni] bilgilerini göndererek başvurabilirsiniz. Kullanılmadığı doğrulandıktan sonra yasal iade süreci başlatılır.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 5 (Hizmetin Değiştirilmesi, Durdurulması ve Kalıcı Eşya Hakları)</h2>
+                <div class="clause-item">1. Geliştirici; oyun tasarımı, teknik işletim gereksinimleri, hata düzeltmeleri veya denge ayarlamaları amacıyla önceden bildirimde bulunarak hizmetin bir kısmını veya tamamını değiştirebilir ya da durdurabilir.</div>
+                <div class="clause-item">2. Oyun mağazasında 'Kalıcı (Permanent)' olarak satılan eşyaların kullanım hakkı, Oyun hizmetinin normal şekilde aktif olduğu ve sürdürüldüğü süreyle sınırlıdır.</div>
+                <div class="clause-item">3. Kaçınılmaz nedenlerle Oyun hizmetinin kalıcı olarak sonlandırılması durumunda, Geliştirici kapanıştan en az 30 gün önce oyun içi duyurular aracılığıyla kullanıcıları bilgilendirir.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 6 (Hile Yaptırımları ve Fikri Mülkiyet Hakları)</h2>
+                <div class="clause-item">1. Kullanıcıların oyun sistemindeki açıkları (bugları) kasten suistimal etmesi, bellek değiştirmesi, paket manipülasyonu yapması veya otomatik makrolar kullanarak normal oyun işleyişini bozması kesinlikle yasaktır. Tespit edilmesi halinde önceden bildirimde bulunulmaksızın hesap verileri sıfırlanabilir veya kalıcı olarak silinebilir.</div>
+                <div class="clause-item">2. Bu Oyunda yer alan kaynak kodu, grafikler, sesler, kullanıcı arayüzü (UI) tasarımı ve sistem mantığı dahil tüm eserlerin telif ve fikri mülkiyet hakları münhasıran Geliştiriciye aittir.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Madde 7 (Geliştirici Bilgileri ve Resmi Müşteri Desteği)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Oyun Adı:</strong> Küresel Hegemonya (Global Hegemony)</li>
+                        <li><strong>Geliştirici ve İşletmeci:</strong> Bireysel Geliştirici (Team Global Hegemony)</li>
+                        <li><strong>Resmi Destek ve Hak İhlali Bildirim E-postası:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Yürürlük Tarihi:</strong> 15 Ekim 2026</li>
+                    </ul>
+                </div>
+            </section>
+        `
+    },
+    pl: {
+        badge: "Oficjalny Dokument Prawny (Official Legal Document)",
+        mainTitle: "Globalna Hegemonia – Warunki Korzystania z Usługi i Polityka Prywatności",
+        metaDate: "Ostatnia aktualizacja: 15 października 2026 r.",
+        metaDev: "Twórca i operator: Team Global Hegemony",
+        metaEmail: "Oficjalne wsparcie: robin.robin.park4@gmail.com",
+        topBtn: "⬆️ Do góry",
+        closeBtn: "✖ Zamknij (Powrót do Gry)",
+        bodyHtml: `
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 1 (Cel i Opis Usługi)</h2>
+                <div class="clause-item">1. Niniejsze Warunki Korzystania z Usługi określają prawa, obowiązki i zakres odpowiedzialności pomiędzy indywidualnym twórcą (Team Global Hegemony, zwanym dalej „Twórcą”) a użytkownikami w związku z korzystaniem z мобильной i przeglądarkowej turowej strategicznej gry planszowej „Globalna Hegemonia (Global Hegemony)” (zwanej dalej „Grą”) oraz powiązanych z nią usług.</div>
+                <div class="clause-item">2. Gra jest turową strategiczną grą planszową inspirowaną sytuacją międzynarodową, gospodarką oraz globalną dynamiką geopolityczną.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 2 (Nota Prawna dotycząca Satyry, Parodii i Całkowitej Fikcji – Nadrzędne Wyłączenie Odpowiedzialności)</h2>
+                <div class="disclaimer-box">
+                    <div class="highlight-text">⚖️ [Oświadczenie dotyczące Karykatur Fikcyjnych Postaci wygenerowanych przez AI oraz Pełnej Fikcji]</div>
+                    <p><strong>Wszystkie wizerunki postaci występujące w tej Grze są karykaturami nieistniejących, całkowicie fikcyjnych osób, stworzonymi przy użyciu technologii generatywnej sztucznej inteligencji (Generative AI).</strong></p>
+                </div>
+                <div class="clause-item">1. Wszystkie państwa, postacie, figury, nazwy, dialogi, wydarzenia i szczegółowe ustawienia przedstawione w tej Grze są <strong>całkowitą fikcją literacką (Fiction)</strong> stworzoną wyłącznie w celach rozrywkowych oraz jako satyra i parodia polityczna.</div>
+                <div class="clause-item">2. Gra nie ma żadnych powiązań z jakimikolwiek prawdziwymi osobami żyjącymi lub zmarłymi, partiami politycznymi, instytucjami rządowymi, państwami, organizacjami religijnymi ani prywatnymi, a także nie ma na celu politycznego ani społecznego wspierania, zniesławiania, obrażania czy naruszania dóbr osobistych kogokolwiek.</div>
+                <div class="clause-item">3. Przedstawione w Grze wydarzenia, statystyki postaci i dialogi nie mają związku z rzeczywistymi faktami i stanowią jedynie wyolbrzymione lub humorystycznie sparodiowane elementy mechaniki gry. Twórca nie gwarantuje ich zgodności z faktami i nie ponosi odpowiedzialności prawnej za jakiekolwiek subiektywne lub ideologiczne interpretacje wynikające z rozgrywki.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 3 (Polityka Prywatności – Privacy Policy)</h2>
+                <div class="clause-item">1. <strong>[Zasada Niegromadzenia Wrażliwych Danych Osobowych]</strong> W celu ochrony prywatności użytkowników Gra nie wymaga osobnej rejestracji konta, a uwierzytelnianie odbywa się za pośrednictwem Konta Google (Google OAuth). Twórca w żadnym wypadku nie gromadzi ani nie przechowuje wrażliwych danych osobowych, takich jak prawdziwe imiona i nazwiska, numery PESEL/dowodów tożsamości, numery telefonów, książki adresowe czy daty urodzenia.</div>
+                <div class="clause-item">2. <strong>[Gromadzone Dane i Metoda]</strong> Za pośrednictwem systemu Google Firebase przetwarzane są wyłącznie: unikalny identyfikator generowany podczas logowania Google (Google User UID), pseudonim (nickname) wybrany przez gracza w grze oraz dane o postępach w grze (złoto, diamenty, historia meczów, punkty rankingowe i lista odblokowanych skórek).</div>
+                <div class="clause-item">3. <strong>[Cel Wykorzystania Danych]</strong> Zebrane dane służą wyłącznie do zapisywania postępów w grze, obliczania globalnych rankingów (leaderboardów), naprawiania błędów technicznych oraz obsługi zgłoszeń wsparcia klienta.</div>
+                <div class="clause-item">4. <strong>[Bezpieczne Zarządzanie w Chmurze]</strong> Wszystkie dane gry są szyfrowane i bezpiecznie przechowywane na serwerach Firebase Firestore platformy Google Cloud Platform. Twórca nigdy nie sprzedaje ani nie udostępnia danych podmiotom trzecim bez zgody użytkownika.</div>
+                <div class="clause-item">5. <strong>[Usunięcie Konta i Natychmiastowe Trwałe Zniszczenie Danych]</strong> Użytkownik może w każdej chwili usunąć swoje konto poprzez funkcję [Ustawienia > Usuń Konto] w Grze. Z chwilą złożenia dyspozycji usunięcia wszystkie identyfikatory i dane rozgrywki powiązane z tym kontem na serwerach chmurowych Firebase zostają natychmiast i bezpowrotnie zniszczone, bez możliwości ich odzyskania.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 4 (Polityka Płatności, Odstąpienia od Umowy i Zwrotów)</h2>
+                <div class="clause-item">1. <strong>[System Zakupów w Aplikacji]</strong> Zakup płatnej waluty wirtualnej w grze (np. Diamentów) jest bezpiecznie przetwarzany przez oficjalne systemy płatności In-App Purchase w Google Play Console oraz Apple App Store.</div>
+                <div class="clause-item">2. <strong>[Kryteria Zwrotu Środków]</strong> Zgodnie z obowiązującymi przepisami o ochronie konsumentów, niewykorzystana w żadnej części płatna waluta wirtualna może podlegać zwrotowi w ciągu 7 dni od daty zakupu.</div>
+                <div class="clause-item">3. <strong>[Pozycje Niepodlegające Zwrotowi]</strong> Zwrot środków nie przysługuje w następujących przypadkach:
+                    <div class="info-box">
+                        <ul>
+                            <li>Płatna waluta wirtualna, której efekt działa natychmiast po zakupie lub która została częściowo bądź całkowicie zużyta;</li>
+                            <li>Skórki postaci (skiny) oraz pakiety przedmiotów odblokowywane i aktywowane natychmiast w momencie zakupu;</li>
+                            <li>Wszelka waluta i przedmioty zdobyte bezpłatnie poprzez rozgrywkę, wydarzenia, codzienne logowanie lub wykonywanie misji;</li>
+                            <li>Konta zablokowane lub ukarane z powodu umyślnego działania, rażącego niedbalstwa lub oszustwa użytkownika (manipulacja danymi, wykorzystywanie błędów/bugów itp.).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clause-item">4. <strong>[Procedura i Kanały Składania Wniosków o Zwrot]</strong>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>W ciągu 48 godzin od płatności:</strong> Złożenie wniosku bezpośrednio w Historii zamówień Google Play (play.google.com) lub na stronie Apple „Zgłoś problem” (reportaproblem.apple.com) zapewnia najszybsze automatyczne rozpatrzenie zgodnie z regulaminem sklepu.</li>
+                            <li><strong>Od 48 godzin do 7 dni:</strong> Prosimy o wysłanie wiadomości e-mail na oficjalny adres wsparcia (<code>robin.robin.park4@gmail.com</code>) z podaniem [Numeru zamówienia z rachunku Google/Apple (format GPA.xxxx-xxxx), Pseudonimu w grze, Daty/godziny zakupu oraz Powodu zwrotu]. Po weryfikacji braku zużycia zwrot zostanie zrealizowany zgodnie z prawem.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 5 (Zmiana, Zawieszenie Usługi i Prawa do Przedmiotów Stałych)</h2>
+                <div class="clause-item">1. Twórca zastrzega sobie prawo do modyfikacji, aktualizacji lub częściowego bądź całkowitego zawieszenia usługi po wcześniejszym powiadomieniu ze względów projektowych, technicznych, naprawy błędów lub balansu rozgrywki.</div>
+                <div class="clause-item">2. Prawo do korzystania z przedmiotów oznaczonych w sklepie jako „Stałe (Permanent)” jest ograniczone do okresu normalnego функционирования i utrzymywania usługi Gry.</div>
+                <div class="clause-item">3. W przypadku konieczności trwałego zakończenia świadczenia usługi Gry z przyczyn niezależnych, Twórca poinformuje użytkowników z co najmniej 30-dniowym wyprzedzeniem poprzez ogłoszenia w grze.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 6 (Sankcje za Oszustwa i Własność Intelektualna)</h2>
+                <div class="clause-item">1. Użytkownikom surowo zabrania się celowego wykorzystywania błędów systemu (bugów), modyfikowania pamięci programu, manipulowania pakietami danych czy używania automatycznych makr zakłócających normalne działanie Gry. W przypadku wykrycia naruszeń dane konta mogą zostać zresetowane lub trwale usunięte bez uprzedzenia.</div>
+                <div class="clause-item">2. Wszelkie prawa autorskie i prawa własności intelektualnej do kodu źródłowego, grafiki, dźwięku, projektu interfejsu (UI) oraz logiki systemu zawartych w Grze należą wyłącznie do Twórcy.</div>
+            </section>
+            <section class="chapter">
+                <h2 class="chapter-title">Artykuł 7 (Informacje o Twórcy i Oficjalne Wsparcie Klienta)</h2>
+                <div class="info-box">
+                    <ul>
+                        <li><strong>Tytuł Gry:</strong> Globalna Hegemonia (Global Hegemony)</li>
+                        <li><strong>Twórca i Operator:</strong> Niezależny Twórca (Team Global Hegemony)</li>
+                        <li><strong>Oficjalny E-mail Wsparcia i Zgłaszania Naruszeń Praw:</strong> robin.robin.park4@gmail.com</li>
+                        <li><strong>Data Wejścia w Życie:</strong> 15 października 2026 r.</li>
+                    </ul>
+                </div>
+            </section>
+        `
     }
-</script>
+};
 
+// 호환 언어 코드 별칭 연결 (zh, tw 등)
+window.LEGAL_FULL_I18N['zh'] = window.LEGAL_FULL_I18N['zh-TW'];
+window.LEGAL_FULL_I18N['tw'] = window.LEGAL_FULL_I18N['zh-TW'];
+
+// 언어 정규화 헬퍼 함수
+function normalizeLegalLang(rawLang) {
+    if (!rawLang) return 'en';
+    const str = String(rawLang).trim();
+    if (window.LEGAL_FULL_I18N[str]) return str;
+    const lower = str.toLowerCase();
+    if (lower === 'kr' || lower.startsWith('ko')) return 'ko';
+    if (lower === 'tw' || lower === 'zh-tw' || lower === 'zh-hant-tw') return 'zh-TW';
+    if (lower === 'hk' || lower === 'zh-hk' || lower === 'zh-mo' || lower === 'zh-hant-hk') return 'zh-HK';
+    if (lower.startsWith('zh')) return 'zh-TW';
+    const short = lower.split('-')[0].split('_')[0];
+    if (window.LEGAL_FULL_I18N[short]) return short;
+    return 'en';
+}
+
+// 17개국어 전환 및 즉시 렌더링 함수
+function switchLanguage(langCode) {
+    const normLang = normalizeLegalLang(langCode);
+    const data = window.LEGAL_FULL_I18N[normLang] || window.LEGAL_FULL_I18N['en'];
+
+    const badgeEl = document.getElementById('appBadgeText');
+    if (badgeEl) badgeEl.innerText = data.badge;
+
+    const mainTitleEl = document.getElementById('mainTitle');
+    if (mainTitleEl) mainTitleEl.innerText = data.mainTitle;
+
+    const stickyTitleEl = document.getElementById('stickyTitleText');
+    if (stickyTitleEl) stickyTitleEl.innerText = data.mainTitle;
+
+    const metaDateEl = document.getElementById('metaDate');
+    if (metaDateEl) metaDateEl.innerText = data.metaDate;
+
+    const metaDevEl = document.getElementById('metaDev');
+    if (metaDevEl) metaDevEl.innerText = data.metaDev;
+
+    const metaEmailEl = document.getElementById('metaEmail');
+    if (metaEmailEl) metaEmailEl.innerText = data.metaEmail;
+
+    const bodyEl = document.getElementById('legalDynamicBody');
+    if (bodyEl) bodyEl.innerHTML = data.bodyHtml;
+
+    const topBtnEl = document.getElementById('btnScrollTop');
+    if (topBtnEl) topBtnEl.innerText = data.topBtn;
+
+    const topCloseEl = document.getElementById('topCloseReturnBtn');
+    if (topCloseEl) topCloseEl.innerText = data.closeBtn;
+
+    const bottomCloseEl = document.getElementById('bottomCloseReturnBtn');
+    if (bottomCloseEl) bottomCloseEl.innerText = data.closeBtn;
+
+    const selectEl = document.getElementById('legalLangSelect');
+    if (selectEl && selectEl.value !== normLang) {
+        selectEl.value = normLang;
+    }
+
+    document.documentElement.lang = normLang;
+    document.title = data.mainTitle;
+}
+
+// 태블릿 / 모바일 / PC 어디서든 감금(Soft-lock) 없이 즉시 닫고 게임으로 복귀하는 안전 함수
+function closeOrReturnToGame() {
+    // 1. 인앱 모달(iframe) 내부에서 열렸을 경우 부모 창의 모달 닫기 호출 및 postMessage 전송
+    try {
+        if (window.parent && window.parent !== window) {
+            window.parent.postMessage({ type: 'CLOSE_LEGAL_MODAL' }, '*');
+            if (typeof window.parent.closeLegalWebModal === 'function') {
+                window.parent.closeLegalWebModal();
+                return;
+            }
+            return;
+        }
+    } catch (e) {
+        try {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ type: 'CLOSE_LEGAL_MODAL' }, '*');
+                return;
+            }
+        } catch (err) {}
+    }
+
+    // 2. 만약 opener가 존재하는 팝업/새 탭일 경우 창 닫기 시도
+    try {
+        if (window.opener && !window.opener.closed) {
+            window.close();
+            return;
+        }
+    } catch (e) {}
+
+    // 3. 태블릿/모바일 WebView에서 현재 뷰포트가 이동되어 온 경우 이전 히스토리 또는 본게임(index.html)으로 안전 복귀
+    try {
+        window.close();
+    } catch (e) {}
+
+    setTimeout(function() {
+        if (window.history && window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = 'index.html';
+        }
+    }, 80);
+}
+
+// 부모 창으로부터 실시간 언어 변경 postMessage 수신
+window.addEventListener('message', function(event) {
+    if (event && event.data && event.data.type === 'SET_LEGAL_LANG' && event.data.lang) {
+        switchLanguage(event.data.lang);
+    }
+});
+
+// 초기 로드 시 현재 국가 언어 자동 감지 (URL 파라미터 -> 게임 저장 언어 -> 브라우저 언어 순)
+(function initLegalPage() {
+    let detectedLang = null;
+    try {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('inapp') === '1') {
+            document.body.classList.add('inapp-mode');
+        }
+        if (params.get('lang')) {
+            detectedLang = params.get('lang');
+        }
+    } catch (e) {}
+
+    if (!detectedLang) {
+        try {
+            if (window.parent && window.parent !== window && window.parent.lang) {
+                detectedLang = window.parent.lang;
+            }
+        } catch (e) {}
+    }
+
+    if (!detectedLang) {
+        try {
+            detectedLang = localStorage.getItem('lang') || localStorage.getItem('bm_lang');
+        } catch (e) {}
+    }
+
+    if (!detectedLang) {
+        detectedLang = navigator.language || navigator.userLanguage || 'en';
+    }
+
+    switchLanguage(detectedLang);
+})();
+</script>
 </body>
 </html>
-
