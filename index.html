@@ -60,8 +60,16 @@
             padding: 0 20px;
         }
 
-        body.inapp-mode .sticky-top-bar {
-            display: none;
+        body.inapp-mode .sticky-top-bar,
+        body.inapp-mode #mainTitle,
+        body.inapp-mode #appBadgeText,
+        body.inapp-mode #bottomCloseReturnBtn {
+            display: none !important;
+        }
+
+        body.inapp-mode header {
+            padding-bottom: 18px;
+            margin-bottom: 24px;
         }
 
         .sticky-brand {
@@ -1866,13 +1874,19 @@ window.addEventListener('message', function(event) {
     let detectedLang = null;
     try {
         const params = new URLSearchParams(window.location.search);
-        if (params.get('inapp') === '1') {
+        if (params.get('inapp') === '1' || (window.self && window.top && window.self !== window.top)) {
             document.body.classList.add('inapp-mode');
         }
         if (params.get('lang')) {
             detectedLang = params.get('lang');
         }
-    } catch (e) {}
+    } catch (e) {
+        try {
+            if (window.self && window.top && window.self !== window.top) {
+                document.body.classList.add('inapp-mode');
+            }
+        } catch (err) {}
+    }
 
     if (!detectedLang) {
         try {
